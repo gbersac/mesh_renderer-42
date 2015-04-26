@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8.11)
-project (scop CXX)
+project (scop C)
 
 # Recurse into the "Hello" and "Demo" subdirectories. This does not actually
 # cause another cmake executable to run. The same process will walk through
