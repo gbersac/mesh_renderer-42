@@ -1,8 +1,8 @@
 cd src
-mkdir compile
+mkdir cmake_output
 # rm -rf *
-cd compile
+cd cmake_output
 cmake ../ 
 make
 cd ../..
-ln -fs src/compile/main/scop scop
+ln -fs src/cmake_output/main/scop scop
