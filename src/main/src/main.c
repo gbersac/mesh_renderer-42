@@ -1,6 +1,6 @@
 #include <SDL.h>
 #define GL3_PROTOTYPES 1
-#include <GL/gl.h>
+#include <OpenGL/gl.h>
 
 #include "scop.h"
 
