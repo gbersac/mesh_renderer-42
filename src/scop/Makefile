@@ -14,7 +14,7 @@
 # BASIC VARIABLES															   #
 ################################################################################
 
-SRCS				:= main.c 
+SRCS				:= main.c shader.c
 
 PATH_OBJ			:= obj
 PATH_SRC			:= src
@@ -44,7 +44,7 @@ INCLUDES			:= -I$(DIR_SDL)/inc -I./$(PATH_INC) $(patsubst %,-I%/inc,$(DIR_LIB))
 all: $(APP)
 
 $(APP): $(OBJECTS)
-	cc -o $@ $(OBJECTS) $(LIBRARY) $(DEBUG) 
+	cc -o $@ $(OBJECTS) $(LIBRARY) $(DEBUG)
 
 $(PATH_OBJ)/%.o: $(addprefix $(PATH_SRC)/,%.c)
 	@mkdir -p $(PATH_OBJ)
