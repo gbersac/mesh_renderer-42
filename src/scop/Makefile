@@ -28,12 +28,17 @@ OBJECTS				:= $(patsubst %.c, $(PATH_OBJ)/%.o, $(SRCS))
 ################################################################################
 
 export DIR_SDL		:= ../sdl2
+export DIR_GLFW		:= ../glfw
+export DIR_GLEW		:= ../glew
 
 LIB_SDL				:= -L$(DIR_SDL) -lSDL2
+LIB_GLFW			:= -L$(DIR_GLFW) -lglfw3
+LIB_GLEW			:= -L$(DIR_GLEW) -lglew
 
 export DIR_LIB 		:= $(patsubst %,../%,$(DIR_LIB))
-LIBRARY				:= $(LIB_SDL) -framework OpenGL
-INCLUDES			:= -I$(DIR_SDL)/inc -I./$(PATH_INC) $(patsubst %,-I%/inc,$(DIR_LIB))
+LIBRARY				:= $(LIB_GLFW) $(LIB_GLEW) -framework OpenGL
+INCLUDES			:= -I$(DIR_GLFW)/inc -I$(DIR_GLEW)/inc \
+						-I./$(PATH_INC) $(patsubst %,-I%/inc,$(DIR_LIB))
 
 ################################################################################
 # BASIC RULES																   #

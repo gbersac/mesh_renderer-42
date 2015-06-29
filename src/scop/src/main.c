@@ -1,103 +1,126 @@
-#include <SDL.h>
-#define GL3_PROTOTYPES 1
+#define GLEW_NO_GLU // because you re-implemented some glu-like functions with a different interface
+#include <stdio.h>
+
+#include <glew.h>
+#include <glfw3.h>
 #include <OpenGL/gl.h>
 
-#include "scop.h"
 #include "shader.h"
+
+// static void	apple_handling(void)
+// {
+// #ifdef __APPLE__
+// 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+// 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+// 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+// 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+// #endif
+// }
 
 int main()
 {
-	// init sdl
-	if(SDL_Init(SDL_INIT_VIDEO) != 0){
-		printf("Error init SDL : %s\n", SDL_GetError());
+	// Initialise GLFW
+	if( !glfwInit() )
+	{
+		fprintf(stderr, "Failed to initialize GLFW\n" );
+		return -1;
+	}
+	// apple_handling();
+
+	glfwWindowHint(GLFW_SAMPLES, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	// Open a window and create its OpenGL context
+	GLFWwindow* window;
+	window = glfwCreateWindow(1024, 768, "Scop", NULL, NULL);
+	if(window == NULL){
+		fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
+		glfwTerminate();
+		return -1;
+	}
+	glfwMakeContextCurrent(window);
+
+	// Initialize GLEW
+	glewExperimental = 1; // Needed for core profile
+	if (glewInit() != GLEW_OK) {
+		fprintf(stderr, "Failed to initialize GLEW\n");
 		return -1;
 	}
 
-	//init opengl version
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-	// SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	// Ensure we can capture the escape key being pressed below
+	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
-	// init window
-	SDL_Window *window;
-	window = SDL_CreateWindow("scop",
-			0, // x position
-			0, // y position
-			100, // width
-			100, // height
-			SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
-	if(!window)
+	// Dark blue background
+	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+
+	GLuint VertexArrayID;
+	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+
+	// Create and compile our GLSL program from the shaders
+	t_shader *shader1 = load_shader("src/shaders/couleur2d.vert",
+			"src/shaders/couleur2d.frag");
+	if (shader1 == NULL)
 	{
-		printf("Error creating window : %s\n", SDL_GetError());
-		SDL_DestroyWindow(window);
+		//TODO free stuff
+		return (0);
 	}
+	// GLuint progID = LoadShaders("src/shaders/couleur2d.vert",
+	// 		"src/shaders/couleur2d.frag");
 
-	// init with opengl
-	SDL_GLContext contextOpenGL;
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-	contextOpenGL = SDL_GL_CreateContext(window);
-	if(contextOpenGL == 0)
-	{
-		printf("Error init context OpenGl : %s\n", SDL_GetError());
-	}
+	static const GLfloat g_vertex_buffer_data[] = {
+			-1.0f, -1.0f, 0.0f,
+			 1.0f, -1.0f, 0.0f,
+			 0.0f,  1.0f, 0.0f,
+	};
 
-	// Vertices : 3 2d points
-	float vertices[] = {0.0, 1.0,   0.5, 0.0,   0.0, -1.0,  -0.5, -0.0};
-	// float color[] = {1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0};
+	GLuint vertexbuffer;
+	glGenBuffers(1, &vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
-	//shader
-	// t_shader	*shader1 = load_shader("src/shaders/couleur2D.vert",
-	// 		"src/shaders/couleur2D.frag");
-	// if (shader1 == NULL)
-	// 	return (0);
+	do{
+		 // Clear the screen
+		 glClear( GL_COLOR_BUFFER_BIT );
 
-	// program
-	int         end = 0;
-	SDL_Event   events;
-	while(!end)
-	{
-		//events
-		SDL_WaitEvent(&events);
-		switch(events.type) {
-			case SDL_KEYDOWN:
-			    switch(events.key.keysym.sym) {
-				    case SDLK_ESCAPE:
-				        end = 1;
-				        break;
-			    }
-			    break;
-		}
-		if(events.window.event == SDL_WINDOWEVENT_CLOSE)
-			end = 1;
+		 // Use our shader
+		 // glUseProgram(progID);
+		 glUseProgram(shader1->program_id);
 
-		//cleaning screen
-		glClear(GL_COLOR_BUFFER_BIT);
+		 // 1rst attribute buffer : vertices
+		 glEnableVertexAttribArray(0);
+		 glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+		 glVertexAttribPointer(
+		         0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+		         3,                  // size
+		         GL_FLOAT,           // type
+		         GL_FALSE,           // normalized?
+		         0,                  // stride
+		         (void*)0            // array buffer offset
+		 );
 
-		// glUseProgram(shader1->program_id);
+		 // Draw the triangle !
+		 glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
 
-			//Put the vertice tab in the openGL vertices index
-			glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-			glEnableVertexAttribArray(0);
-			// glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, color);
-   //          glEnableVertexAttribArray(1);
+		 glDisableVertexAttribArray(0);
 
-			//display triangle
-			glDrawArrays(GL_TRIANGLES, 0, 3);
+		 // Swap buffers
+		 glfwSwapBuffers(window);
+		 glfwPollEvents();
 
-			//deactive vertex attribute
-			// glDisableVertexAttribArray(1);
-			glDisableVertexAttribArray(0);
+	 } // Check if the ESC key was pressed or the window was closed
+	 while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
+			glfwWindowShouldClose(window) == 0 );
 
-		// glUseProgram(0);
+	// Cleanup VBO
+	glDeleteBuffers(1, &vertexbuffer);
+	glDeleteVertexArrays(1, &VertexArrayID);
+	glDeleteProgram(shader1->program_id);
 
-		//refresh window
-		SDL_GL_SwapWindow(window);
-	}
-
-	// quit sdl
-	SDL_GL_DeleteContext(contextOpenGL);
-	SDL_DestroyWindow(window);
-	SDL_Quit();
+	// Close OpenGL window and terminate GLFW
+	glfwTerminate();
 	return (0);
 }

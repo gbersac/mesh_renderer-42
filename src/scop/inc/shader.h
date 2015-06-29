@@ -14,5 +14,6 @@ typedef struct	s_shader
 }				t_shader;
 
 t_shader	*load_shader(const char *vertex_src, const char *fragment_src);
+GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path);
 
 #endif

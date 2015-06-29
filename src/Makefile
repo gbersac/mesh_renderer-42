@@ -21,8 +21,10 @@ export DEBUG		:= -g -O0
 ################################################################################
 
 export DIR_SDL		:= sdl2
-export DIR_LIB		:= 
-export APP			:= scop 
+export DIR_GLFW		:= glfw
+export DIR_GLEW		:= glew
+export DIR_LIB		:=
+export APP			:= scop
 
 ################################################################################
 # RULES																		   #

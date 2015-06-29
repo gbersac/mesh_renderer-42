@@ -1,18 +1,9 @@
-// Version du GLSL
-#version 150 core
+#version 400 core
 
-// Entrées
-in vec2 in_Vertex;
-in vec3 in_Color;
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
 
-// Sortie
-out vec3 color;
-
-// Fonction main
-void main()
-{
-    // Position finale du vertex
-    gl_Position = vec4(in_Vertex, 0.0, 1.0);
-    // Envoi de la couleur au Fragment Shader
-    color = in_Color;
+void main(){
+    gl_Position.xyz = vertexPosition_modelspace;
+    gl_Position.w = 1.0;
 }
