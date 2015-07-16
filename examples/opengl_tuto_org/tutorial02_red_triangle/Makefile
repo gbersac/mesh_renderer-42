@@ -4,8 +4,8 @@
 #
 
 all:
-	clang++ -c shader.cpp -o shader.o -I ~/.brew/include/ -I ~/.brew/include/GLFW -I ../ -L ~/.brew/lib/ -lglfw3 -L ~/.brew/lib/ -lglew  -framework OpenGL 
-	clang++ tutorial02.cpp shader.o -I ~/.brew/include/ -I ~/.brew/include/GLFW -I ../ -L ~/.brew/lib/ -lglfw3 -L ~/.brew/lib/ -lglew  -framework OpenGL 
+	clang++ -c shader.cpp -o shader.o -I ~/.brew/include/ -I ~/.brew/include/GLFW -I ../ -L ~/.brew/lib/ -lglfw3 -L ~/.brew/lib/ -lglew  -framework OpenGL
+	clang++ tutorial02.cpp shader.o -o triangle -I ~/.brew/include/ -I ~/.brew/include/GLFW -I ../ -L ~/.brew/lib/ -lglfw3 -L ~/.brew/lib/ -lglew  -framework OpenGL
 
 
 
