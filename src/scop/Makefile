@@ -6,7 +6,7 @@
 #    By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/04/22 13:15:39 by gbersac           #+#    #+#              #
-#    Updated: 2015/06/24 23:15:23 by gbersac          ###   ########.fr        #
+#    Updated: 2015/07/17 13:22:39 by gbersac          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ export DIR_GLFW		:= ../glfw
 export DIR_GLEW		:= ../glew
 
 LIB_SDL				:= -L$(DIR_SDL) -lSDL2
-LIB_GLFW			:= -L$(DIR_GLFW) -lglfw3
+LIB_GLFW			:= -L$(DIR_GLFW) -lglfw3 -framework Cocoa -framework IOKit -framework CoreVideo 
 LIB_GLEW			:= -L$(DIR_GLEW) -lglew
 
 export DIR_LIB 		:= $(patsubst %,../%,$(DIR_LIB))
