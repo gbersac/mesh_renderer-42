@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2014/04/22 13:15:39 by gbersac           #+#    #+#              #
-#    Updated: 2015/06/24 23:10:41 by gbersac          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 ################################################################################
 # BASIC VARIABLES															   #
 ################################################################################
@@ -20,17 +8,19 @@ export DEBUG		:= -g -O0
 # LIBRARY VARIABLES															   #
 ################################################################################
 
-export DIR_SDL		:= sdl2
 export DIR_GLFW		:= glfw
 export DIR_GLEW		:= glew
-export DIR_LIB		:=
+
+export DIR_LIBFT	:= libft
+export DIR_LIBMATH	:= libmath
+export DIR_LIB		:= $(DIR_LIBMATH) $(DIR_LIBFT)
 export APP			:= scop
 
 ################################################################################
 # RULES																		   #
 ################################################################################
 
-.PHONY: all $(APP)
+.PHONY: all $(APP) $(DIR_LIB)
 
 all:  $(APP)
 
@@ -45,11 +35,13 @@ $(APP): $(DIR_LIB)
 	@$(MAKE) --directory=$@  $(RULE)
 
 clean:
-	make RULE=clean
+	@make RULE=clean
 
 fclean:
-	make RULE=fclean
+	@make RULE=fclean
 
 re:
-	make RULE=re
+	@make RULE=re
 
+test:
+	@make RULE=test
