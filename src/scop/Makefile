@@ -47,6 +47,8 @@ $(PATH_OBJ)/%.o: $(addprefix $(PATH_SRC)/,%.c)
 	@mkdir -p $(PATH_OBJ)
 	cc -c -o $@ $(CFLAGS) $^ $(DEBUG) $(INCLUDES)
 
+test:
+
 clean:
 	rm -f $(OBJECTS)
 

@@ -64,6 +64,8 @@ $(PATH_OBJ)/%.o: $(addprefix $(PATH_SRC)/,%.c)
 	@mkdir -p $(PATH_OBJ)
 	$(CC) -c -o $@ $(CFLAGS) $^ -O0 -g  -I $(PATH_INC)/
 
+test:
+
 clean:
 	@rm -f $(OBJECTS)
 	@echo Delete $(words $(OBJECTS)) object file

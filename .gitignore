@@ -7,6 +7,8 @@ cmake_install.cmake
 install_manifest.txt
 src/compile
 
+# For editor files
+*.swp
 # For python byte code
 *.pyc
 
