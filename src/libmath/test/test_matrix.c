@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/22 16:23:46 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/22 17:06:29 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/23 19:40:49 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 #include "libmath.h"
 
-typedef int (*t_test_fc)();
+typedef int (*t_test_fn)();
 
-void	launch_test(const char *str, t_test_fc fc)
+void	launch_test(const char *str, t_test_fn fn)
 {
 	printf("\t Test for %s\n", str);
-	fc();
+	fn();
 	printf("Test ok\n");
 }
 
@@ -45,11 +45,126 @@ int		test_get(void)
 	assert(error == OUT_OF_BOUND);
 	mat_get(NULL, 4, 2, &error);
 	assert(error == NO_MATRIX);
+	mat_free(&m);
+	return (1);
+}
+
+int		test_set(void)
+{
+	t_mat					*m;
+	t_matrix_err			error;
+	static const t_mat_type	defval[] = {
+		1,  2,  3,  4,  5,
+		6,  7,  8,  9,  10,
+		11, 12, 13, 14, 15
+	};
+
+	m = mat_new(5, 3);
+	mat_init(m, defval);
+	mat_set(m, 3, 2, 100);
+	assert(mat_get(m, 3, 2, NULL) == 100);
+	error = mat_set(m, 2, 4, 100);
+	assert(error == OUT_OF_BOUND);
+	error = mat_set(m, 6, 2, 100);
+	assert(error == OUT_OF_BOUND);
+	error = mat_set(NULL, 4, 2, 100);
+	assert(error == NO_MATRIX);
+	mat_free(&m);
+	return (1);
+}
+
+int		test_perspective()
+{
+	t_mat					*m;
+	t_mat					*persp;
+	static const t_mat_type	defval[] = {
+		1.187173, 0.000000,  0.000000,  0.000000,
+		0.000000, 2.110530,  0.000000,  0.000000,
+		0.000000, 0.000000, -1.020202, -1.000000,
+		0.000000, 0.000000, -2.020202,  0.000000
+	};
+
+	m = mat_new(4, 4);
+	mat_init(m, defval);
+	persp = mat_perspective(70, (t_mat_type)16/9, 1, 100);
+	assert(mat_are_equal(m, persp, 0));
+
+	mat_free(&persp);
+	mat_free(&m);
+	return (1);
+}
+
+int		test_multi()
+{
+	t_mat					*m1;
+	t_matrix_err			error;
+	static const t_mat_type	defval[] = {
+		1,  2,  3,
+		4,  5,  6
+	};
+	t_mat					*m2;
+	static const t_mat_type	defval2[] = {
+		10,  11,
+		12,  13,
+		14,  15
+	};
+	t_mat					*result;
+	static const t_mat_type	defval_exp[] = {
+		76,  82,
+		184, 199
+	};
+	t_mat					*expected;
+
+	m1 = mat_new(3, 2);
+	mat_init(m1, defval);
+	m2 = mat_new(2, 3);
+	mat_init(m2, defval2);
+	expected = mat_new(2, 2);
+	mat_init(expected, defval_exp);
+	result = mat_multi(m1, m2, NULL);
+	// mat_print(result);
+	assert(mat_are_equal(expected, result, 0));
+	mat_free(&m1);
+	mat_free(&m2);
+	mat_free(&expected);
+	mat_free(&result);
+	return (1);
+}
+
+int		test_normalize()
+{
+	t_vector	*vec;
+
+	vec = vec_new3(1, 2, 3);
+	vec_normalize(vec);
+	assert(vec_length(vec) == 1);
+	mat_free(&vec);
+	return (1);
+}
+
+int		test_cross()
+{
+	t_vector	*vec1;
+	t_vector	*vec2;
+	t_vector	*res;
+	t_vector	*expected;
+
+	vec1 = vec_new3(1, 2, 3);
+	vec2 = vec_new3(4, 5, 6);
+	res = vec_cross(vec1, vec2);
+	expected = vec_new3(-3, 6, -3);
+	assert(mat_are_equal(res, expected, 0));
 	return (1);
 }
 
 int		main(void)
 {
+	printf("\nTEST MATRIX !!!\n\n");
 	launch_test("mat_get", test_get);
+	launch_test("mat_set", test_set);
+	launch_test("mat_perspective", test_perspective);
+	launch_test("mat_multi", test_multi);
+	launch_test("mat_normalize", test_normalize);
+	launch_test("mat_cross", test_cross);
 	return (EXIT_SUCCESS);
 }

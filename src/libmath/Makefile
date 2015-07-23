@@ -2,7 +2,9 @@
 # SOURCES       															   #
 ################################################################################
 
-SRCS		= mat_basics.c mat_print.c
+SRCS		= mat_basics.c mat_print.c mat_identity.c mat_perspective.c \
+				mat_are_equal.c mat_zero.c mat_multi.c mat_lookat.c vec_new.c \
+				vec_new3.c vec_length.c vec_normalize.c vec_cross.c
 SRCS_TEST	= test_matrix.c
 
 ################################################################################
@@ -27,7 +29,7 @@ TEST_CMD	= $(patsubst %.c, $(PATH_OBJT)/%;, $(SRCS_TEST))
 # RULES																		   #
 ################################################################################
 
-.PHONY: all
+.PHONY: all test
 
 all: $(NAME)
 
@@ -36,13 +38,15 @@ $(NAME): $(OBJECTS)
 	@ranlib $(NAME)
 	@echo Creating Library $(NAME) $(words $(OBJECTS)) files inside
 
-test: $(NAME) $(OBJECTS_TEST)
-	$(TEST_CMD)
+test:
+	@rm -rf $(PATH_OBJT)
+	@$(MAKE)
+	@$(MAKE) $(OBJECTS_TEST)
+	@$(TEST_CMD)
 
 $(PATH_OBJT)/%: $(addprefix $(PATH_TEST)/,%.c)
-	@echo $(shell pwd) 
 	@mkdir -p $(PATH_OBJT)
-	$(CC) -o $@ $(CFLAGS) $^ $(DEBUG)  -I $(PATH_INC)/ -L. -lmath
+	$(CC) -o $@ $^ $(DEBUG) -I $(PATH_INC)/ -L. -lmath
 
 $(PATH_OBJ)/%.o: $(addprefix $(PATH_SRC)/,%.c)
 	@mkdir -p $(PATH_OBJ)

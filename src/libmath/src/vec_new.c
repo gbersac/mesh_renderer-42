@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libmath.h                                          :+:      :+:    :+:   */
+/*   vec_new.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/07/17 15:40:14 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/23 16:19:38 by gbersac          ###   ########.fr       */
+/*   Created: 2015/07/23 18:44:58 by gbersac           #+#    #+#             */
+/*   Updated: 2015/07/23 18:46:21 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBMATH_H
-# define LIBMATH_H
+#include "libmath.h"
 
-# include "matrix.h"
-# include "vector.h"
+t_vector	*vec_new(t_uint size)
+{
+	t_vector	*to_return;
 
-#endif
+	to_return = mat_new(1, size);
+	return (to_return);
+}

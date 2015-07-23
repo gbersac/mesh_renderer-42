@@ -6,6 +6,7 @@
 #include <OpenGL/gl.h>
 
 #include "shader.h"
+#include "libmath.h"
 
 int main()
 {
@@ -66,6 +67,9 @@ int main()
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+
+	t_mat	*projection = perspective(70.0, (double) m_largeurFenetre / m_hauteurFenetre, 1.0, 100.0);;
+	t_mat	*model = mat_identity(4);
 	do{
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -103,5 +107,5 @@ int main()
 
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
-	return (0);
+	return (EXIT_SUCCESS);
 }

@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libmath.h                                          :+:      :+:    :+:   */
+/*   mat_subst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/07/17 15:40:14 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/23 16:19:38 by gbersac          ###   ########.fr       */
+/*   Created: 2015/07/23 19:41:53 by gbersac           #+#    #+#             */
+/*   Updated: 2015/07/23 19:43:29 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBMATH_H
-# define LIBMATH_H
+#include "libmath.h"
 
-# include "matrix.h"
-# include "vector.h"
+t_mat	*mat_subst(t_mat *m1, t_mat *m2)
+{
+	t_mat	*to_return;
 
-#endif
+	return(to_return);
+}

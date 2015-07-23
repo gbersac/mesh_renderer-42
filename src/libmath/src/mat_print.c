@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/22 16:36:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/22 16:51:03 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/23 13:56:33 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,19 @@ void			print_line(t_mat *m, t_uint line)
 
 void			mat_print(t_mat *m)
 {
+	mat_print_label(m, "");
+}
+
+void			mat_print_label(t_mat *m, char const * const label)
+{
 	t_uint	i;
 
 	if (m == NULL)
 	{
-		printf("Matrix NULL\n");
+		printf("Matrix NULL %s\n", label);
 		return ;
 	}
-	printf("Matrix[%u, %u]\n", m->width, m->height);
+	printf("Matrix[%u, %u] %s\n", m->width, m->height, label);
 	i = 0;
 	while (i < m->height)
 	{
