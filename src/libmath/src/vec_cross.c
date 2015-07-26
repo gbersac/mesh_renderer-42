@@ -6,26 +6,42 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 19:14:50 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/23 19:41:18 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/26 22:43:49 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-t_mat_type	m(t_vector *v1, t_vector *v2, int i1, int i2)
+t_mat_type	m(t_vector const * const v1, t_vector const * const v2,
+				int i1, int i2)
 {
 	return (v1->array[i1] * v2->array[i2]);
 }
 
-t_vector	*vec_cross(t_vector *v1, t_vector *v2)
+t_vector	*vec_cross(t_vector const * const v1, t_vector const * const v2,
+						t_matrix_err *err)
 {
 	t_vector	*to_return;
 
+	if (v1 == NULL || v2 == NULL)
+		return (mat_ret(err, NO_MATRIX));
 	if (v1->height != 3 || v2->height != 3)
-		return (NULL);
+		return (mat_ret(err, INCOMPATIBLE_SIZE));
 	to_return = vec_new(3);
-	to_return->array[0] = m(v1, v2, 2, 3) - m(v1, v2, 3, 2);
-	to_return->array[1] = m(v1, v2, 3, 1) - m(v1, v2, 1, 3);
-	to_return->array[2] = m(v1, v2, 1, 2) - m(v1, v2, 2, 1);
+	to_return->array[0] = v1->array[1] * v2->array[2] -
+			v1->array[2] * v2->array[1];
+	to_return->array[1] = v1->array[2] * v2->array[0] -
+			v1->array[0] * v2->array[2];
+	to_return->array[2] = v1->array[0] * v2->array[1] -
+			v1->array[1] * v2->array[0];
+	// to_return->array[0] = m(v1, v2, 2, 3) - m(v1, v2, 3, 2);
+	// to_return->array[1] = m(v1, v2, 3, 1) - m(v1, v2, 1, 3);
+	// to_return->array[2] = m(v1, v2, 1, 2) - m(v1, v2, 2, 1);
+	mat_ret(err, NO_ERROR);
 	return(to_return);
 }
+
+
+
+
+

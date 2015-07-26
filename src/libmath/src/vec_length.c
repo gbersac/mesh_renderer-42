@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 18:53:25 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/23 19:06:35 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/26 21:10:03 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ float		vec_length(t_vector *vec)
 
 	to_return = 0;
 	i = 0;
+	cumul = 0;
 	while (i < vec->height)
 	{
-		cumul = vec->array[i] * vec->array[i];
+		cumul += vec->array[i] * vec->array[i];
 		++i;
 	}
 	to_return = sqrtf(cumul);

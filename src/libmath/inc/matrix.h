@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 16:18:23 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/23 19:44:07 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/26 21:32:28 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,23 @@ typedef struct	s_mat
 }				t_mat;
 
 t_mat			*mat_new(t_uint width, t_uint height);
-void			mat_free(t_mat **to_free);
-void			mat_print(t_mat *);
-void			mat_print_label(t_mat *m, char const * const label);
+void			mat_free(t_mat **);
+void			mat_print(t_mat const * const);
+void			mat_print_label(t_mat const * const m,
+									char const * const label);
 
 typedef enum	e_matrix_err
 {
 	NO_ERROR,
 	NO_MATRIX,
 	OUT_OF_BOUND,
-	INCOMPATIBLE_SIZE
+	INCOMPATIBLE_SIZE,
 }				t_matrix_err;
+
+/*
+** Convenience function for matrix. Shouldn't be used out of the lib.
+*/
+t_mat			*mat_ret(t_matrix_err *error, t_matrix_err val);
 
 /*
 ** Assign all the values of src in dest.
@@ -103,6 +109,14 @@ int				mat_are_equal(t_mat *m1, t_mat *m2, t_mat_type diff);
 t_mat			*mat_multi(t_mat const * const m1, t_mat const * const m2,
 					t_matrix_err *error);
 
-t_mat			*mat_subst(t_mat *m1, t_mat *m2, t_matrix_error *err);
+t_mat			*mat_subst(t_mat const * const m1, t_mat const * const m2,
+					t_matrix_err *err);
+
+/*
+** Invert the value of each cell of the matrix.
+*/
+t_matrix_err	mat_neg(t_mat *m);
+
+t_mat			*mat_cpy(t_mat const * const to_cpy);
 
 #endif

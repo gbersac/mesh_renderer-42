@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/22 16:23:46 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/23 19:40:49 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/26 23:43:29 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ int		test_multi()
 	expected = mat_new(2, 2);
 	mat_init(expected, defval_exp);
 	result = mat_multi(m1, m2, NULL);
-	// mat_print(result);
 	assert(mat_are_equal(expected, result, 0));
 	mat_free(&m1);
 	mat_free(&m2);
@@ -137,7 +136,7 @@ int		test_normalize()
 
 	vec = vec_new3(1, 2, 3);
 	vec_normalize(vec);
-	assert(vec_length(vec) == 1);
+	assert(vec_length(vec) - 1 < 0.000001);
 	mat_free(&vec);
 	return (1);
 }
@@ -151,9 +150,89 @@ int		test_cross()
 
 	vec1 = vec_new3(1, 2, 3);
 	vec2 = vec_new3(4, 5, 6);
-	res = vec_cross(vec1, vec2);
+	res = vec_cross(vec1, vec2, NULL);
 	expected = vec_new3(-3, 6, -3);
 	assert(mat_are_equal(res, expected, 0));
+	mat_free(&vec1);mat_free(&vec2);mat_free(&res);mat_free(&expected);
+
+	vec1 = vec_new3(-0.685994, -0.514496, -0.514496);
+	vec2 = vec_new3(0, 1, 0);
+	res = vec_cross(vec1, vec2, NULL);
+	// mat_print_label(res, "res");
+	expected = vec_new3(0.514496, 0.000000, -0.685994);
+	assert(mat_are_equal(res, expected, 0.00001));
+	mat_free(&vec1);mat_free(&vec2);mat_free(&res);mat_free(&expected);
+
+	return (1);
+}
+
+int		test_subst()
+{
+	t_mat					*m1;
+	t_matrix_err			error;
+	static const t_mat_type	defval[] = {
+		10, 11, 12,
+		13, 14, 15
+	};
+	t_mat					*m2;
+	static const t_mat_type	defval2[] = {
+		1,  2,  3,
+		4,  5,  6
+	};
+	t_mat					*result;
+	static const t_mat_type	defval_exp[] = {
+		9, 9, 9,
+		9, 9, 9
+	};
+	t_mat					*expected;
+
+	m1 = mat_new(3, 2);
+	mat_init(m1, defval);
+	m2 = mat_new(3, 2);
+	mat_init(m2, defval2);
+	expected = mat_new(3, 2);
+	mat_init(expected, defval_exp);
+	result = mat_subst(m1, m2, NULL);
+	assert(mat_are_equal(expected, result, 0));
+	mat_free(&m1);
+	mat_free(&m2);
+	mat_free(&expected);
+	mat_free(&result);
+	return (1);
+}
+
+int		test_lookat()
+{
+	t_mat					*m;
+	t_mat					*view;
+	static const t_mat_type	defval[] = {
+			0.600000, -0.411597, 0.685994, 0.000000,
+			0.000000, 0.857493, 0.514496, 0.000000,
+			-0.800000, -0.308697, 0.514496, 0.000000,
+			0.000000, 0.000000, -5.830953, 1.000000
+	};
+
+	m = mat_new(4, 4);
+	mat_init(m, defval);
+	view = mat_lookat(
+	    vec_new3(4, 3, 3), // Camera is at (4,3,3), in World Space
+	    vec_new3(0, 0, 0), // and looks at the origin
+	    vec_new3(0, 1, 0),  // Head is up (set to 0,-1,0 to look upside-down)
+	    NULL
+	);
+	// mat_print_label(view, "result");
+	// mat_print_label(m, "model");
+	assert(mat_are_equal(m, view, 0));
+	mat_free(&view);
+	mat_free(&m);
+	return (1);
+}
+
+int		test_length()
+{
+	t_vector *v = vec_new3(4, 4, 2);
+	assert(vec_length(v) == 6);
+	mat_free(&v);
 	return (1);
 }
 
@@ -166,5 +245,8 @@ int		main(void)
 	launch_test("mat_multi", test_multi);
 	launch_test("mat_normalize", test_normalize);
 	launch_test("mat_cross", test_cross);
+	launch_test("mat_subst", test_subst);
+	launch_test("mat_lookat", test_lookat);
+	launch_test("mat_length", test_length);
 	return (EXIT_SUCCESS);
 }

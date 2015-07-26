@@ -6,13 +6,13 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/22 16:36:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/23 13:56:33 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/26 21:32:45 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-void			print_line(t_mat *m, t_uint line)
+void			print_line(t_mat const * const m, t_uint line)
 {
 	t_uint	i;
 
@@ -27,12 +27,12 @@ void			print_line(t_mat *m, t_uint line)
 	printf("\n");
 }
 
-void			mat_print(t_mat *m)
+void			mat_print(t_mat const * const m)
 {
 	mat_print_label(m, "");
 }
 
-void			mat_print_label(t_mat *m, char const * const label)
+void			mat_print_label(t_mat const * const m, char const * const label)
 {
 	t_uint	i;
 
@@ -41,7 +41,7 @@ void			mat_print_label(t_mat *m, char const * const label)
 		printf("Matrix NULL %s\n", label);
 		return ;
 	}
-	printf("Matrix[%u, %u] %s\n", m->width, m->height, label);
+	printf("Matrix[%u, %u] %s\n", m->height, m->width, label);
 	i = 0;
 	while (i < m->height)
 	{

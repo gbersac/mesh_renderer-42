@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_basic.c                                        :+:      :+:    :+:   */
+/*   mat_cpy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/07/23 19:26:16 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/24 15:52:04 by gbersac          ###   ########.fr       */
+/*   Created: 2015/07/26 21:24:29 by gbersac           #+#    #+#             */
+/*   Updated: 2015/07/26 21:28:30 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-t_mat_type	vec_get(t_vector const * const vec, t_uint idx, t_matrix_err *err)
+t_mat			*mat_cpy(t_mat const * const to_cpy)
 {
-	t_mat_type	to_return;
+	t_mat	*to_return;
 
-	if (vec == NULL)
-	{
-		mat_ret(err, NO_MATRIX);
-		return (0);
-	}
-	if (idx > vec->height || idx < 1)
-	{
-		mat_ret(err, OUT_OF_BOUND);
-		return (0);
-	}
-	mat_ret(err, NO_ERROR);
-	to_return = *(vec->array + vec->width * (idx - 1));
+	if (to_cpy == NULL)
+		return (NULL);
+	to_return = mat_new(to_cpy->width, to_cpy->height);
+	memcpy(to_return->array, to_cpy->array,
+			to_cpy->width * to_cpy->height * sizeof(t_mat_type));
 	return (to_return);
 }

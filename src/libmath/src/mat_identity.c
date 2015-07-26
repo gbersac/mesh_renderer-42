@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/22 17:41:31 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/23 13:38:40 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/24 16:00:46 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ t_mat			*mat_identity(t_uint n)
 	t_mat	*to_return;
 	t_uint	i;
 
+	if (n < 1)
+		return (NULL);
 	to_return = mat_new(n, n);
-	memset(to_return->array, 0, n * n * sizeof(t_mat_type));
+	mat_zero(to_return);
 	i = 0;
 	while (i < n)
 	{
