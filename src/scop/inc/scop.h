@@ -3,6 +3,15 @@
 
 # include <stdio.h>
 
-void	hello_world(void);
+# define GLEW_NO_GLU
+# include <glew.h>
+# include <glfw3.h>
+# include <OpenGL/gl.h>
 
-#endif /* !SCOP_H */
+# include "shader.h"
+# include "libmath.h"
+
+t_mat		*mvp_matrix();
+int			test_mvp();
+
+#endif

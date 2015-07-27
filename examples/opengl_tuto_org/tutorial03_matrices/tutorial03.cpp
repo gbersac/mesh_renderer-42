@@ -1,24 +1,32 @@
 // Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
+#include<iostream>
 
 // Include GLEW
-#include <GL/glew.h>
+#include <glew.h>
 
 // Include GLFW
 #include <glfw3.h>
 GLFWwindow* window;
 
 // Include GLM
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include <GLM/glm.hpp>
+#include <GLM/gtc/matrix_transform.hpp>
+#include <GLM/gtx/string_cast.hpp>
 using namespace glm;
 
 #include <common/shader.hpp>
 
+void error_callback(int error, const char* description)
+{
+	    puts(description);
+}
+
 int main( void )
 {
 	// Initialise GLFW
+	glfwSetErrorCallback(error_callback);
 	if( !glfwInit() )
 	{
 		fprintf( stderr, "Failed to initialize GLFW\n" );
@@ -28,6 +36,7 @@ int main( void )
 	glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Open a window and create its OpenGL context
@@ -66,7 +75,7 @@ int main( void )
 	glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 	// Or, for an ortho camera :
 	//glm::mat4 Projection = glm::ortho(-10.0f,10.0f,-10.0f,10.0f,0.0f,100.0f); // In world coordinates
-	
+
 	// Camera matrix
 	glm::mat4 View       = glm::lookAt(
 								glm::vec3(4,3,3), // Camera is at (4,3,3), in World Space
@@ -78,7 +87,7 @@ int main( void )
 	// Our ModelViewProjection : multiplication of our 3 matrices
 	glm::mat4 MVP        = Projection * View * Model; // Remember, matrix multiplication is the other way around
 
-	static const GLfloat g_vertex_buffer_data[] = { 
+	static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f, -1.0f, 0.0f,
 		 1.0f, -1.0f, 0.0f,
 		 0.0f,  1.0f, 0.0f,
@@ -98,7 +107,7 @@ int main( void )
 		// Use our shader
 		glUseProgram(programID);
 
-		// Send our transformation to the currently bound shader, 
+		// Send our transformation to the currently bound shader,
 		// in the "MVP" uniform
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 
