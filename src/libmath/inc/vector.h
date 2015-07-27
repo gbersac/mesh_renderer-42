@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 16:18:23 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/26 21:23:26 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/27 13:55:15 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 typedef t_mat	t_vector;
 
 /*
-** Getter for vector size. Index start at 1.
+** Getter for vector size. Index start at 0.
 */
 t_mat_type		vec_get(t_vector const * const vec,
 						t_uint idx,
@@ -34,7 +34,7 @@ t_mat_type		vec_get(t_vector const * const vec,
 t_vector		*vec_new(t_uint size);
 t_vector		*vec_new3(t_mat_type v1, t_mat_type v2, t_mat_type v3);
 
-float			vec_length(t_vector *vec);
+float			vec_length(t_vector const * const vec);
 
 /*
 ** Normalize the vector (make its length= 1)

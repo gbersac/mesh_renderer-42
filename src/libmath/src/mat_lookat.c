@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 16:14:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/26 23:38:05 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/27 14:02:25 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,21 @@ t_mat	*mat_lookat(t_vector const *eye,
 	u = vec_cross(s, f, NULL);
 
 	to_return = mat_identity(4);
-	mat_set(to_return, 1, 1, vec_get(s, 1, NULL));
-	mat_set(to_return, 1, 2, vec_get(s, 2, NULL));
-	mat_set(to_return, 1, 3, vec_get(s, 3, NULL));
+	mat_set(to_return, 0, 0, vec_get(s, 0, NULL));
+	mat_set(to_return, 1, 0, vec_get(s, 1, NULL));
+	mat_set(to_return, 2, 0, vec_get(s, 2, NULL));
 
-	mat_set(to_return, 2, 1, vec_get(u, 1, NULL));
-	mat_set(to_return, 2, 2, vec_get(u, 2, NULL));
-	mat_set(to_return, 2, 3, vec_get(u, 3, NULL));
+	mat_set(to_return, 0, 1, vec_get(u, 0, NULL));
+	mat_set(to_return, 1, 1, vec_get(u, 1, NULL));
+	mat_set(to_return, 2, 1, vec_get(u, 2, NULL));
 
-	mat_set(to_return, 3, 1, -vec_get(f, 1, NULL));
-	mat_set(to_return, 3, 2, -vec_get(f, 2, NULL));
-	mat_set(to_return, 3, 3, -vec_get(f, 3, NULL));
+	mat_set(to_return, 0, 2, -vec_get(f, 0, NULL));
+	mat_set(to_return, 1, 2, -vec_get(f, 1, NULL));
+	mat_set(to_return, 2, 2, -vec_get(f, 2, NULL));
 
-	mat_set(to_return, 1, 4, -vec_dot(s, eye, NULL));
-	mat_set(to_return, 2, 4, -vec_dot(u, eye, NULL));
-	mat_set(to_return, 3, 4, vec_dot(f, eye, NULL));
+	mat_set(to_return, 3, 0, -vec_dot(s, eye, NULL));
+	mat_set(to_return, 3, 1, -vec_dot(u, eye, NULL));
+	mat_set(to_return, 3, 2, vec_dot(f, eye, NULL));
 	mat_ret(err, NO_ERROR);
 	return (to_return);
 }

@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 16:37:20 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/24 12:43:14 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/27 13:33:50 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_mat_type	one_multi(t_mat const * const m1, t_mat const * const m2,
 	to_return = 0;
 	while (i < m1->width)
 	{
-		to_return += mat_get(m1, i + 1, y + 1, &error) *
-				mat_get(m2, x + 1, i + 1, &error);
+		to_return += mat_get(m1, y, i, &error) *
+				mat_get(m2, i, x, &error);
 		++i;
 	}
 	x = m1->height;
@@ -50,7 +50,7 @@ t_mat		*mat_multi(t_mat const * const m1, t_mat const * const m2,
 		j = 0;
 		while (j < to_return->height)
 		{
-			mat_set(to_return, i + 1, j + 1, one_multi(m1, m2, i, j));
+			mat_set(to_return, j, i, one_multi(m1, m2, i, j));
 			++j;
 		}
 		++i;

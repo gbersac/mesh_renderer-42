@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 19:41:53 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/26 23:43:45 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/27 13:35:01 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,13 @@ void	subst(t_mat *dest,
 		j = 0;
 		while (j < dest->height)
 		{
-			mat_set(dest, i + 1, j + 1,
-					mat_get(m1, i + 1, j + 1, NULL) -
-					mat_get(m2, i + 1, j + 1, NULL));
+			mat_set(dest, j, i,
+					mat_get(m1, j, i, NULL) -
+					mat_get(m2, j, i, NULL));
 			++j;
 		}
 		++i;
 	}
-	mat_get(m1, i, j, NULL);
-	mat_get(m2, i, j, NULL);
 }
 
 t_mat	*mat_subst(t_mat const * const m1, t_mat const * const m2,

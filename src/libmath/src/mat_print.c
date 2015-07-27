@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/22 16:36:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/26 21:32:45 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/27 13:24:55 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			print_line(t_mat const * const m, t_uint line)
 	{
 		if (i != 0)
 			printf(", ");
-		printf("%f", mat_get(m, i + 1, line + 1, NULL));
+		printf("%f", mat_get(m, line, i, NULL));
 		++i;
 	}
 	printf("\n");

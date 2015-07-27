@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 16:18:23 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/26 21:32:28 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/27 13:30:12 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,18 @@ void			mat_init(t_mat *dest, t_mat_type const *const src);
 void			mat_zero(t_mat *dest);
 
 /*
-** Return one box of the matrix.
+** Return one cell of the matrix. Index begin at 0.
 ** The error pointer can be NULL if you don't intend to check it.
-** Error is set to 1 if there is an error, 0 otherwise.
 */
 t_mat_type		mat_get(t_mat const * const m, t_uint x, t_uint y,
 						t_matrix_err *error);
 
 /*
-** Set the value of the matrix[x, y] to val.
-** Index are ranging from 1 to infinite.
+** Set the value of the matrix[x, y] to val. Index begin at 0.
 **
-** Return the error if there is one
+** Return the error if there is one.
 */
-t_matrix_err	mat_set(t_mat *m, t_uint x, t_uint y, t_mat_type val);
+t_matrix_err	mat_set(t_mat *m, t_uint y, t_uint x, t_mat_type val);
 
 /*
 ** Return an identity matrix of sixe n x n

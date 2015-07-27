@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/22 16:23:46 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/26 23:43:29 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/27 14:02:53 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int		test_get(void)
 
 	m = mat_new(5, 3);
 	mat_init(m, defval);
-	assert(mat_get(m, 3, 2, NULL) == 8);
-	assert(mat_get(m, 5, 1, NULL) == 5);
-	assert(mat_get(m, 5, 3, NULL) == 15);
-	mat_get(m, 2, 4, &error);
+	assert(mat_get(m, 1, 2, NULL) == 8);
+	assert(mat_get(m, 0, 4, NULL) == 5);
+	assert(mat_get(m, 2, 4, NULL) == 15);
+	mat_get(m, 3, 1, &error);
 	assert(error == OUT_OF_BOUND);
-	mat_get(m, 6, 2, &error);
+	mat_get(m, 1, 5, &error);
 	assert(error == OUT_OF_BOUND);
-	mat_get(NULL, 4, 2, &error);
+	mat_get(NULL, 2, 4, &error);
 	assert(error == NO_MATRIX);
 	mat_free(&m);
 	return (1);
@@ -61,13 +61,13 @@ int		test_set(void)
 
 	m = mat_new(5, 3);
 	mat_init(m, defval);
-	mat_set(m, 3, 2, 100);
-	assert(mat_get(m, 3, 2, NULL) == 100);
-	error = mat_set(m, 2, 4, 100);
+	mat_set(m, 1, 2, 100);
+	assert(mat_get(m, 1, 2, NULL) == 100);
+	error = mat_set(m, 3, 1, 100);
 	assert(error == OUT_OF_BOUND);
-	error = mat_set(m, 6, 2, 100);
+	error = mat_set(m, 1, 5, 100);
 	assert(error == OUT_OF_BOUND);
-	error = mat_set(NULL, 4, 2, 100);
+	error = mat_set(NULL, 1, 3, 100);
 	assert(error == NO_MATRIX);
 	mat_free(&m);
 	return (1);
@@ -87,6 +87,8 @@ int		test_perspective()
 	m = mat_new(4, 4);
 	mat_init(m, defval);
 	persp = mat_perspective(70, (t_mat_type)16/9, 1, 100);
+	// mat_print_label(persp, "result");
+	// mat_print_label(m, "expected");
 	assert(mat_are_equal(m, persp, 0));
 
 	mat_free(&persp);

@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat_identity.c                                     :+:      :+:    :+:   */
+/*   vec_get.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/07/22 17:41:31 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/27 13:31:47 by gbersac          ###   ########.fr       */
+/*   Created: 2015/07/23 19:26:16 by gbersac           #+#    #+#             */
+/*   Updated: 2015/07/27 14:01:43 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-t_mat			*mat_identity(t_uint n)
+t_mat_type	vec_get(t_vector const * const vec, t_uint idx, t_matrix_err *err)
 {
-	t_mat	*to_return;
-	t_uint	i;
+	t_mat_type	to_return;
 
-	if (n < 1)
-		return (NULL);
-	to_return = mat_new(n, n);
-	mat_zero(to_return);
-	i = 0;
-	while (i < n)
+	if (vec == NULL)
 	{
-		mat_set(to_return, i, i, 1);
-		++i;
+		mat_ret(err, NO_MATRIX);
+		return (0);
 	}
+	if (idx >= vec->height)
+	{
+		mat_ret(err, OUT_OF_BOUND);
+		return (0);
+	}
+	mat_ret(err, NO_ERROR);
+	to_return = *(vec->array + idx);
 	return (to_return);
 }

@@ -4,9 +4,9 @@
 
 SRCS_MAT	= mat_basics.c mat_print.c mat_identity.c mat_perspective.c \
 				mat_are_equal.c mat_zero.c mat_multi.c mat_lookat.c  \
-				mat_ret.c mat_subst.c mat_cpy.c
+				mat_ret.c mat_subst.c mat_cpy.c mat_get.c mat_set.c
 SRCS_VEC	= vec_new3.c vec_length.c vec_normalize.c vec_cross.c vec_new.c \
-				vec_dot.c vec_basic.c
+				vec_dot.c vec_get.c
 SRCS		= $(SRCS_MAT) $(SRCS_VEC)
 SRCS_TEST	= test_matrix.c
 

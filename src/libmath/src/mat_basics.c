@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/17 15:40:29 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/26 21:26:02 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/27 13:40:37 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,35 +36,3 @@ void		mat_init(t_mat *dest, t_mat_type const *const src)
 {
 	memcpy(dest->array, src, dest->width * dest->height * sizeof(t_mat_type));
 }
-
-t_mat_type	mat_get(t_mat const * const m, t_uint x,
-				t_uint y, t_matrix_err *error)
-{
-	t_mat_type	to_return;
-
-	if (m == NULL)
-	{
-		mat_ret(error, NO_MATRIX);
-		return (0);
-	}
-	if (x > m->width || y > m->height || x < 1 || y < 1)
-	{
-		mat_ret(error, OUT_OF_BOUND);
-		return (0);
-	}
-	if (error != NULL)
-		*error = NO_ERROR;
-	to_return = *(m->array + m->width * (y - 1) + (x - 1));
-	return (to_return);
-}
-
-t_matrix_err	mat_set(t_mat *m, t_uint x, t_uint y, t_mat_type val)
-{
-	if (m == NULL)
-		return (NO_MATRIX);
-	if (x > m->width || y > m->height || x < 1 || y < 1)
-		return (OUT_OF_BOUND);
-	m->array[m->width * (y - 1) + (x - 1)] = val;
-	return (NO_ERROR);
-}
-

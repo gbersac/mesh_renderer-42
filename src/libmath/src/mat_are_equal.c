@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/22 19:34:02 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/26 23:43:56 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/27 13:19:38 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int	mat_are_equal(t_mat *m1, t_mat *m2, t_mat_type diff)
 		diff = 0.000001;
 	while (i < nb_cell)
 	{
-		// printf("d %f %f -> %f\n", m1->array[i], m2->array[i],
-		// 		fabs(m1->array[i] - m2->array[i]));
 		if (fabs(m1->array[i] - m2->array[i]) > diff)
 			return (0);
 		++i;

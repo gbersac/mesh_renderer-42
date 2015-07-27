@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec_basic.c                                        :+:      :+:    :+:   */
+/*   mat_get.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/07/23 19:26:16 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/24 15:52:04 by gbersac          ###   ########.fr       */
+/*   Created: 2015/07/27 13:21:12 by gbersac           #+#    #+#             */
+/*   Updated: 2015/07/27 13:28:27 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-t_mat_type	vec_get(t_vector const * const vec, t_uint idx, t_matrix_err *err)
+t_mat_type	mat_get(t_mat const * const m, t_uint y,
+				t_uint x, t_matrix_err *error)
 {
 	t_mat_type	to_return;
 
-	if (vec == NULL)
+	if (m == NULL)
 	{
-		mat_ret(err, NO_MATRIX);
+		mat_ret(error, NO_MATRIX);
 		return (0);
 	}
-	if (idx > vec->height || idx < 1)
+	if (x >= m->width || y >= m->height)
 	{
-		mat_ret(err, OUT_OF_BOUND);
+		mat_ret(error, OUT_OF_BOUND);
 		return (0);
 	}
-	mat_ret(err, NO_ERROR);
-	to_return = *(vec->array + vec->width * (idx - 1));
+	if (error != NULL)
+		*error = NO_ERROR;
+	to_return = *(m->array + m->width * y + x);
 	return (to_return);
 }
