@@ -2,7 +2,7 @@
 # BASIC VARIABLES															   #
 ################################################################################
 
-SRCS				:= main.c shader.c mvp_matrix.c
+SRCS				:= main.c shader.c mvp_matrix.c gl_gen_buffer.c
 
 PATH_OBJ			:= obj
 PATH_OBJT			:= objt
