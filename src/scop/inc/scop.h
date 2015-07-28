@@ -32,4 +32,9 @@ GLuint		gl_gen_buffer(GLenum target, GLsizeiptr size,
 */
 void		gl_display_object(GLuint vertices, GLuint colors, GLuint size);
 
+/*
+** Load a .bmp teture file.
+*/
+GLuint		load_bmp(const char * const imagepath);
+
 #endif
