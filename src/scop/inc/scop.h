@@ -20,7 +20,16 @@ int			test_mvp();
 /*
 ** Create an (and only one) opengl buffer.
 */
-GLuint	gl_gen_buffer(GLenum target, GLsizeiptr size,
+GLuint		gl_gen_buffer(GLenum target, GLsizeiptr size,
 						GLvoid *data, GLenum usage);
+
+/*
+** This function is displaying an object using opengl.
+** The corresponding shader must has been launch and it accept vertices on
+** location 0 and color on location 1.
+**
+** size :	The number of float in the array (nb_vertices * 3).
+*/
+void		gl_display_object(GLuint vertices, GLuint colors, GLuint size);
 
 #endif

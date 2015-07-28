@@ -5,6 +5,18 @@ void error_callback(int error, const char* description)
 	printf("GLFW error %d : %s\n", error, description);
 }
 
+static const GLfloat triangle_vertexs[] = {
+	-3.0f, -1.0f, 0.0f,
+	 3.0f, -1.0f, 0.0f,
+	 2.0f,  1.0f, 0.0f,
+};
+
+static const GLfloat triangle_colors[] = {
+    0.673f,  0.211f,  0.457f,
+    0.820f,  0.883f,  0.371f,
+    0.982f,  0.099f,  0.879f
+};
+
 // Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
 // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
 static const GLfloat vertexs[] = {
@@ -157,6 +169,10 @@ int			main()
 			(void*)vertexs, GL_STATIC_DRAW);
 	GLuint color_buff = gl_gen_buffer(GL_ARRAY_BUFFER, sizeof(colors),
 			(void*)colors, GL_STATIC_DRAW);
+	GLuint triangle_buff = gl_gen_buffer(GL_ARRAY_BUFFER, sizeof(triangle_vertexs),
+			(void*)triangle_vertexs, GL_STATIC_DRAW);
+	GLuint triangle_color_buff = gl_gen_buffer(GL_ARRAY_BUFFER, sizeof(triangle_colors),
+			(void*)triangle_colors, GL_STATIC_DRAW);
 
 	t_mat	*mvp = mvp_matrix();
 	mat_print_label(mvp, "mvp");
@@ -178,19 +194,8 @@ int			main()
 		// in the "MVP" uniform
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, mvp->array);
 
-		// 1rst attribute buffer : vertices
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vertex_buff);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-		// 2nd attribute buffer : colors
-		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, color_buff);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-		// Draw the triangle !
-		glDrawArrays(GL_TRIANGLES, 0, 12 * 3); // 3 indices starting at 0 -> 1 triangle
-		glDisableVertexAttribArray(0);
+		gl_display_object(vertex_buff, color_buff, 12 * 3);
+		gl_display_object(triangle_buff, triangle_color_buff, 3);
 
 		// Swap buffers
 		glfwSwapBuffers(window);
@@ -206,5 +211,9 @@ int			main()
 
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
+triangle_buff = 0;
+triangle_color_buff = 0;
+vertex_buff = 0;
+color_buff = 0;
 	return (EXIT_SUCCESS);
 }
