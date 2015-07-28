@@ -120,6 +120,12 @@ GLFWwindow	*init()
 
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
+
 	return (window);
 }
 
@@ -155,17 +161,15 @@ int			main()
 	t_mat	*mvp = mvp_matrix();
 	mat_print_label(mvp, "mvp");
 
-	// Get a handle for our "MVP" uniform.
-	// Only at initialisation time.
+	// Get a handle for our "MVP" uniform. Only at initialisation time.
 	GLuint MatrixID = glGetUniformLocation(shader1->program_id, "MVP");
 
-	// Send our transformation to the currently bound shader,
-	// in the "MVP" uniform
+	// Send our transformation to the currently bound shader, in the "MVP" uniform
 	// For each model you render, since the MVP will be different (at least the M part)
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, mvp->array);
 	do{
 		// Clear the screen
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Use our shader
 		glUseProgram(shader1->program_id);
