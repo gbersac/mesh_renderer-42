@@ -14,7 +14,23 @@
 # include "shader.h"
 # include "libmath.h"
 
-t_mat		*mvp_matrix();
+typedef struct	s_env
+{
+	GLFWwindow	*window;
+	t_vector	*position;
+
+	/*
+	** The matrix used to move a point from the origin to the world.
+	*/
+	t_mat		*mvp;
+
+	/*
+	** The last time the position has been calculate.
+	*/
+	double		last_time;
+}				t_env;
+
+void		mvp_matrix(t_env *env);
 int			test_mvp();
 
 /*

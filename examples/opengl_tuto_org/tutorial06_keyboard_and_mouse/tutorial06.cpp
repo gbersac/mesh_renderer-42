@@ -12,6 +12,8 @@ GLFWwindow* window;
 // Include GLM
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <GLM/gtx/string_cast.hpp>
+#include <iostream>
 using namespace glm;
 
 #include <common/shader.hpp>
@@ -30,6 +32,7 @@ int main( void )
 	glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Open a window and create its OpenGL context
@@ -58,7 +61,7 @@ int main( void )
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS); 
+	glDepthFunc(GL_LESS);
 
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
@@ -75,13 +78,13 @@ int main( void )
 
 	// Load the texture
 	GLuint Texture = loadDDS("uvtemplate.DDS");
-	
+
 	// Get a handle for our "myTextureSampler" uniform
 	GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
 
 	// Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
 	// A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
-	static const GLfloat g_vertex_buffer_data[] = { 
+	static const GLfloat g_vertex_buffer_data[] = {
 		-1.0f,-1.0f,-1.0f,
 		-1.0f,-1.0f, 1.0f,
 		-1.0f, 1.0f, 1.0f,
@@ -121,44 +124,51 @@ int main( void )
 	};
 
 	// Two UV coordinatesfor each vertex. They were created withe Blender.
-	static const GLfloat g_uv_buffer_data[] = { 
-		0.000059f, 0.000004f, 
-		0.000103f, 0.336048f, 
-		0.335973f, 0.335903f, 
-		1.000023f, 0.000013f, 
-		0.667979f, 0.335851f, 
-		0.999958f, 0.336064f, 
-		0.667979f, 0.335851f, 
-		0.336024f, 0.671877f, 
-		0.667969f, 0.671889f, 
-		1.000023f, 0.000013f, 
-		0.668104f, 0.000013f, 
-		0.667979f, 0.335851f, 
-		0.000059f, 0.000004f, 
-		0.335973f, 0.335903f, 
-		0.336098f, 0.000071f, 
-		0.667979f, 0.335851f, 
-		0.335973f, 0.335903f, 
-		0.336024f, 0.671877f, 
-		1.000004f, 0.671847f, 
-		0.999958f, 0.336064f, 
-		0.667979f, 0.335851f, 
-		0.668104f, 0.000013f, 
-		0.335973f, 0.335903f, 
-		0.667979f, 0.335851f, 
-		0.335973f, 0.335903f, 
-		0.668104f, 0.000013f, 
-		0.336098f, 0.000071f, 
-		0.000103f, 0.336048f, 
-		0.000004f, 0.671870f, 
-		0.336024f, 0.671877f, 
-		0.000103f, 0.336048f, 
-		0.336024f, 0.671877f, 
-		0.335973f, 0.335903f, 
-		0.667969f, 0.671889f, 
-		1.000004f, 0.671847f, 
+	static const GLfloat g_uv_buffer_data[] = {
+		0.000059f, 0.000004f,
+		0.000103f, 0.336048f,
+		0.335973f, 0.335903f,
+		1.000023f, 0.000013f,
+		0.667979f, 0.335851f,
+		0.999958f, 0.336064f,
+		0.667979f, 0.335851f,
+		0.336024f, 0.671877f,
+		0.667969f, 0.671889f,
+		1.000023f, 0.000013f,
+		0.668104f, 0.000013f,
+		0.667979f, 0.335851f,
+		0.000059f, 0.000004f,
+		0.335973f, 0.335903f,
+		0.336098f, 0.000071f,
+		0.667979f, 0.335851f,
+		0.335973f, 0.335903f,
+		0.336024f, 0.671877f,
+		1.000004f, 0.671847f,
+		0.999958f, 0.336064f,
+		0.667979f, 0.335851f,
+		0.668104f, 0.000013f,
+		0.335973f, 0.335903f,
+		0.667979f, 0.335851f,
+		0.335973f, 0.335903f,
+		0.668104f, 0.000013f,
+		0.336098f, 0.000071f,
+		0.000103f, 0.336048f,
+		0.000004f, 0.671870f,
+		0.336024f, 0.671877f,
+		0.000103f, 0.336048f,
+		0.336024f, 0.671877f,
+		0.335973f, 0.335903f,
+		0.667969f, 0.671889f,
+		1.000004f, 0.671847f,
 		0.667979f, 0.335851f
 	};
+
+	computeMatricesFromInputs();
+	glm::mat4 ProjectionMatrix = getProjectionMatrix();
+	glm::mat4 ViewMatrix = getViewMatrix();
+	glm::mat4 ModelMatrix = glm::mat4(1.0);
+	glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
+	std::cout << glm::to_string(MVP) << std::endl;
 
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
@@ -185,7 +195,7 @@ int main( void )
 		glm::mat4 ModelMatrix = glm::mat4(1.0);
 		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 
-		// Send our transformation to the currently bound shader, 
+		// Send our transformation to the currently bound shader,
 		// in the "MVP" uniform
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 

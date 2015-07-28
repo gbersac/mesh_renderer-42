@@ -180,12 +180,20 @@ GLFWwindow	*init()
 	return (window);
 }
 
+void		init_env(t_env *env)
+{
+	env->last_time = glfwGetTime();
+	env->window = init();
+	env->position = vec_new3(0, 0, 5);
+	env->mvp = mat_new(4, 4);
+}
+
 int			main()
 {
-	GLFWwindow* window;
+	t_env		env;
 
-	window = init();
-	if (window == NULL)
+	init_env(&env);
+	if (env.window == NULL)
 		return (EXIT_FAILURE);
 	// Dark blue background
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
@@ -210,17 +218,7 @@ int			main()
 			(void*)vertexs, GL_STATIC_DRAW);
 	GLuint uv_buff = gl_gen_buffer(GL_ARRAY_BUFFER, sizeof(uvs),
 			(void*)uvs, GL_STATIC_DRAW);
-	// GLuint color_buff = gl_gen_buffer(GL_ARRAY_BUFFER, sizeof(colors),
-	// 		(void*)colors, GL_STATIC_DRAW);
-	// GLuint triangle_buff = gl_gen_buffer(GL_ARRAY_BUFFER, sizeof(triangle_vertexs),
-	// 		(void*)triangle_vertexs, GL_STATIC_DRAW);
-	// GLuint triangle_color_buff = gl_gen_buffer(GL_ARRAY_BUFFER, sizeof(triangle_colors),
-	// 		(void*)triangle_colors, GL_STATIC_DRAW);
 
-	t_mat	*mvp = mvp_matrix();
-	mat_print_label(mvp, "mvp");
-
-	//load texture
 	GLuint texture = load_bmp("src/uvtemplate.bmp");
 	GLuint texture_id  = glGetUniformLocation(shader_texture->program_id,
 			"myTextureSampler");
@@ -230,7 +228,7 @@ int			main()
 
 	// Send our transformation to the currently bound shader, in the "MVP" uniform
 	// For each model you render, since the MVP will be different (at least the M part)
-	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, mvp->array);
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, env.mvp->array);
 	do{
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -238,23 +236,23 @@ int			main()
 		// Use our shader
 		glUseProgram(shader_texture->program_id);
 
-		// Send our transformation to the currently bound shader,
-		// in the "MVP" uniform
-		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, mvp->array);
+		mvp_matrix(&env);
+		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, env.mvp->array);
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture);
 		glUniform1i(texture_id, 0);
 
+
 		gl_display_object(vertex_buff, uv_buff, 12 * 3);
 		// gl_display_object(triangle_buff, triangle_color_buff, 3);
 
 		// Swap buffers
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(env.window);
 		glfwPollEvents();
 	}
-	while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
-		   glfwWindowShouldClose(window) == 0 );
+	while( glfwGetKey(env.window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
+		   glfwWindowShouldClose(env.window) == 0 );
 
 	// Cleanup VBO
 	glDeleteBuffers(1, &vertex_buff);

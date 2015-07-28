@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 16:18:23 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/27 13:30:12 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/28 16:03:21 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,17 @@ t_mat			*mat_multi(t_mat const * const m1, t_mat const * const m2,
 t_mat			*mat_subst(t_mat const * const m1, t_mat const * const m2,
 					t_matrix_err *err);
 
+t_mat			*mat_add(t_mat const * const m1, t_mat const * const m2,
+					t_matrix_err *err);
+
 /*
 ** Invert the value of each cell of the matrix.
 */
 t_matrix_err	mat_neg(t_mat *m);
 
 t_mat			*mat_cpy(t_mat const * const to_cpy);
+
+void			mat_scalar_multi(t_mat * const m, t_mat_type multiplicator,
+					t_matrix_err *err);
 
 #endif
