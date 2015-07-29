@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/28 13:26:17 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/28 14:33:33 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/28 21:06:25 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static GLuint	create_opengl_texture(unsigned int width,
 									unsigned int height,
 									unsigned char *data)
 {
-	GLuint texture_id;
+	GLuint	texture_id;
 
 	glGenTextures(1, &texture_id);
 	glBindTexture(GL_TEXTURE_2D, texture_id);

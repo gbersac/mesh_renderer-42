@@ -13,6 +13,7 @@
 
 # include "shader.h"
 # include "libmath.h"
+# include "libft.h"
 
 typedef struct	s_env
 {
@@ -34,23 +35,36 @@ void		mvp_matrix(t_env *env);
 int			test_mvp();
 
 /*
-** Create an (and only one) opengl buffer.
+** Create one opengl buffer.
 */
 GLuint		gl_gen_buffer(GLenum target, GLsizeiptr size,
 						GLvoid *data, GLenum usage);
 
 /*
-** This function is displaying an object using opengl.
-** The corresponding shader must has been launch and it accept vertices on
-** location 0 and color on location 1.
-**
-** size :	The number of float in the array (nb_vertices * 3).
-*/
-void		gl_display_object(GLuint vertices, GLuint colors, GLuint size);
-
-/*
 ** Load a .bmp teture file.
 */
 GLuint		load_bmp(const char * const imagepath);
+
+typedef struct	s_mesh
+{
+	float		*vertices;
+	float		*uvs;
+	float		*normals;
+	t_uint		size;
+	GLuint		gl_buff_vertex;
+	GLuint		gl_buff_uv;
+}				t_mesh;
+
+t_mesh	*load_mesh(char const * const path);
+
+
+/*
+** This function is displaying an object using opengl.
+** The corresponding shader must has been launch and it accept vertices on
+** location 0 and uv on location 1.
+**
+** size :	The number of float in the array (nb_vertices * 3).
+*/
+void		gl_display_object(t_mesh *mesh);
 
 #endif

@@ -3,7 +3,8 @@
 ################################################################################
 
 SRCS				:= main.c shader.c mvp_matrix.c gl_gen_buffer.c \
-						gl_display_object.c load_bmp.c
+						gl_display_object.c load_bmp.c load_mesh.c \
+						generate_mesh.c
 
 PATH_OBJ			:= obj
 PATH_OBJT			:= objt

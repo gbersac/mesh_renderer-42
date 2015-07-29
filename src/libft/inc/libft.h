@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/30 12:40:04 by gbersac           #+#    #+#             */
-/*   Updated: 2015/01/29 18:00:07 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/29 20:03:28 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,15 +110,25 @@ typedef struct		s_list
 */
 t_list				*ft_lstnew(void *content, size_t content_size);
 
+/*
+** Create a new list node and push it at the end of dest.
+** Copy content in the new list node.
+** return a pointer to the newly created node.
+*/
+t_list				*ft_push_back(t_list **dest, void *content, size_t size);
+
+/*
+** Delete the node alst and all its followers.
+*/
 void				ft_lstdel(t_list **alst, void (*del)(void *));
 
 /*
-** Function which add a node the beginning of the list
+** Function which add a node at the beginning of the list
 ** Doesn't set new->previous == NULL. Usefull to merge two lists.
 */
-void				ft_lstadd(t_list **alst, t_list *new);
+void				ft_lstadd(t_list **alst, t_list *);
 
-void				ft_lstaddq(t_list **alst, t_list *new);
+void				ft_lstaddq(t_list **alst, t_list *);
 
 /*
 ** Append l2 at the end of l1.
@@ -156,10 +166,13 @@ void				ft_lstdelone(t_list **alst, void (*del)(void *));
 void				ft_lstdelnode(t_list **lst, size_t n,
 									void (*del)(t_list *));
 
+/*
+** Return the content of the list node number i. Index start at 0.
+*/
+void				*ft_lst_get(t_list *lst, size_t i);
+
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-
 t_list				*ft_lst_last(t_list *lst);
-
 t_list				*ft_lst_first(t_list *lst);
 
 /*
@@ -188,9 +201,9 @@ void				ft_lst_insert_a(t_list **lst, t_list *to_insert);
 ** Function which add a node the beginning of the list
 ** Doesn't set new->previous == NULL. Usefull to merge two lists.
 */
-void				ft_clstadd(t_list **alst, t_list *new);
+void				ft_clstadd(t_list **alst, t_list *);
 
-void				ft_clstaddq(t_list **alst, t_list *new);
+void				ft_clstaddq(t_list **alst, t_list *);
 
 size_t				ft_clstlen(t_list *lst);
 
@@ -240,7 +253,7 @@ void				ft_slstadd(t_list **lst, char *str);
 void				ft_slstaddq(t_list **lst, char *str);
 
 /*
-** Transform a list of strin into a char**
+** Transform a list of string into a char**
 */
 char				**ft_lststr_to_tab(t_list *lst);
 

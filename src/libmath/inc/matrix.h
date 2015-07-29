@@ -18,7 +18,6 @@
 # include <string.h>
 # include <math.h>
 
-typedef uint32_t	t_uint;
 typedef float		t_mat_type;
 
 typedef struct	s_mat

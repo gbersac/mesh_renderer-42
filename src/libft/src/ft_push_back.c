@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlen.c                                        :+:      :+:    :+:   */
+/*   ft_push_back.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/28 16:11:56 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/29 16:00:28 by gbersac          ###   ########.fr       */
+/*   Created: 2015/07/28 20:29:34 by gbersac           #+#    #+#             */
+/*   Updated: 2015/07/29 13:15:19 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
-size_t		ft_lstlen(t_list *lst)
+t_list				*ft_push_back(t_list **dest, void *content, size_t size)
 {
-	size_t	length;
+	t_list	*newl;
 
-	if (lst == NULL)
-		return (0);
-	lst = ft_lst_first(lst);
-	length = 0;
-	while (lst != NULL)
-	{
-		++length;
-		lst = lst->next;
-	}
-	return (length);
+	newl = ft_lstnew(content, size);
+	ft_lstaddq(dest, newl);
+	return(newl);
 }

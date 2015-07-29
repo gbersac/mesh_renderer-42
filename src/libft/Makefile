@@ -22,7 +22,8 @@ SRCS_LIST	= ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c \
 				ft_mergesort.c ft_lststr_equalise.c ft_biggest_node.c \
 				ft_lst_rotate.c ft_lstdelnode.c ft_lstlen.c ft_lst_first.c \
 				ft_lst_before.c ft_lst_after.c ft_slstadd.c ft_slstaddq.c \
-				ft_lststr_to_tab.c ft_lst_insert_b.c ft_lst_insert_a.c
+				ft_lststr_to_tab.c ft_lst_insert_b.c ft_lst_insert_a.c \
+				ft_push_back.c ft_lst_get.c
 SRCS_CLIST	= ft_clstadd.c ft_clstaddq.c ft_clstlen.c ft_circ_to_regular.c
 SRCS_TREE	= ft_nodenew.c ft_nodedelone.c ft_nodedel.c ft_nodeaddchild.c \
 				ft_nodeaddright.c ft_get_node.c

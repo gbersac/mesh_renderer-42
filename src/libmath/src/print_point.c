@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlen.c                                        :+:      :+:    :+:   */
+/*   print_point.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/28 16:11:56 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/29 16:00:28 by gbersac          ###   ########.fr       */
+/*   Created: 2015/07/29 16:36:35 by gbersac           #+#    #+#             */
+/*   Updated: 2015/07/29 16:53:16 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "libft.h"
+#include "libmath.h"
 
-size_t		ft_lstlen(t_list *lst)
+void	print_pt3f(t_pt3f *pt)
 {
-	size_t	length;
-
-	if (lst == NULL)
-		return (0);
-	lst = ft_lst_first(lst);
-	length = 0;
-	while (lst != NULL)
-	{
-		++length;
-		lst = lst->next;
-	}
-	return (length);
+	printf("%f %f %f\n", pt->x, pt->y, pt->z);
 }
+
+void	print_pt2f(t_pt2f *pt)
+{
+	printf("%f %f\n", pt->x, pt->y);
+}
+
+void	print_pt3u(t_pt3u *pt)
+{
+	printf("%u %u %u\n", pt->x, pt->y, pt->z);
+}
+

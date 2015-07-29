@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlen.c                                        :+:      :+:    :+:   */
+/*   ft_lst_get.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/28 16:11:56 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/29 16:00:28 by gbersac          ###   ########.fr       */
+/*   Created: 2015/07/28 20:56:17 by gbersac           #+#    #+#             */
+/*   Updated: 2015/07/29 18:48:07 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "libft.h"
 
-size_t		ft_lstlen(t_list *lst)
+void				*ft_lst_get(t_list *lst, size_t i)
 {
-	size_t	length;
+	t_list	*iter;
+	size_t	nb_loop;
 
 	if (lst == NULL)
-		return (0);
-	lst = ft_lst_first(lst);
-	length = 0;
-	while (lst != NULL)
+		return (NULL);
+	iter = lst;
+	nb_loop = 0;
+	while (iter != NULL)
 	{
-		++length;
-		lst = lst->next;
+		if (nb_loop == i)
+			return (iter->content);
+		iter = iter->next;
+		++nb_loop;
 	}
-	return (length);
+	return (NULL);
 }

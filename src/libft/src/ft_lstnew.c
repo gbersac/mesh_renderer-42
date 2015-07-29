@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/25 16:39:37 by gbersac           #+#    #+#             */
-/*   Updated: 2014/04/26 23:08:43 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/29 15:52:44 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ t_list		*ft_lstnew(void *content, size_t content_size)
 	else
 	{
 		to_return->content_size = content_size;
-		to_return->content = content;
+		to_return->content = (unsigned char*)malloc(content_size *
+				sizeof(unsigned char));
+		ft_memcpy(to_return->content, content, content_size);
 	}
 	to_return->next = NULL;
 	to_return->prev = NULL;
