@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/28 19:18:51 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/29 21:21:58 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/30 15:44:47 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,5 @@ t_mesh	*load_mesh(char const * const path)
 	}
 	to_return = generate_mesh(&vars);
 	free_vars(&vars);
-	print_mesh(to_return);
 	return(to_return);
 }

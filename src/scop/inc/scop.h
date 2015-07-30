@@ -1,8 +1,12 @@
 #ifndef SCOP_H
 #define SCOP_H
 
-# define WIN_HEIGHT		1024
-# define WIN_WIDTH		768
+# define WIN_HEIGHT			1024
+# define WIN_WIDTH			768
+# define HORIZONTAL_ANGLE 	3.14f
+# define VERTICAL_ANGLE 	0.0f
+# define INITIAL_FOV 		45.0f
+# define SPEED 				3.0f
 
 # include <stdio.h>
 
@@ -31,8 +35,11 @@ typedef struct	s_env
 	double		last_time;
 }				t_env;
 
-void		mvp_matrix(t_env *env);
+void		mvp_matrix();
 int			test_mvp();
+
+void		init_env(t_env *env);
+t_env		*get_env();
 
 /*
 ** Create one opengl buffer.

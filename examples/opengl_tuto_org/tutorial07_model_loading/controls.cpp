@@ -37,6 +37,18 @@ float mouseSpeed = 0.005f;
 
 
 
+void	test_one_position(glm::vec3 &position, int key, float deltaTime, glm::vec3 direction, int add, char *str)
+{
+	if (glfwGetKey(window, key) == GLFW_PRESS){
+		printf("deltaTime %f key %s\n", deltaTime, str);
+		if (add)
+			position += direction * deltaTime * speed;
+		else
+			position -= direction * deltaTime * speed;
+		std::cout << "position " << glm::to_string(position) << std::endl;
+	}
+}
+
 void computeMatricesFromInputs()
 {
 
@@ -45,7 +57,8 @@ void computeMatricesFromInputs()
 
 	// Compute time difference between current and last frame
 	double currentTime = glfwGetTime();
-	float deltaTime = float(currentTime - lastTime);
+	float deltaTime = 0.1;
+	// float deltaTime = float(currentTime - lastTime);
 
 	// Get mouse position
 	double xpos, ypos;
@@ -55,8 +68,8 @@ void computeMatricesFromInputs()
 	glfwSetCursorPos(window, 1024/2, 768/2);
 
 	// Compute new orientation
-	horizontalAngle += mouseSpeed * float(1024/2 - xpos );
-	verticalAngle   += mouseSpeed * float( 768/2 - ypos );
+	// horizontalAngle += mouseSpeed * float(1024/2 - xpos );
+	// verticalAngle   += mouseSpeed * float( 768/2 - ypos );
 
 	// Direction : Spherical coordinates to Cartesian coordinates conversion
 	glm::vec3 direction(
@@ -72,24 +85,18 @@ void computeMatricesFromInputs()
 	);
 
 	// Up vector
-	glm::vec3 up = glm::cross( right, direction );
+	glm::vec3 up = glm::cross( right, direction);
+
+	// std::cout << "direction " << glm::to_string(direction) << std::endl;
+	// std::cout << "right " << glm::to_string(right) << std::endl;
+	// std::cout << "up " << glm::to_string(up) << std::endl;
 
 	// Move forward
-	if (glfwGetKey( window, GLFW_KEY_UP ) == GLFW_PRESS){
-		position += direction * deltaTime * speed;
-	}
-	// Move backward
-	if (glfwGetKey( window, GLFW_KEY_DOWN ) == GLFW_PRESS){
-		position -= direction * deltaTime * speed;
-	}
-	// Strafe right
-	if (glfwGetKey( window, GLFW_KEY_RIGHT ) == GLFW_PRESS){
-		position += right * deltaTime * speed;
-	}
-	// Strafe left
-	if (glfwGetKey( window, GLFW_KEY_LEFT ) == GLFW_PRESS){
-		position -= right * deltaTime * speed;
-	}
+	// test_one_position(position, GLFW_KEY_RIGHT, deltaTime, right, 1, "RIGHT");
+	test_one_position(position, GLFW_KEY_UP, deltaTime, direction, 1, "deep");
+	test_one_position(position, GLFW_KEY_DOWN, deltaTime, direction, 0, "close");
+	test_one_position(position, GLFW_KEY_RIGHT, deltaTime, right, 1, "RIGHT");
+	test_one_position(position, GLFW_KEY_LEFT, deltaTime, right, 0, "LEFT");
 
 	float FoV = initialFoV;// - 5 * glfwGetMouseWheel(); // Now GLFW 3 requires setting up a callback for this. It's a bit too complicated for this beginner's tutorial, so it's disabled instead.
 

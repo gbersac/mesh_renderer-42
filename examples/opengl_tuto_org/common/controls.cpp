@@ -61,7 +61,7 @@ void computeMatricesFromInputs()
 		sin(verticalAngle),
 		cos(verticalAngle) * cos(horizontalAngle)
 	);
-	std::cout << "direction : " << glm::to_string(direction) << std::endl;
+	// std::cout << "direction : " << glm::to_string(direction) << std::endl;
 	// Right vector
 	glm::vec3 right = glm::vec3(
 		sin(horizontalAngle - 3.14f/2.0f),
