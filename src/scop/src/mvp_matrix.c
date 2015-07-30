@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/27 15:29:23 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/30 17:49:21 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/30 20:22:27 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	test_one_position(int key, float delta_time, t_mat *dir, int add)
 		mat_free(&buf);
 	}
 	mat_scalar_multi(dir, 1 / (delta_time * SPEED), NULL);
-	delta_time = 0;
-	key = 0;
 }
 
 void	update_position(float delta_time, t_mat *direction,
@@ -55,6 +53,7 @@ void	mvp_matrix()
 	double currentTime = glfwGetTime();
 	float delta_time = (float)currentTime - env->last_time;
 
+
 	t_vector *direction = vec_new3(
 			cos(VERTICAL_ANGLE) * sin(HORIZONTAL_ANGLE),
 			sin(VERTICAL_ANGLE),
@@ -63,12 +62,13 @@ void	mvp_matrix()
 	t_vector *right = vec_new3(sin(HORIZONTAL_ANGLE - 3.14f/2.0f), 0,
 			cos(HORIZONTAL_ANGLE - 3.14f/2.0f));
 	t_vector *up = vec_cross(right, direction, NULL);
-	t_vector *center = mat_add(env->position, direction, NULL);
 
 	update_position(delta_time, direction, right, up);
 
+	// TODO replace 4.0f / 3.0f by window coordinates
 	projection = mat_perspective(INITIAL_FOV, 4.0f / 3.0f, 0.1f, 100.0f);
 	model = mat_identity(4);
+	t_vector *center = mat_add(env->position, direction, NULL);
 	view = mat_lookat(
 			env->position,
 			center,

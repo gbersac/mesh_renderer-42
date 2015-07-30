@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/22 16:23:46 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/27 18:07:41 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/30 20:24:06 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,11 +222,44 @@ int		test_lookat()
 	    vec_new3(0, 1, 0),  // Head is up (set to 0,-1,0 to look upside-down)
 	    NULL
 	);
-	// mat_print_label(view, "result");
-	// mat_print_label(m, "model");
 	assert(mat_are_equal(m, view, 0));
 	mat_free(&view);
 	mat_free(&m);
+	return (1);
+}
+
+int		test_add()
+{
+	t_mat					*m1;
+	t_matrix_err			error;
+	static const t_mat_type	defval[] = {
+		10, 11, 12,
+		13, 14, -15
+	};
+	t_mat					*m2;
+	static const t_mat_type	defval2[] = {
+		1,  2,  3,
+		4,  5,  6
+	};
+	t_mat					*result;
+	static const t_mat_type	defval_exp[] = {
+		11,	13,	15,
+		17,	19,	-9
+	};
+	t_mat					*expected;
+
+	m1 = mat_new(3, 2);
+	mat_init(m1, defval);
+	m2 = mat_new(3, 2);
+	mat_init(m2, defval2);
+	expected = mat_new(3, 2);
+	mat_init(expected, defval_exp);
+	result = mat_add(m1, m2, NULL);
+	assert(mat_are_equal(expected, result, 0));
+	mat_free(&m1);
+	mat_free(&m2);
+	mat_free(&expected);
+	mat_free(&result);
 	return (1);
 }
 
@@ -250,5 +283,6 @@ int		main(void)
 	launch_test("mat_subst", test_subst);
 	launch_test("mat_lookat", test_lookat);
 	launch_test("mat_length", test_length);
+	launch_test("mat_add", test_add);
 	return (EXIT_SUCCESS);
 }

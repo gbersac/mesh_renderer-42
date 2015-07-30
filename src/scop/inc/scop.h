@@ -6,7 +6,7 @@
 # define HORIZONTAL_ANGLE 	3.14f
 # define VERTICAL_ANGLE 	0.0f
 # define INITIAL_FOV 		45.0f
-# define SPEED 				3.0f
+# define SPEED 				10.0f
 
 # include <stdio.h>
 

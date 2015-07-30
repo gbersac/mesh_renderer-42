@@ -63,7 +63,6 @@ int			main()
 
 	GLuint MatrixID = glGetUniformLocation(shader_texture->program_id, "MVP");
 	do{
-		// printf("Begin: ");check_gl_error();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(shader_texture->program_id);
 
@@ -78,12 +77,11 @@ int			main()
 
 		glfwSwapBuffers(env.window);
 		glfwPollEvents();
-		// printf("End: ");check_gl_error();
 	}
 	while( glfwGetKey(env.window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
 		   glfwWindowShouldClose(env.window) == 0 );
 
-	// Cleanup VBO
+
 	// TODO clean mesh
 	// glDeleteBuffers(1, &vertex_buff);
 	glDeleteVertexArrays(1, &VertexArrayID);
@@ -91,5 +89,10 @@ int			main()
 
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
+
+	texture = 0;
+	texture_id = 0;
+	MatrixID = 0;
+	mesh_cube = NULL;
 	return (EXIT_SUCCESS);
 }

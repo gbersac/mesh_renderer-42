@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/29 21:40:28 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/07/30 18:20:51 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ t_mesh			*generate_mesh(t_load_mesh_vars *vars)
 	nb_vertice = ft_lstlen(vars->vertex_indices);
 	to_return = init_mesh(nb_vertice);
 	fill_mesh(to_return, vars, nb_vertice);
-	// print_mesh(to_return);
 	create_gl_buff(to_return);
 	return (to_return);
 }
