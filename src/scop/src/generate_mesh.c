@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/30 18:20:51 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/04 11:52:20 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_mesh	*init_mesh(size_t nb_vertice)
 	return (to_return);
 }
 
-void	print_uint_list(t_list *array, t_uint size)
+void			print_uint_list(t_list *array, t_uint size)
 {
 	t_uint k = 0;
 	while (array != NULL)

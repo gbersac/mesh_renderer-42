@@ -56,7 +56,7 @@ int			main()
 		printf("Error shader construction\n");
 		return (0);
 	}
-	t_mesh	*mesh_cube = load_mesh("resources/cube.obj");
+	t_mesh	*mesh_cube = load_mesh("resources/42.obj");
 	GLuint texture = load_bmp("src/uvtemplate.bmp");
 	GLuint texture_id  = glGetUniformLocation(shader_texture->program_id,
 			"myTextureSampler");
