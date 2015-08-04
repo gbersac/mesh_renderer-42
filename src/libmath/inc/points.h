@@ -5,6 +5,14 @@
 
 typedef uint32_t	t_uint;
 
+typedef struct	s_pt4f
+{
+	float	w;
+	float	x;
+	float	y;
+	float	z;
+}				t_pt4f;
+
 typedef struct	s_pt3f
 {
 	float	x;
@@ -24,6 +32,14 @@ typedef struct	s_pt3u
 	t_uint	y;
 	t_uint	z;
 }				t_pt3u;
+
+typedef struct	s_pt4u
+{
+	t_uint	w;
+	t_uint	x;
+	t_uint	y;
+	t_uint	z;
+}				t_pt4u;
 
 void	print_pt3f(t_pt3f *pt);
 void	print_pt2f(t_pt2f *pt);

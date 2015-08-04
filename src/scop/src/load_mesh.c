@@ -52,33 +52,6 @@ void	pface(t_list **dst, t_list *src, t_uint idx, size_t size)
 	ft_push_back(dst, model, size);
 }
 
-void	scan_face(t_load_mesh_vars *vars, FILE *file)
-{
-	t_pt3u	vi;
-	t_pt3u	uvi;
-	t_pt3u	ni;
-	int		matches;
-
-	matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n",
-			&vi.x, &uvi.x, &ni.x,
-			&vi.y, &uvi.y, &ni.y,
-			&vi.z, &uvi.z, &ni.z);
-	if (matches != 9)
-	{
-		printf("Error : line can't be read\n");
-		return ;
-	}
-	ft_push_back(&vars->vertex_indices, &vi.x, sizeof(t_uint));
-	ft_push_back(&vars->vertex_indices, &vi.y, sizeof(t_uint));
-	ft_push_back(&vars->vertex_indices, &vi.z, sizeof(t_uint));
-	ft_push_back(&vars->uv_indices, &uvi.x, sizeof(t_uint));
-	ft_push_back(&vars->uv_indices, &uvi.y, sizeof(t_uint));
-	ft_push_back(&vars->uv_indices, &uvi.z, sizeof(t_uint));
-	ft_push_back(&vars->normal_indices, &ni.x, sizeof(t_uint));
-	ft_push_back(&vars->normal_indices, &ni.y, sizeof(t_uint));
-	ft_push_back(&vars->normal_indices, &ni.z, sizeof(t_uint));
-}
-
 void	free_vars(t_load_mesh_vars *vars)
 {
 	ft_lstdel(&vars->uv_indices, free);

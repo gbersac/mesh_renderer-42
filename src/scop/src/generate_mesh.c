@@ -6,25 +6,27 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/30 18:20:51 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/04 13:10:23 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mesh.h"
 
-static t_mesh	*init_mesh(size_t nb_vertice)
+static t_mesh	*init_mesh(size_t nb_vertice, t_load_mesh_vars *vars)
 {
 	t_mesh	*to_return;
 
 	to_return = (t_mesh*)malloc(sizeof(t_mesh));
 	to_return->vertices = (float*)malloc(nb_vertice * 3 * sizeof(float));
-	to_return->uvs = (float*)malloc(nb_vertice * 2 * sizeof(float));
-	to_return->normals = (float*)malloc(nb_vertice * 3 * sizeof(float));
+	to_return->uvs = (float*)malloc(
+			ft_lstlen(vars->uv_indices) * 2 * sizeof(float));
+	to_return->normals = (float*)malloc(
+			ft_lstlen(vars->normal_indices) * 3 * sizeof(float));
 	to_return->size = nb_vertice;
 	return (to_return);
 }
 
-void	print_uint_list(t_list *array, t_uint size)
+void			print_uint_list(t_list *array, t_uint size)
 {
 	t_uint k = 0;
 	while (array != NULL)
@@ -58,12 +60,14 @@ static void		fill_mesh(t_mesh *mesh,
 		memcpy(mesh->vertices + i * 3,
 				ft_lst_get(vars->temp_vertices, *vertex_index - 1),
 				sizeof(t_pt3f));
-		memcpy(mesh->uvs + i * 2,
-				ft_lst_get(vars->temp_uvs, *uv_index - 1),
-				sizeof(t_pt2f));
-		memcpy(mesh->normals + i * 3,
-				ft_lst_get(vars->temp_normals, *normal_index - 1),
-				sizeof(t_pt3f));
+		if (uv_index != NULL)
+			memcpy(mesh->uvs + i * 2,
+					ft_lst_get(vars->temp_uvs, *uv_index - 1),
+					sizeof(t_pt2f));
+		if (normal_index != NULL)
+			memcpy(mesh->normals + i * 3,
+					ft_lst_get(vars->temp_normals, *normal_index - 1),
+					sizeof(t_pt3f));
 		++i;
 	}
 }
@@ -86,7 +90,7 @@ t_mesh			*generate_mesh(t_load_mesh_vars *vars)
 	t_mesh		*to_return;
 
 	nb_vertice = ft_lstlen(vars->vertex_indices);
-	to_return = init_mesh(nb_vertice);
+	to_return = init_mesh(nb_vertice, vars);
 	fill_mesh(to_return, vars, nb_vertice);
 	create_gl_buff(to_return);
 	return (to_return);
