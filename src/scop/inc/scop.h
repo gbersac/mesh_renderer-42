@@ -69,9 +69,10 @@ t_mesh		*load_mesh(char const * const path);
 ** The corresponding shader must has been launch and it accept vertices on
 ** location 0 and uv on location 1.
 **
-** size :	The number of float in the array (nb_vertices * 3).
+** size :		The number of float in the array (nb_vertices * 3).
+** uniform_id:	The id of the glsl uniform in which to put the model matrix.
 */
-void		gl_display_object(t_mesh *mesh);
+void		gl_display_object(t_mesh *mesh, GLuint uniform_id);
 
 t_mat		*model_matrix(t_mesh *mesh);
 void		mvp_matrix();

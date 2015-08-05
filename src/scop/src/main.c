@@ -61,23 +61,22 @@ int			main()
 	GLuint texture_id  = glGetUniformLocation(shader_texture->program_id,
 			"myTextureSampler");
 
-	GLuint MatrixID = glGetUniformLocation(shader_texture->program_id, "MVP");
+	GLuint gl_mvp_uni = glGetUniformLocation(shader_texture->program_id, "MVP");
+	GLuint gl_model_uni = glGetUniformLocation(shader_texture->program_id, "MODEL");
 	do{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(shader_texture->program_id);
 
-		t_mat *model_mat = model_matrix(mesh_cube);
 		mvp_matrix();
-		t_mat *mvp_mat = mat_multi(model_mat, env.mvp, NULL);
-		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, mvp_mat->array);
-		free(model_mat);
-		free(mvp_mat);
+		// t_mat *mvp_mat = mat_multi(model_mat, env.mvp, NULL);
+		glUniformMatrix4fv(gl_mvp_uni, 1, GL_FALSE, env.mvp->array);
+		// free(mvp_mat);
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture);
 		glUniform1i(texture_id, 0);
 
-		gl_display_object(mesh_cube);
+		gl_display_object(mesh_cube, gl_model_uni);
 
 		glfwSwapBuffers(env.window);
 		glfwPollEvents();
@@ -96,7 +95,7 @@ int			main()
 
 	texture = 0;
 	texture_id = 0;
-	MatrixID = 0;
+	gl_mvp_uni = 0;
 	mesh_cube = NULL;
 	return (EXIT_SUCCESS);
 }
