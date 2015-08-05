@@ -31,12 +31,30 @@ void		check_gl_error()
 		printf("No Opengl error\n");
 }
 
-int			main()
+t_mesh		*load_the_mesh(int argc, char **argv)
 {
-	t_env		env;
+	t_mesh	*to_return;
+
+	printf("argc %d file %s\n", argc, argv[1]);
+	if (argc < 2)
+	{
+		printf("Usage : ./scop path_to_obj_file\n");
+		return (NULL);
+	}
+	to_return = load_mesh(argv[1]);
+	return (to_return);
+}
+
+int			main(int argc, char **argv)
+{
+	t_env	env;
+	t_mesh	*mesh;
 
 	init_env(&env);
 	if (env.window == NULL)
+		return (EXIT_FAILURE);
+	mesh = load_the_mesh(argc, argv);
+	if (mesh == NULL)
 		return (EXIT_FAILURE);
 	// Dark blue background
 	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
@@ -56,7 +74,6 @@ int			main()
 		printf("Error shader construction\n");
 		return (0);
 	}
-	t_mesh	*mesh_cube = load_mesh("resources/cube.obj");
 	GLuint texture = load_bmp("src/uvtemplate.bmp");
 	GLuint texture_id  = glGetUniformLocation(shader_texture->program_id,
 			"myTextureSampler");
@@ -65,25 +82,25 @@ int			main()
 	GLuint gl_model_uni = glGetUniformLocation(shader_texture->program_id, "MODEL");
 	do{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glUseProgram(shader_texture->program_id);
+		if (env.mode == MODE_COLOR)
+			glUseProgram(shader_color->program_id);
+		else
+			glUseProgram(shader_texture->program_id);
 
 		mvp_matrix();
-		// t_mat *mvp_mat = mat_multi(model_mat, env.mvp, NULL);
 		glUniformMatrix4fv(gl_mvp_uni, 1, GL_FALSE, env.mvp->array);
-		// free(mvp_mat);
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture);
 		glUniform1i(texture_id, 0);
 
-		gl_display_object(mesh_cube, gl_model_uni);
+		gl_display_object(mesh, gl_model_uni);
 
 		glfwSwapBuffers(env.window);
 		glfwPollEvents();
 	}
-	while( glfwGetKey(env.window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
-		   glfwWindowShouldClose(env.window) == 0 );
-
+	while (glfwGetKey(env.window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
+		   glfwWindowShouldClose(env.window) == 0);
 
 	// TODO clean mesh
 	// glDeleteBuffers(1, &vertex_buff);
@@ -96,6 +113,5 @@ int			main()
 	texture = 0;
 	texture_id = 0;
 	gl_mvp_uni = 0;
-	mesh_cube = NULL;
 	return (EXIT_SUCCESS);
 }

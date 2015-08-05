@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/04 17:08:05 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/05 15:51:10 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/05 18:19:24 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_quaternion	*rot_quat()
 
 	if (to_return == NULL)
 	{
-		axis = vec_new3(1, 0, 1);
+		axis = vec_new3(0.1, 0, 0.1);
 		to_return = quat_rotate_axis(axis, ROTATION_ANGLE);
 		vec_normalize(to_return);
 		free(axis);

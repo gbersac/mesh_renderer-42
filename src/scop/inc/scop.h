@@ -7,7 +7,7 @@
 # define VERTICAL_ANGLE 	0.0f
 # define INITIAL_FOV 		45.0f
 # define SPEED 				10.0f
-# define ROTATION_ANGLE 	0.1f
+# define ROTATION_ANGLE 	0.01f
 
 # include <stdio.h>
 
@@ -19,6 +19,12 @@
 # include "shader.h"
 # include "libmath.h"
 # include "libft.h"
+
+typedef enum	e_mode
+{
+	MODE_COLOR,
+	MODE_TEXTURE
+}				t_mode;
 
 typedef struct	s_env
 {
@@ -34,6 +40,7 @@ typedef struct	s_env
 	** The last time the position has been calculate.
 	*/
 	double		last_time;
+	t_mode		mode;
 }				t_env;
 
 void		init_env(t_env *env);
@@ -55,9 +62,11 @@ typedef struct	s_mesh
 	float			*vertices;
 	float			*uvs;
 	float			*normals;
+	float			*colors;
 	t_uint			size;
 	GLuint			gl_buff_vertex;
 	GLuint			gl_buff_uv;
+	GLuint			gl_buff_colors;
 	t_quaternion	*rotation;
 }				t_mesh;
 

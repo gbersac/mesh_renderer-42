@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/28 19:18:51 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/30 15:44:47 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/05 17:20:11 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,9 @@ t_mesh	*load_mesh(char const * const path)
 	while(1)
 	{
 		char lineHeader[128];
-		// read the first word of the line
 		int res = fscanf(file, "%s", lineHeader);
 		if (res == EOF)
-			break; // EOF = End Of File. Quit the loop.
+			break ;
 		if (strcmp(lineHeader, "v") == 0)
 			scan_vertice(&vars.temp_vertices, file);
 		else if (strcmp(lineHeader, "vt") == 0)

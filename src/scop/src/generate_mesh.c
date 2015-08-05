@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/05 13:52:14 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/05 19:32:18 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static t_mesh	*init_mesh(size_t nb_vertice, t_load_mesh_vars *vars)
 	to_return = (t_mesh*)malloc(sizeof(t_mesh));
 	bzero(to_return, sizeof(t_mesh));
 	to_return->vertices = (float*)malloc(nb_vertice * 3 * sizeof(float));
+	to_return->colors = (float*)malloc(nb_vertice * 9 * sizeof(float));
 	to_return->uvs = (float*)malloc(
 			ft_lstlen(vars->uv_indices) * 2 * sizeof(float));
 	to_return->normals = (float*)malloc(
@@ -77,6 +78,7 @@ static void		fill_mesh(t_mesh *mesh,
 
 static void		create_gl_buff(t_mesh *mesh)
 {
+	printf("%u\n", mesh->size);
 	mesh->gl_buff_vertex = gl_gen_buffer(GL_ARRAY_BUFFER,
 			mesh->size * sizeof(t_pt3f),
 			(void*)mesh->vertices,
@@ -85,6 +87,34 @@ static void		create_gl_buff(t_mesh *mesh)
 			mesh->size * sizeof(t_pt3f),
 			(void*)mesh->uvs,
 			GL_STATIC_DRAW);
+	mesh->gl_buff_colors = gl_gen_buffer(GL_ARRAY_BUFFER,
+			mesh->size * sizeof(t_pt3f),
+			(void*)mesh->colors,
+			GL_STATIC_DRAW);
+}
+
+static void		add_colors(t_mesh *mesh, size_t nb_vertice)
+{
+	float	color;
+	size_t	i;
+
+	i = 0;
+	while (i < nb_vertice)
+	{
+		color = ((float)rand() / RAND_MAX);
+		memcpy(mesh->colors + i * 9 + 0, &color, sizeof(float));
+		memcpy(mesh->colors + i * 9 + 1, &color, sizeof(float));
+		memcpy(mesh->colors + i * 9 + 2, &color, sizeof(float));
+		memcpy(mesh->colors + i * 9 + 3, &color, sizeof(float));
+		memcpy(mesh->colors + i * 9 + 4, &color, sizeof(float));
+		memcpy(mesh->colors + i * 9 + 5, &color, sizeof(float));
+		memcpy(mesh->colors + i * 9 + 6, &color, sizeof(float));
+		memcpy(mesh->colors + i * 9 + 7, &color, sizeof(float));
+		memcpy(mesh->colors + i * 9 + 8, &color, sizeof(float));
+		++i;
+	}
+	printf("%f %f %f \n", *(float*)(mesh->colors), *(float*)(mesh->colors + 1), *(float*)(mesh->colors + 2));
+	printf("%f %f %f \n", *(float*)(mesh->colors + 3), *(float*)(mesh->colors + 4), *(float*)(mesh->colors + 5));
 }
 
 t_mesh			*generate_mesh(t_load_mesh_vars *vars)
@@ -93,8 +123,10 @@ t_mesh			*generate_mesh(t_load_mesh_vars *vars)
 	t_mesh		*to_return;
 
 	nb_vertice = ft_lstlen(vars->vertex_indices);
+	printf("%zu\n", nb_vertice);
 	to_return = init_mesh(nb_vertice, vars);
 	fill_mesh(to_return, vars, nb_vertice);
+	add_colors(to_return, nb_vertice);
 	create_gl_buff(to_return);
 	return (to_return);
 }

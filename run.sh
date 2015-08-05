@@ -7,4 +7,4 @@
 #
 
 
-./src/scop/scop
+./src/scop/scop $1
