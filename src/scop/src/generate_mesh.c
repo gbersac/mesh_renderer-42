@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/04 13:10:23 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/05 13:52:14 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ static t_mesh	*init_mesh(size_t nb_vertice, t_load_mesh_vars *vars)
 	t_mesh	*to_return;
 
 	to_return = (t_mesh*)malloc(sizeof(t_mesh));
+	bzero(to_return, sizeof(t_mesh));
 	to_return->vertices = (float*)malloc(nb_vertice * 3 * sizeof(float));
 	to_return->uvs = (float*)malloc(
 			ft_lstlen(vars->uv_indices) * 2 * sizeof(float));
 	to_return->normals = (float*)malloc(
 			ft_lstlen(vars->normal_indices) * 3 * sizeof(float));
 	to_return->size = nb_vertice;
+	to_return->rotation = vec_new(4);
+	((t_pt4f*)to_return->rotation->array)->w = 1;
 	return (to_return);
 }
 

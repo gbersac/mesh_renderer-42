@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_point.c                                      :+:      :+:    :+:   */
+/*   vec_new4.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/07/29 16:36:35 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/04 17:32:01 by gbersac          ###   ########.fr       */
+/*   Created: 2015/08/04 19:07:44 by gbersac           #+#    #+#             */
+/*   Updated: 2015/08/04 19:18:28 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-void	print_pt4f(t_pt4f *pt)
+t_vector	*vec_new4(t_mat_type v1, t_mat_type v2,
+						t_mat_type v3, t_mat_type v4)
 {
-	printf("%f %f %f %f\n", pt->x, pt->y, pt->z, pt->w);
-}
+	t_vector	*to_return;
 
-void	print_pt3f(t_pt3f *pt)
-{
-	printf("%f %f %f\n", pt->x, pt->y, pt->z);
+	to_return = vec_new(4);
+	to_return->array[0] = v1;
+	to_return->array[1] = v2;
+	to_return->array[2] = v3;
+	to_return->array[3] = v4;
+	return (to_return);
 }
-
-void	print_pt2f(t_pt2f *pt)
-{
-	printf("%f %f\n", pt->x, pt->y);
-}
-
-void	print_pt3u(t_pt3u *pt)
-{
-	printf("%u %u %u\n", pt->x, pt->y, pt->z);
-}
-

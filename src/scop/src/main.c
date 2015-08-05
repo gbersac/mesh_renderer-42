@@ -56,7 +56,7 @@ int			main()
 		printf("Error shader construction\n");
 		return (0);
 	}
-	t_mesh	*mesh_cube = load_mesh("resources/42.obj");
+	t_mesh	*mesh_cube = load_mesh("resources/cube.obj");
 	GLuint texture = load_bmp("src/uvtemplate.bmp");
 	GLuint texture_id  = glGetUniformLocation(shader_texture->program_id,
 			"myTextureSampler");
@@ -66,8 +66,12 @@ int			main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(shader_texture->program_id);
 
+		t_mat *model_mat = model_matrix(mesh_cube);
 		mvp_matrix();
-		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, env.mvp->array);
+		t_mat *mvp_mat = mat_multi(model_mat, env.mvp, NULL);
+		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, mvp_mat->array);
+		free(model_mat);
+		free(mvp_mat);
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture);

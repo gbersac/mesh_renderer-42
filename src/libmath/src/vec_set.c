@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_point.c                                      :+:      :+:    :+:   */
+/*   vec_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/07/29 16:36:35 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/04 17:32:01 by gbersac          ###   ########.fr       */
+/*   Created: 2015/08/04 15:29:20 by gbersac           #+#    #+#             */
+/*   Updated: 2015/08/04 18:11:19 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-void	print_pt4f(t_pt4f *pt)
+void			vec_set(t_vector *vec,
+						t_uint idx,
+						t_mat_type value,
+						t_matrix_err *err)
 {
-	printf("%f %f %f %f\n", pt->x, pt->y, pt->z, pt->w);
+	*err = mat_set(vec, 0, idx, value);
 }
-
-void	print_pt3f(t_pt3f *pt)
-{
-	printf("%f %f %f\n", pt->x, pt->y, pt->z);
-}
-
-void	print_pt2f(t_pt2f *pt)
-{
-	printf("%f %f\n", pt->x, pt->y);
-}
-
-void	print_pt3u(t_pt3u *pt)
-{
-	printf("%u %u %u\n", pt->x, pt->y, pt->z);
-}
-

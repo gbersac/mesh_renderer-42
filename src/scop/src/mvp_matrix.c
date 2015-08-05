@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/27 15:29:23 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/30 20:22:27 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/04 17:06:48 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	update_position(float delta_time, t_mat *direction,
 void	mvp_matrix()
 {
 	t_mat			*projection;
-	t_mat			*model;
 	t_mat			*view;
 	t_env			*env;
 
@@ -67,7 +66,6 @@ void	mvp_matrix()
 
 	// TODO replace 4.0f / 3.0f by window coordinates
 	projection = mat_perspective(INITIAL_FOV, 4.0f / 3.0f, 0.1f, 100.0f);
-	model = mat_identity(4);
 	t_vector *center = mat_add(env->position, direction, NULL);
 	view = mat_lookat(
 			env->position,

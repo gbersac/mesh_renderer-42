@@ -4,7 +4,7 @@
 
 SRCS				:= main.c shader.c mvp_matrix.c gl_gen_buffer.c \
 						gl_display_object.c load_bmp.c load_mesh.c \
-						generate_mesh.c env.c scan_face.c
+						generate_mesh.c env.c scan_face.c model_matrix.c
 
 PATH_OBJ			:= obj
 PATH_OBJT			:= objt

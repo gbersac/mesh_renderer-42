@@ -7,6 +7,7 @@
 # define VERTICAL_ANGLE 	0.0f
 # define INITIAL_FOV 		45.0f
 # define SPEED 				10.0f
+# define ROTATION_ANGLE 	0.1f
 
 # include <stdio.h>
 
@@ -35,9 +36,6 @@ typedef struct	s_env
 	double		last_time;
 }				t_env;
 
-void		mvp_matrix();
-int			test_mvp();
-
 void		init_env(t_env *env);
 t_env		*get_env();
 
@@ -54,15 +52,16 @@ GLuint		load_bmp(const char * const imagepath);
 
 typedef struct	s_mesh
 {
-	float		*vertices;
-	float		*uvs;
-	float		*normals;
-	t_uint		size;
-	GLuint		gl_buff_vertex;
-	GLuint		gl_buff_uv;
+	float			*vertices;
+	float			*uvs;
+	float			*normals;
+	t_uint			size;
+	GLuint			gl_buff_vertex;
+	GLuint			gl_buff_uv;
+	t_quaternion	*rotation;
 }				t_mesh;
 
-t_mesh	*load_mesh(char const * const path);
+t_mesh		*load_mesh(char const * const path);
 
 
 /*
@@ -73,5 +72,8 @@ t_mesh	*load_mesh(char const * const path);
 ** size :	The number of float in the array (nb_vertices * 3).
 */
 void		gl_display_object(t_mesh *mesh);
+
+t_mat		*model_matrix(t_mesh *mesh);
+void		mvp_matrix();
 
 #endif

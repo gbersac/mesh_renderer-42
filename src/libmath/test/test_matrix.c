@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/22 16:23:46 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/30 20:24:06 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/05 14:09:56 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,15 @@ int		test_normalize()
 
 	vec = vec_new3(1, 2, 3);
 	vec_normalize(vec);
-	assert(vec_length(vec) - 1 < 0.000001);
+	assert(fabs(vec_length(vec) - 1) < TOLERANCE);
+	mat_free(&vec);
+	vec = vec_new3(0, 0, 0);
+	vec_normalize(vec);
+	assert(vec_length(vec) == 0);
+	mat_free(&vec);
+	vec = vec_new3(0, 1, -1);
+	vec_normalize(vec);
+	assert(fabs(vec_length(vec) - 1) < TOLERANCE);
 	mat_free(&vec);
 	return (1);
 }
