@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/05 19:32:18 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/05 19:45:05 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ static void		fill_mesh(t_mesh *mesh,
 
 static void		create_gl_buff(t_mesh *mesh)
 {
-	printf("%u\n", mesh->size);
 	mesh->gl_buff_vertex = gl_gen_buffer(GL_ARRAY_BUFFER,
 			mesh->size * sizeof(t_pt3f),
 			(void*)mesh->vertices,
@@ -113,8 +112,6 @@ static void		add_colors(t_mesh *mesh, size_t nb_vertice)
 		memcpy(mesh->colors + i * 9 + 8, &color, sizeof(float));
 		++i;
 	}
-	printf("%f %f %f \n", *(float*)(mesh->colors), *(float*)(mesh->colors + 1), *(float*)(mesh->colors + 2));
-	printf("%f %f %f \n", *(float*)(mesh->colors + 3), *(float*)(mesh->colors + 4), *(float*)(mesh->colors + 5));
 }
 
 t_mesh			*generate_mesh(t_load_mesh_vars *vars)
@@ -123,7 +120,6 @@ t_mesh			*generate_mesh(t_load_mesh_vars *vars)
 	t_mesh		*to_return;
 
 	nb_vertice = ft_lstlen(vars->vertex_indices);
-	printf("%zu\n", nb_vertice);
 	to_return = init_mesh(nb_vertice, vars);
 	fill_mesh(to_return, vars, nb_vertice);
 	add_colors(to_return, nb_vertice);

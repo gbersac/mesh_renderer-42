@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/30 20:40:08 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/05 19:00:52 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/05 19:51:22 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,8 @@ static void	scan_vertice_only_square(t_load_mesh_vars *vars, t_pt4u vi)
 	ft_push_back(&vars->vertex_indices, &vi.y, sizeof(t_uint));
 	ft_push_back(&vars->vertex_indices, &vi.z, sizeof(t_uint));
 	ft_push_back(&vars->vertex_indices, &vi.x, sizeof(t_uint));
-	ft_push_back(&vars->vertex_indices, &vi.w, sizeof(t_uint));
 	ft_push_back(&vars->vertex_indices, &vi.z, sizeof(t_uint));
-	// ft_push_back(&vars->vertex_indices, &vi.y, sizeof(t_uint));
-	// ft_push_back(&vars->vertex_indices, &vi.z, sizeof(t_uint));
-	// ft_push_back(&vars->vertex_indices, &vi.w, sizeof(t_uint));
+	ft_push_back(&vars->vertex_indices, &vi.w, sizeof(t_uint));
 }
 
 void		scan_face(t_load_mesh_vars *vars, FILE *file)

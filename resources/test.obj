@@ -1,18 +1,20 @@
-# WaveFront .obj file - a single square based pyramid
-
-# Start a new group:
-g MySquareBasedPyramid
-
-# List of vertices:
-v -0.5 0 0.5	  # Front left.
-v 0.5 0 0.5	  # Front right.
-v 0.5 0 -0.5	  # Back right
-v -0.5 0 -0.5	  # Back left.
-v 0 1 0           # Top point (top of pyramid).
-
-# List of faces:
-f 4 3 2 1       # Square base (note: normals are placed anti-clockwise).
-f 1 2 5	        # Triangle on front.
-f 3 4 5	        # Triangle on back.
-f 4 1 5	        # Triangle on left side.
-f 2 3 5	        # Triangle on right side.
+v 0.000000 1.000000 1.000000
+v 0.000000 0.000000 1.000000
+v 1.000000 0.000000 1.000000
+v 1.000000 1.000000 1.000000
+v 0.000000 1.000000 0.000000
+v 0.000000 0.000000 0.000000
+v 1.000000 0.000000 0.000000
+v 1.000000 1.000000 0.000000
+f 1 2 3
+f 1 3 4
+f 8 7 6
+f 8 6 5
+f 4 3 7
+f 4 7 8
+f 5 1 4
+f 5 4 8
+f 5 6 2
+f 5 2 1
+f 2 6 7
+f 2 7 3
