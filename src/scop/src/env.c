@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/30 14:47:18 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/05 18:07:41 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/07 15:06:31 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ GLFWwindow	*init()
 	glEnable(GL_CULL_FACE);
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
-
 	return (window);
 }
 
@@ -76,8 +75,8 @@ void		init_env(t_env *env)
 	env->window = init();
 	env->position = vec_new3(0, 0, 5);
 	env->mvp = mat_new(4, 4);
-	env->mode = MODE_COLOR;
-	// env->mode = MODE_TEXTURE;
+	// env->mode = MODE_COLOR;
+	env->mode = MODE_TEXTURE;
 }
 
 t_env	*get_env()

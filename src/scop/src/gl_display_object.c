@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/28 12:45:06 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/05 18:02:48 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/07 15:06:36 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,14 @@ void	gl_display_object(t_mesh *mesh, GLuint uniform_id)
 	t_env	*env;
 
 	env = get_env();
-	// calculate the model matrix of this mesh and send it to opengl
 	t_mat *model_mat = model_matrix(mesh);
 	glUniformMatrix4fv(uniform_id, 1, GL_FALSE, model_mat->array);
-
-	// 1rst attribute buffer : vertices
 	bind_buffer(mesh->gl_buff_vertex, 0, 3);
-
-	// 2nd attribute buffer : uv
 	if (env->mode == MODE_COLOR)
 		bind_buffer(mesh->gl_buff_colors, 1, 3);
 	else
 		bind_buffer(mesh->gl_buff_uv, 1, 2);
-
-
-	// Draw the mesh
 	glDrawArrays(GL_TRIANGLES, 0, mesh->size);
-
-	// free content
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	free(model_mat);

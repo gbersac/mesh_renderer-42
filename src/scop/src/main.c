@@ -35,12 +35,12 @@ t_mesh		*load_the_mesh(int argc, char **argv)
 {
 	t_mesh	*to_return;
 
-	printf("argc %d file %s\n", argc, argv[1]);
 	if (argc < 2)
 	{
 		printf("Usage : ./scop path_to_obj_file\n");
 		return (NULL);
 	}
+	printf("Loading object %s\n", argv[1]);
 	to_return = load_mesh(argv[1]);
 	return (to_return);
 }

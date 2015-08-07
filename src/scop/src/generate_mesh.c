@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/05 19:45:05 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/07 15:26:53 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ static t_mesh	*init_mesh(size_t nb_vertice, t_load_mesh_vars *vars)
 	bzero(to_return, sizeof(t_mesh));
 	to_return->vertices = (float*)malloc(nb_vertice * 3 * sizeof(float));
 	to_return->colors = (float*)malloc(nb_vertice * 9 * sizeof(float));
-	to_return->uvs = (float*)malloc(
-			ft_lstlen(vars->uv_indices) * 2 * sizeof(float));
+	if (ft_lstlen(vars->uv_indices) != 0)
+		to_return->uvs = (float*)malloc(
+				ft_lstlen(vars->uv_indices) * 2 * sizeof(float));
 	to_return->normals = (float*)malloc(
 			ft_lstlen(vars->normal_indices) * 3 * sizeof(float));
 	to_return->size = nb_vertice;
@@ -114,6 +115,22 @@ static void		add_colors(t_mesh *mesh, size_t nb_vertice)
 	}
 }
 
+static void		add_uvs(t_mesh *mesh, size_t nb_vertice)
+{
+	size_t	i;
+	t_pt3f	*vertice;
+
+	mesh->uvs = (float*)malloc(nb_vertice * 2 * sizeof(float));
+	i = 0;
+	while (i < nb_vertice)
+	{
+		vertice = (t_pt3f*)(mesh->vertices + 3 * i);
+		memcpy(mesh->uvs + i * 2 + 0, &vertice->x, sizeof(float));
+		memcpy(mesh->uvs + i * 2 + 1, &vertice->y, sizeof(float));
+		++i;
+	}
+}
+
 t_mesh			*generate_mesh(t_load_mesh_vars *vars)
 {
 	size_t		nb_vertice;
@@ -123,6 +140,8 @@ t_mesh			*generate_mesh(t_load_mesh_vars *vars)
 	to_return = init_mesh(nb_vertice, vars);
 	fill_mesh(to_return, vars, nb_vertice);
 	add_colors(to_return, nb_vertice);
+	if (to_return->uvs == NULL)
+		add_uvs(to_return, nb_vertice);
 	create_gl_buff(to_return);
 	return (to_return);
 }

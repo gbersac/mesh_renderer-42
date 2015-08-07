@@ -8,6 +8,8 @@ An application to render blender mesh (.obj) files in c using raw opengl.
 
 [English tutorial. Sources in folder example.](http://www.opengl-tutorial.org/)
 
+[Another english tutorial.](http://learnopengl.com/)
+
 
 ## Documentation
 
