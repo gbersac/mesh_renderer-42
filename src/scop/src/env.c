@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/30 14:47:18 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/07 15:06:31 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/09 18:34:08 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ GLFWwindow	*init()
 		return (NULL);
 	}
 	glfwMakeContextCurrent(window);
+	glfwSetKeyCallback(window, key_handler);
 
 	// Initialize GLEW
 	glewExperimental = 1; // Needed for core profile
@@ -65,6 +66,7 @@ GLFWwindow	*init()
 	glEnable(GL_CULL_FACE);
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
+	printf("press m to switch mode\n");
 	return (window);
 }
 

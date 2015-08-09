@@ -80,7 +80,9 @@ int			main(int argc, char **argv)
 
 	GLuint gl_mvp_uni = glGetUniformLocation(shader_texture->program_id, "MVP");
 	GLuint gl_model_uni = glGetUniformLocation(shader_texture->program_id, "MODEL");
-	do{
+	while (glfwGetKey(env.window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
+		   glfwWindowShouldClose(env.window) == 0)
+	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if (env.mode == MODE_COLOR)
 			glUseProgram(shader_color->program_id);
@@ -99,8 +101,6 @@ int			main(int argc, char **argv)
 		glfwSwapBuffers(env.window);
 		glfwPollEvents();
 	}
-	while (glfwGetKey(env.window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
-		   glfwWindowShouldClose(env.window) == 0);
 
 	// TODO clean mesh
 	// glDeleteBuffers(1, &vertex_buff);

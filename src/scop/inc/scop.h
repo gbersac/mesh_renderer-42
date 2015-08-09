@@ -8,6 +8,7 @@
 # define INITIAL_FOV 		45.0f
 # define SPEED 				10.0f
 # define ROTATION_ANGLE 	0.01f
+# define KEY_COOLDOWN	 	0.8
 
 # include <stdio.h>
 
@@ -85,5 +86,6 @@ void		gl_display_object(t_mesh *mesh, GLuint uniform_id);
 
 t_mat		*model_matrix(t_mesh *mesh);
 void		mvp_matrix();
+void		key_handler();
 
 #endif
