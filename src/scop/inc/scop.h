@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scop.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/08/09 19:15:28 by gbersac           #+#    #+#             */
+/*   Updated: 2015/08/09 20:10:39 by gbersac          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SCOP_H
 #define SCOP_H
 
@@ -72,7 +84,7 @@ typedef struct	s_mesh
 }				t_mesh;
 
 t_mesh		*load_mesh(char const * const path);
-
+void		free_mesh(t_mesh *m);
 
 /*
 ** This function is displaying an object using opengl.
@@ -86,6 +98,21 @@ void		gl_display_object(t_mesh *mesh, GLuint uniform_id);
 
 t_mat		*model_matrix(t_mesh *mesh);
 void		mvp_matrix();
-void		key_handler(GLFWwindow *window, int key);
+void		key_handler(GLFWwindow *window, int key, int, int, int);
+
+typedef struct	s_resources
+{
+	t_mesh		*mesh;
+	t_shader	*shader_color;
+	t_shader	*shader_texture;
+	GLuint		texture;
+	GLuint		texture_id;
+	GLuint		gl_mvp_uni;
+	GLuint		gl_model_uni;
+	GLuint		vertex_array_id;
+}				t_resources;
+
+t_resources	*load_resources(int argc, char **argv);
+void		free_resources(t_resources *res);
 
 #endif

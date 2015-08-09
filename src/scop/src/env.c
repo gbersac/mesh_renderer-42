@@ -6,82 +6,72 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/30 14:47:18 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/09 18:37:50 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/09 19:51:04 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-t_env		**get_initializable_env()
+static t_env		**get_initializable_env()
 {
 	static t_env	*env = NULL;
 
 	return (&env);
 }
 
-void error_callback(int error, const char* description)
-{
-	printf("GLFW error %d : %s\n", error, description);
-}
-
-GLFWwindow	*init()
+static GLFWwindow	*init_glfw()
 {
 	GLFWwindow* window;
 
-	glfwSetErrorCallback(error_callback);
-	// Initialise GLFW
 	if (!glfwInit())
 	{
-		fprintf(stderr, "Failed to initialize GLFW\n" );
+		fprintf(stderr, "Failed to initialize GLFW\n");
 		return (NULL);
 	}
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	// Open a window and create its OpenGL context
 	window = glfwCreateWindow(WIN_HEIGHT, WIN_WIDTH, "Scop", NULL, NULL);
-	if(window == NULL){
-		fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
+	if(window == NULL)
+	{
+		fprintf(stderr, "Failed to open GLFW window.\n");
 		glfwTerminate();
 		return (NULL);
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, key_handler);
-
-	// Initialize GLEW
-	glewExperimental = 1; // Needed for core profile
-	if (glewInit() != GLEW_OK) {
-		fprintf(stderr, "Failed to initialize GLEW\n");
-		return (NULL);
-	}
-	glGetError();
-
-	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-
-	// Enable depth test
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS);
-	printf("press m to switch mode\n");
 	return (window);
 }
 
-void		init_env(t_env *env)
+static void			init_gl()
+{
+	glewExperimental = 1;
+	if (glewInit() != GLEW_OK)
+	{
+		fprintf(stderr, "Failed to initialize GLEW\n");
+		return ;
+	}
+	glGetError();
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glDepthFunc(GL_LESS);
+	printf("press m to switch mode\n");
+}
+
+void				init_env(t_env *env)
 {
 	*get_initializable_env() = env;
 	env->last_time = glfwGetTime();
-	env->window = init();
+	env->window = init_glfw();
 	env->position = vec_new3(0, 0, 5);
 	env->mvp = mat_new(4, 4);
-	// env->mode = MODE_COLOR;
-	env->mode = MODE_TEXTURE;
+	env->mode = MODE_COLOR;
+	init_gl();
 }
 
-t_env	*get_env()
+t_env				*get_env()
 {
 	return (*get_initializable_env());
 }
