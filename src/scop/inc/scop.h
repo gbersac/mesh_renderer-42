@@ -86,6 +86,6 @@ void		gl_display_object(t_mesh *mesh, GLuint uniform_id);
 
 t_mat		*model_matrix(t_mesh *mesh);
 void		mvp_matrix();
-void		key_handler();
+void		key_handler(GLFWwindow *window, int key);
 
 #endif
