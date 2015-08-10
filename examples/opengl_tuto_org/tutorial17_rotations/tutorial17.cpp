@@ -278,11 +278,10 @@ int main( void )
 			// ###
 			glm::mat4 RotationMatrix = mat4_cast(gOrientation2);
 			print_quat(gOrientation2);
-			std::cout << "RotationMatrix " << glm::to_string(RotationMatrix) << std::endl << std::endl;
-			// glm::mat4 TranslationMatrix = translate(mat4(), gPosition2); // A bit to the right
-			// glm::mat4 ScalingMatrix = scale(mat4(), vec3(1.0f, 1.0f, 1.0f));
-			// glm::mat4 ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
-			glm::mat4 ModelMatrix = RotationMatrix;
+			glm::mat4 TranslationMatrix = translate(mat4(), vec3(1, 1, 1)); // A bit to the rigvec3(1, 1, 1)
+			std::cout << "TranslationMatrix " << glm::to_string(TranslationMatrix) << std::endl << std::endl;
+			glm::mat4 ScalingMatrix = scale(mat4(), vec3(1.0f, 1.0f, 1.0f));
+			glm::mat4 ModelMatrix = TranslationMatrix * RotationMatrix * ScalingMatrix;
 
 			glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 

@@ -5,7 +5,8 @@
 SRCS_MAT	:= mat_basics.c mat_print.c mat_identity.c mat_perspective.c \
 				mat_are_equal.c mat_zero.c mat_multi.c mat_lookat.c  \
 				mat_ret.c mat_subst.c mat_cpy.c mat_get.c mat_set.c mat_add.c \
-				mat_scalar_multi.c
+				mat_scalar_multi.c mat_diagonal.c mat_translation.c \
+				mat_print_err.c
 SRCS_VEC	:= vec_new3.c vec_length.c vec_normalize.c vec_cross.c vec_new.c \
 				vec_dot.c vec_get.c vec_set.c vec_new4.c
 SRCS_POINT	:= print_point.c
@@ -27,7 +28,7 @@ PATH_TEST	:= test
 NAME		:= libmath.a
 CFLAGS		:= -Wall -Wextra -Werror
 OBJECTS		:= $(patsubst %.c, $(PATH_OBJ)/%.o, $(SRCS))
-OBJECTS_TEST= $(patsubst %.c, $(PATH_OBJT)/%, $(SRCS_TEST))
+OBJECTS_TEST:= $(patsubst %.c, $(PATH_OBJT)/%, $(SRCS_TEST))
 DEBUG		:= -g -O0
 
 TEST_CMD	:= $(patsubst %.c, $(PATH_OBJT)/%;, $(SRCS_TEST))

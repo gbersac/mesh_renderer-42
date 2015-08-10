@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 16:18:23 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/28 16:03:21 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/10 17:48:20 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef enum	e_matrix_err
 	OUT_OF_BOUND,
 	INCOMPATIBLE_SIZE,
 }				t_matrix_err;
+
+void	mat_print_error(t_matrix_err err);
 
 /*
 ** Convenience function for matrix. Shouldn't be used out of the lib.
@@ -75,6 +77,7 @@ t_matrix_err	mat_set(t_mat *m, t_uint y, t_uint x, t_mat_type val);
 ** Return an identity matrix of sixe n x n
 */
 t_mat			*mat_identity(t_uint n);
+t_mat			*mat_diagonal(t_mat *mat, t_uint n, float val);
 
 /*
 ** Return a perspective matrix for graphical purpose.
@@ -121,5 +124,7 @@ t_mat			*mat_cpy(t_mat const * const to_cpy);
 
 void			mat_scalar_multi(t_mat * const m, t_mat_type multiplicator,
 					t_matrix_err *err);
+
+t_mat			*mat_translation(t_mat *dest, t_pt3f direction);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/28 12:45:06 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/10 16:16:16 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/10 17:54:02 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void			gl_display_object(t_resources *res, t_mesh *mesh, t_mode mode)
 	else
 		glUseProgram(res->shader_texture->program_id);
 	t_mat *model_mat = model_matrix(mesh);
+	mat_print_label(model_mat, "model");
 	glUniformMatrix4fv(res->gl_model_uni, 1, GL_FALSE, model_mat->array);
 	bind_buffer(mesh->gl_buff_vertex, 0, 3);
 	if (mode == MODE_COLOR)

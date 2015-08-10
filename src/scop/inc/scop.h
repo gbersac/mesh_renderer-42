@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:15:28 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/10 15:58:16 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/10 17:48:55 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct		s_mesh
 	GLuint			gl_buff_uv;
 	GLuint			gl_buff_colors;
 	t_quaternion	*rotation;
+	t_pt3f			position;
+	float			scale;
 }					t_mesh;
 
 /*

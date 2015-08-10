@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/10 15:58:50 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/10 17:25:16 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static t_mesh	*init_mesh(size_t nb_vertice, t_load_mesh_vars *vars)
 	to_return->rotation = vec_new(4);
 	mat_zero(to_return->rotation);
 	((t_pt4f*)to_return->rotation->array)->w = 1;
+	to_return->scale = 1;
 	return (to_return);
 }
 

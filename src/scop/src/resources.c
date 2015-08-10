@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:36:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/10 16:03:07 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/10 18:18:44 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,18 @@ static int		load_all_shaders(t_resources *res)
 	return (0);
 }
 
-t_resources	*load_resources(int argc, char **argv)
+static t_mesh	*load_light_mesh()
+{
+	t_mesh	*to_return;
+
+	to_return = load_mesh("resources/cube.obj");
+	to_return->position.x = -1;
+	to_return->position.y = 0.5;
+	to_return->position.z = -3;
+	return (to_return);
+}
+
+t_resources		*load_resources(int argc, char **argv)
 {
 	t_resources	*res;
 
@@ -66,7 +77,7 @@ t_resources	*load_resources(int argc, char **argv)
 	if (load_all_shaders(res))
 		return (NULL);
 	res->mesh = load_the_mesh(argc, argv);
-	res->light_mesh = load_mesh("resources/cube.obj");
+	res->light_mesh = load_light_mesh();
 	if (res->mesh == NULL || res->light_mesh == NULL)
 		return (NULL);
 	glGenVertexArrays(1, &res->vertex_array_id);
