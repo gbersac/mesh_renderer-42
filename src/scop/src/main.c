@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:09:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/09 20:01:57 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/10 16:15:35 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,14 @@ void		loop(t_env *env, t_resources *res)
 		   glfwWindowShouldClose(env->window) == 0)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		if (env->mode == MODE_COLOR)
-			glUseProgram(res->shader_color->program_id);
-		else
-			glUseProgram(res->shader_texture->program_id);
+		rotate_mesh(res->mesh);
 		mvp_matrix();
-		glUniformMatrix4fv(res->gl_mvp_uni, 1, GL_FALSE, env->mvp->array);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, res->texture);
 		glUniform1i(res->texture_id, 0);
-		gl_display_object(res->mesh, res->gl_model_uni);
+		gl_display_object(res, res->mesh, env->mode);
+		glUniformMatrix4fv(res->gl_mvp_uni, 1, GL_FALSE, env->mvp->array);
+		gl_display_object(res, res->light_mesh, MODE_COLOR);
 		glfwSwapBuffers(env->window);
 		glfwPollEvents();
 	}

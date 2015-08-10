@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/28 19:18:51 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/05 17:20:11 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/10 13:51:11 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	scan_uv(t_list **temp_uvs, FILE *file)
 	t_list		*newl;
 
 	fscanf(file, "%f %f\n", &pt.x, &pt.y);
-	pt.y = -pt.y; // Invert V coordinate since we will only use DDS texture, which are inverted. Remove if you want to use TGA or BMP loaders.
+	pt.y = pt.y;
 	newl = ft_lstnew(&pt, sizeof(t_pt2f));
 	ft_clstaddq(temp_uvs, newl);
 }
@@ -62,32 +62,32 @@ void	free_vars(t_load_mesh_vars *vars)
 	// ft_lstdel(&vars->temp_normals, free);
 }
 
-void	print_mesh_points(float *array, t_uint size, t_uint increment)
-{
-	t_uint	i;
+// void	print_mesh_points(float *array, t_uint size, t_uint increment)
+// {
+// 	t_uint	i;
 
-	i = 0;
-	while (i < size)
-	{
-		if (increment == 2)
-			printf("%f %f\n", *(array + i * 2), *(array + i * 2 + 1));
-		if (increment == 3)
-			printf("%f %f %f\n", *(array + i * 3),
-					*(array + i * 3 + 1),
-					*(array + i * 3 + 2));
-		++i;
-	}
-}
+// 	i = 0;
+// 	while (i < size)
+// 	{
+// 		if (increment == 2)
+// 			printf("%f %f\n", *(array + i * 2), *(array + i * 2 + 1));
+// 		if (increment == 3)
+// 			printf("%f %f %f\n", *(array + i * 3),
+// 					*(array + i * 3 + 1),
+// 					*(array + i * 3 + 2));
+// 		++i;
+// 	}
+// }
 
-void	print_mesh(t_mesh *mesh)
-{
-	printf("\tvertices\n");
-	print_mesh_points(mesh->vertices, mesh->size, 3);
-	printf("\n\tuvs\n");
-	print_mesh_points(mesh->uvs, mesh->size, 2);
-	printf("\n\tnormals\n");
-	print_mesh_points(mesh->normals, mesh->size, 3);
-}
+// void	print_mesh(t_mesh *mesh)
+// {
+// 	printf("\tvertices\n");
+// 	print_mesh_points(mesh->vertices, mesh->size, 3);
+// 	printf("\n\tuvs\n");
+// 	print_mesh_points(mesh->uvs, mesh->size, 2);
+// 	printf("\n\tnormals\n");
+// 	print_mesh_points(mesh->normals, mesh->size, 3);
+// }
 
 t_mesh	*load_mesh(char const * const path)
 {

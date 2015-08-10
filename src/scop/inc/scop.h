@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:15:28 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/09 20:10:39 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/10 15:58:16 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,44 +33,44 @@
 # include "libmath.h"
 # include "libft.h"
 
-typedef enum	e_mode
+typedef enum		e_mode
 {
 	MODE_COLOR,
 	MODE_TEXTURE
-}				t_mode;
+}					t_mode;
 
-typedef struct	s_env
+typedef struct		s_env
 {
-	GLFWwindow	*window;
-	t_vector	*position;
+	GLFWwindow		*window;
+	t_vector		*position;
 
 	/*
 	** The matrix used to move a point from the origin to the world.
 	*/
-	t_mat		*mvp;
+	t_mat			*mvp;
 
 	/*
 	** The last time the position has been calculate.
 	*/
-	double		last_time;
-	t_mode		mode;
-}				t_env;
+	double			last_time;
+	t_mode			mode;
+}					t_env;
 
-void		init_env(t_env *env);
-t_env		*get_env();
+void				init_env(t_env *env);
+t_env				*get_env();
 
 /*
 ** Create one opengl buffer.
 */
-GLuint		gl_gen_buffer(GLenum target, GLsizeiptr size,
-						GLvoid *data, GLenum usage);
+GLuint				gl_gen_buffer(GLenum target, GLsizeiptr size,
+								GLvoid *data, GLenum usage);
 
 /*
 ** Load a .bmp teture file.
 */
-GLuint		load_bmp(const char * const imagepath);
+GLuint				load_bmp(const char * const imagepath);
 
-typedef struct	s_mesh
+typedef struct		s_mesh
 {
 	float			*vertices;
 	float			*uvs;
@@ -81,10 +81,40 @@ typedef struct	s_mesh
 	GLuint			gl_buff_uv;
 	GLuint			gl_buff_colors;
 	t_quaternion	*rotation;
-}				t_mesh;
+}					t_mesh;
 
-t_mesh		*load_mesh(char const * const path);
-void		free_mesh(t_mesh *m);
+/*
+** All the loading mesh are in resource.c
+** You HAVE TO bind the mesh to a buffer uniform. Use resource.c function
+** load_and_bind_mesh
+*/
+t_mesh				*load_mesh(char const * const path);
+void				free_mesh(t_mesh *m);
+
+/*
+** Function which rotate the mesh.
+*/
+void				rotate_mesh(t_mesh *m);
+
+t_mat				*model_matrix(t_mesh *mesh);
+void				mvp_matrix();
+void				key_handler(GLFWwindow *window, int key, int, int, int);
+
+typedef struct		s_resources
+{
+	t_mesh			*mesh;
+	t_mesh			*light_mesh;
+	t_shader		*shader_color;
+	t_shader		*shader_texture;
+	GLuint			texture;
+	GLuint			texture_id;
+	GLuint			gl_mvp_uni;
+	GLuint			gl_model_uni;
+	GLuint			vertex_array_id;
+}					t_resources;
+
+t_resources			*load_resources(int argc, char **argv);
+void				free_resources(t_resources *res);
 
 /*
 ** This function is displaying an object using opengl.
@@ -94,25 +124,8 @@ void		free_mesh(t_mesh *m);
 ** size :		The number of float in the array (nb_vertices * 3).
 ** uniform_id:	The id of the glsl uniform in which to put the model matrix.
 */
-void		gl_display_object(t_mesh *mesh, GLuint uniform_id);
-
-t_mat		*model_matrix(t_mesh *mesh);
-void		mvp_matrix();
-void		key_handler(GLFWwindow *window, int key, int, int, int);
-
-typedef struct	s_resources
-{
-	t_mesh		*mesh;
-	t_shader	*shader_color;
-	t_shader	*shader_texture;
-	GLuint		texture;
-	GLuint		texture_id;
-	GLuint		gl_mvp_uni;
-	GLuint		gl_model_uni;
-	GLuint		vertex_array_id;
-}				t_resources;
-
-t_resources	*load_resources(int argc, char **argv);
-void		free_resources(t_resources *res);
+void				gl_display_object(t_resources *res,
+										t_mesh *mesh,
+										t_mode mode);
 
 #endif

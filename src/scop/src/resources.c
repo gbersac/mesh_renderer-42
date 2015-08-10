@@ -6,13 +6,13 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:36:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/09 20:11:59 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/10 16:03:07 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-void		free_resources(t_resources *res)
+void			free_resources(t_resources *res)
 {
 	glDeleteProgram(res->shader_color->program_id);
 	glDeleteProgram(res->shader_texture->program_id);
@@ -20,6 +20,15 @@ void		free_resources(t_resources *res)
 	free_mesh(res->mesh);
 	glDeleteTextures(1, &res->texture);
 }
+
+// static t_mesh	*load_and_bind_mesh(char const *path, GLuint shader, char *name)
+// {
+// 	t_mesh	*to_return;
+
+// 	to_return = load_mesh(path);
+// 	to_return->gl_uniform = glGetUniformLocation(shader, name);
+// 	return (to_return);
+// }
 
 t_mesh         *load_the_mesh(int argc, char **argv)
 {
@@ -54,10 +63,11 @@ t_resources	*load_resources(int argc, char **argv)
 	t_resources	*res;
 
 	res = (t_resources*)malloc(sizeof(t_resources));
-	res->mesh = load_the_mesh(argc, argv);
-	if (res->mesh == NULL)
-		return (NULL);
 	if (load_all_shaders(res))
+		return (NULL);
+	res->mesh = load_the_mesh(argc, argv);
+	res->light_mesh = load_mesh("resources/cube.obj");
+	if (res->mesh == NULL || res->light_mesh == NULL)
 		return (NULL);
 	glGenVertexArrays(1, &res->vertex_array_id);
 	glBindVertexArray(res->vertex_array_id);

@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/27 15:29:23 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/04 17:06:48 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/10 14:39:00 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	mvp_matrix()
 	double currentTime = glfwGetTime();
 	float delta_time = (float)currentTime - env->last_time;
 
-
 	t_vector *direction = vec_new3(
 			cos(VERTICAL_ANGLE) * sin(HORIZONTAL_ANGLE),
 			sin(VERTICAL_ANGLE),
@@ -63,9 +62,8 @@ void	mvp_matrix()
 	t_vector *up = vec_cross(right, direction, NULL);
 
 	update_position(delta_time, direction, right, up);
-
-	// TODO replace 4.0f / 3.0f by window coordinates
-	projection = mat_perspective(INITIAL_FOV, 4.0f / 3.0f, 0.1f, 100.0f);
+	projection = mat_perspective(INITIAL_FOV,
+			WIN_HEIGHT / WIN_WIDTH, 0.1f, 100.0f);
 	t_vector *center = mat_add(env->position, direction, NULL);
 	view = mat_lookat(
 			env->position,
@@ -73,8 +71,6 @@ void	mvp_matrix()
 			up,
 			NULL);
 	env->mvp = mat_multi(view, projection, NULL);
-	// multiplication par model ?
 	mat_free(&direction); mat_free(&right); mat_free(&up); mat_free(&center);
-
 	env->last_time = currentTime;
 }

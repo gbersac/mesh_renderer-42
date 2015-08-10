@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/07 15:26:53 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/10 15:58:50 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,10 @@ static t_mesh	*init_mesh(size_t nb_vertice, t_load_mesh_vars *vars)
 			ft_lstlen(vars->normal_indices) * 3 * sizeof(float));
 	to_return->size = nb_vertice;
 	to_return->rotation = vec_new(4);
+	mat_zero(to_return->rotation);
 	((t_pt4f*)to_return->rotation->array)->w = 1;
 	return (to_return);
 }
-
-void			print_uint_list(t_list *array, t_uint size)
-{
-	t_uint k = 0;
-	while (array != NULL)
-	{
-		t_uint		*veridx = (t_uint *)array->content;
-		if (veridx != NULL)
-			printf("a[%u] %u ", k, *veridx);
-		array = array->next;
-		++k;
-	}
-	printf("\n");
-	size = 0;
-}
-
 
 static void		fill_mesh(t_mesh *mesh,
 							t_load_mesh_vars *vars,
