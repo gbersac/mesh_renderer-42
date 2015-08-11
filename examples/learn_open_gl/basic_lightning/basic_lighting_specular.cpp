@@ -164,6 +164,10 @@ int main()
     glEnableVertexAttribArray(0);
     glBindVertexArray(0);
 
+    GLint objectColorLoc = glGetUniformLocation(lightingShader.Program, "objectColor");
+    GLint lightColorLoc  = glGetUniformLocation(lightingShader.Program, "lightColor");
+    GLint lightPosLoc    = glGetUniformLocation(lightingShader.Program, "lightPos");
+    GLint viewPosLoc     = glGetUniformLocation(lightingShader.Program, "viewPos");
 
     // Game loop
     while (!glfwWindowShouldClose(window))
@@ -183,16 +187,10 @@ int main()
 
         // Use cooresponding shader when setting uniforms/drawing objects
         lightingShader.Use();
-        GLint objectColorLoc = glGetUniformLocation(lightingShader.Program, "objectColor");
-        GLint lightColorLoc  = glGetUniformLocation(lightingShader.Program, "lightColor");
-        GLint lightPosLoc    = glGetUniformLocation(lightingShader.Program, "lightPos");
-        GLint viewPosLoc     = glGetUniformLocation(lightingShader.Program, "viewPos");
         glUniform3f(objectColorLoc, 1.0f, 0.5f, 0.31f);
         glUniform3f(lightColorLoc,  1.0f, 1.0f, 1.0f);
         glUniform3f(lightPosLoc,    lightPos.x, lightPos.y, lightPos.z);
         glUniform3f(viewPosLoc,     camera.Position.x, camera.Position.y, camera.Position.z);
-
-
 
         // Create camera transformations
         glm::mat4 view;

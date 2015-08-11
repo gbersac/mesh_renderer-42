@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_point.c                                      :+:      :+:    :+:   */
+/*   vec_normal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/07/29 16:36:35 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 18:23:32 by gbersac          ###   ########.fr       */
+/*   Created: 2015/08/11 16:32:09 by gbersac           #+#    #+#             */
+/*   Updated: 2015/08/11 16:43:29 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-void	print_pt4f(t_pt4f *pt)
+t_mat	*vec_normal(t_pt3f *pt1, t_pt3f *pt2, t_pt3f *pt3)
 {
-	printf("%f %f %f %f", pt->x, pt->y, pt->z, pt->w);
-}
+	t_mat		*to_return;
+	t_vector	*vec1;
+	t_vector	*vec2;
 
-void	print_pt3f(t_pt3f *pt)
-{
-	printf("%f %f %f", pt->x, pt->y, pt->z);
+	vec1 = vec_new3(pt2->x - pt1->x, pt2->y - pt1->y, pt2->z - pt1->z);
+	vec2 = vec_new3(pt3->x - pt1->x, pt3->y - pt1->y, pt3->z - pt1->z);
+	to_return = vec_cross(vec1, vec2, NULL);
+	mat_free(&vec1);
+	mat_free(&vec2);
+	return(to_return);
 }
-
-void	print_pt2f(t_pt2f *pt)
-{
-	printf("%f %f", pt->x, pt->y);
-}
-
-void	print_pt3u(t_pt3u *pt)
-{
-	printf("%u %u %u", pt->x, pt->y, pt->z);
-}
-

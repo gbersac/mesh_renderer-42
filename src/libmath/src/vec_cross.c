@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 19:14:50 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/26 22:43:49 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/11 16:46:05 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ t_vector	*vec_cross(t_vector const * const v1, t_vector const * const v2,
 			v1->array[0] * v2->array[2];
 	to_return->array[2] = v1->array[0] * v2->array[1] -
 			v1->array[1] * v2->array[0];
-	// to_return->array[0] = m(v1, v2, 2, 3) - m(v1, v2, 3, 2);
-	// to_return->array[1] = m(v1, v2, 3, 1) - m(v1, v2, 1, 3);
-	// to_return->array[2] = m(v1, v2, 1, 2) - m(v1, v2, 2, 1);
 	mat_ret(err, NO_ERROR);
 	return(to_return);
 }

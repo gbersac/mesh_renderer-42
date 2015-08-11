@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 14:48:42 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/11 19:13:22 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ static t_mesh	*init_mesh(size_t nb_vertice, t_load_mesh_vars *vars)
 	if (ft_lstlen(vars->uv_indices) != 0)
 		to_return->uvs = (float*)malloc(
 				ft_lstlen(vars->uv_indices) * 2 * sizeof(float));
-	to_return->normals = (float*)malloc(
-			ft_lstlen(vars->normal_indices) * 3 * sizeof(float));
+	if (ft_lstlen(vars->normal_indices) != 0)
+		to_return->normals = (float*)malloc(
+				ft_lstlen(vars->normal_indices) * 3 * sizeof(float));
 	to_return->size = nb_vertice;
 	to_return->rotation = vec_new(4);
 	mat_zero(to_return->rotation);
@@ -143,6 +144,8 @@ t_mesh			*generate_mesh(t_load_mesh_vars *vars)
 	add_colors(to_return, nb_vertice);
 	if (to_return->uvs == NULL)
 		add_uvs(to_return, nb_vertice);
+	if (to_return->normals == NULL)
+		add_normals(to_return, nb_vertice);
 	create_gl_buff(to_return);
 	return (to_return);
 }

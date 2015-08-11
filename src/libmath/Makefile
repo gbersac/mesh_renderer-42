@@ -8,7 +8,7 @@ SRCS_MAT	:= mat_basics.c mat_print.c mat_identity.c mat_perspective.c \
 				mat_scalar_multi.c mat_diagonal.c mat_translation.c \
 				mat_print_err.c
 SRCS_VEC	:= vec_new3.c vec_length.c vec_normalize.c vec_cross.c vec_new.c \
-				vec_dot.c vec_get.c vec_set.c vec_new4.c
+				vec_dot.c vec_get.c vec_set.c vec_new4.c vec_normal.c
 SRCS_POINT	:= print_point.c
 SRCS_QUAT	:= quat_rotate_axis.c quat_to_matrix.c quat_multi.c
 

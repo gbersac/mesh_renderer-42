@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 16:18:23 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/04 19:08:24 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/11 16:52:06 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,14 @@ t_mat_type		vec_dot(t_vector const * const v1, t_vector const * const v2,
 ** This is the function to create the view matrix.
 ** This matrix will be used to move the world
 */
-t_mat	*mat_lookat(t_vector const *eye,
-						t_vector const *center,
-						t_vector const *up,
-						t_matrix_err *err);
+t_mat			*mat_lookat(t_vector const *eye,
+							t_vector const *center,
+							t_vector const *up,
+							t_matrix_err *err);
+
+/*
+** Return the vector perpendicular to the plane of all those points.
+*/
+t_mat			*vec_normal(t_pt3f *pt1, t_pt3f *pt2, t_pt3f *pt3);
 
 #endif

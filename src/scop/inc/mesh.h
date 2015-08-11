@@ -17,5 +17,7 @@ t_mesh	*generate_mesh(t_load_mesh_vars *vars);
 void	print_mesh(t_mesh *mesh);
 void	print_uint_list(t_list *array, t_uint size);
 void	scan_face(t_load_mesh_vars *vars, FILE *file);
+void			add_normals(t_mesh *mesh,
+							size_t nb_vertice);
 
 #endif

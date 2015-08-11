@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:15:28 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 15:24:36 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/11 18:30:35 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define KEY_COOLDOWN	 	0.8
 
 # define LIGHT_POS_X	 	0
-# define LIGHT_POS_Y	 	5
+# define LIGHT_POS_Y	 	100
 # define LIGHT_POS_Z	 	0
 
 # include <stdio.h>
@@ -90,11 +90,6 @@ typedef struct		s_mesh
 	float			scale;
 }					t_mesh;
 
-/*
-** All the loading mesh are in resource.c
-** You HAVE TO bind the mesh to a buffer uniform. Use resource.c function
-** load_and_bind_mesh
-*/
 t_mesh				*load_mesh(char const * const path);
 void				free_mesh(t_mesh *m);
 

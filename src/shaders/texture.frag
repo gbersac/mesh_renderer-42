@@ -17,7 +17,6 @@ void main()
 {
 	// set variables
 	vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
-	float specularStrength = 0.5f;
 	vec3 lightDir = normalize(LIGHT_POSITION - FragPos);
 	vec3 norm = normalize(Normal);
 
@@ -26,6 +25,7 @@ void main()
 	vec3 diffuse = diff * lightColor;
 
 	// calculate specular light
+	float specularStrength = 0.5f;
 	vec3 viewDir = normalize(CAMERA_POSITION - FragPos);
 	vec3 reflectDir = reflect(-lightDir, norm);
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
