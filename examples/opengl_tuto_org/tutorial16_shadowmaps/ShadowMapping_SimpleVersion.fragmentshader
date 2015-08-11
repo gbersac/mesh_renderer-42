@@ -8,16 +8,16 @@ in vec4 ShadowCoord;
 layout(location = 0) out vec3 color;
 
 // Values that stay constant for the whole mesh.
-uniform sampler2D myTextureSampler;
+uniform sampler2D TEXTURE_UNIFORM;
 uniform sampler2DShadow shadowMap;
 
 void main(){
 
 	// Light emission properties
 	vec3 LightColor = vec3(1,1,1);
-	
+
 	// Material properties
-	vec3 MaterialDiffuseColor = texture2D( myTextureSampler, UV ).rgb;
+	vec3 MaterialDiffuseColor = texture2D( TEXTURE_UNIFORM, UV ).rgb;
 
 	float visibility = texture( shadowMap, vec3(ShadowCoord.xy, (ShadowCoord.z)/ShadowCoord.w) );
 

@@ -58,11 +58,11 @@ void ScreenPosToWorldRay(
 	// The Projection matrix goes from Camera Space to NDC.
 	// So inverse(ProjectionMatrix) goes from NDC to Camera Space.
 	glm::mat4 InverseProjectionMatrix = glm::inverse(ProjectionMatrix);
-	
+
 	// The View Matrix goes from World Space to Camera Space.
 	// So inverse(ViewMatrix) goes from Camera Space to World Space.
 	glm::mat4 InverseViewMatrix = glm::inverse(ViewMatrix);
-	
+
 	glm::vec4 lRayStart_camera = InverseProjectionMatrix * lRayStart_NDC;    lRayStart_camera/=lRayStart_camera.w;
 	glm::vec4 lRayStart_world  = InverseViewMatrix       * lRayStart_camera; lRayStart_world /=lRayStart_world .w;
 	glm::vec4 lRayEnd_camera   = InverseProjectionMatrix * lRayEnd_NDC;      lRayEnd_camera  /=lRayEnd_camera  .w;
@@ -132,7 +132,7 @@ int main( void )
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS); 
+	glDepthFunc(GL_LESS);
 
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
@@ -152,9 +152,9 @@ int main( void )
 
 	// Load the texture
 	GLuint Texture = loadDDS("uvmap.DDS");
-	
-	// Get a handle for our "myTextureSampler" uniform
-	GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
+
+	// Get a handle for our "TEXTURE_UNIFORM" uniform
+	GLuint TextureID  = glGetUniformLocation(programID, "TEXTURE_UNIFORM");
 
 	// Read our .obj file
 	std::vector<glm::vec3> vertices;
@@ -199,7 +199,7 @@ int main( void )
 	for(int i=0; i<100; i++){
 		positions[i] = glm::vec3(rand()%20-10, rand()%20-10, rand()%20-10);
 		orientations[i] = glm::normalize(glm::quat(glm::vec3(rand()%360, rand()%360, rand()%360)));
-		
+
 	}
 
 
@@ -209,37 +209,37 @@ int main( void )
 
 
 
-	// Initialize Bullet. This strictly follows http://bulletphysics.org/mediawiki-1.5.8/index.php/Hello_World, 
+	// Initialize Bullet. This strictly follows http://bulletphysics.org/mediawiki-1.5.8/index.php/Hello_World,
 	// even though we won't use most of this stuff.
 
    // Build the broadphase
 	btBroadphaseInterface* broadphase = new btDbvtBroadphase();
- 
+
 	// Set up the collision configuration and dispatcher
 	btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
 	btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
- 
+
 	// The actual physics solver
 	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
- 
+
 	// The world.
 	btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher,broadphase,solver,collisionConfiguration);
 	dynamicsWorld->setGravity(btVector3(0,-9.81f,0));
 
 
-	
- 
+
+
 
 	std::vector<btRigidBody*> rigidbodies;
 
-	// In this example, all monkeys will use the same collision shape : 
+	// In this example, all monkeys will use the same collision shape :
 	// A box of 2m*2m*2m (1.0 is the half-extent !)
 	btCollisionShape* boxCollisionShape = new btBoxShape(btVector3(1.0f, 1.0f, 1.0f));
 
 	for(int i=0; i<100; i++){
 
 		btDefaultMotionState* motionstate = new btDefaultMotionState(btTransform(
-			btQuaternion(orientations[i].x, orientations[i].y, orientations[i].z, orientations[i].w), 
+			btQuaternion(orientations[i].x, orientations[i].y, orientations[i].z, orientations[i].w),
 			btVector3(positions[i].x, positions[i].y, positions[i].z)
 		));
 
@@ -255,7 +255,7 @@ int main( void )
 		dynamicsWorld->addRigidBody(rigidBody);
 
 		// Small hack : store the mesh's index "i" in Bullet's User Pointer.
-		// Will be used to know which object is picked. 
+		// Will be used to know which object is picked.
 		// A real program would probably pass a "MyGameObjectPointer" instead.
 		rigidBody->setUserPointer((void*)i);
 
@@ -284,7 +284,7 @@ int main( void )
 		}
 		float deltaTime = currentTime - lastTime;
 
-		// Step the simulation? In this example this won't do anything, 
+		// Step the simulation? In this example this won't do anything,
 		// since all the monkeys are static (mass = 0).
 		dynamicsWorld->stepSimulation(deltaTime, 7);
 
@@ -298,7 +298,7 @@ int main( void )
 
 
 		// PICKING IS DONE HERE
-		// (Instead of picking each frame if the mouse button is down, 
+		// (Instead of picking each frame if the mouse button is down,
 		// you should probably only check if the mouse button was just released)
 		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)){
 
@@ -307,13 +307,13 @@ int main( void )
 			glm::vec3 out_direction;
 			ScreenPosToWorldRay(
 				1024/2, 768/2,
-				1024, 768, 
-				ViewMatrix, 
-				ProjectionMatrix, 
-				out_origin, 
+				1024, 768,
+				ViewMatrix,
+				ProjectionMatrix,
+				out_origin,
 				out_direction
-			);	
-			
+			);
+
 			out_direction = out_direction*1000.0f;
 
 			btCollisionWorld::ClosestRayResultCallback RayCallback(btVector3(out_origin.x, out_origin.y, out_origin.z), btVector3(out_direction.x, out_direction.y, out_direction.z));
@@ -352,7 +352,7 @@ int main( void )
 
 			glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 
-			// Send our transformation to the currently bound shader, 
+			// Send our transformation to the currently bound shader,
 			// in the "MVP" uniform
 			glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 			glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
@@ -364,7 +364,7 @@ int main( void )
 			// Bind our texture in Texture Unit 0
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, Texture);
-			// Set our "myTextureSampler" sampler to user Texture Unit 0
+			// Set our "TEXTURE_UNIFORM" sampler to user Texture Unit 0
 			glUniform1i(TextureID, 0);
 
 			// 1rst attribute buffer : vertices
@@ -463,7 +463,7 @@ int main( void )
 
 //// Helper class; draws the world as seen by Bullet.
 //// This is very handy to see it Bullet's world matches yours.
-//// This example uses the old OpenGL API for simplicity, 
+//// This example uses the old OpenGL API for simplicity,
 //// so you'll have to remplace GLFW_OPENGL_CORE_PROFILE by
 //// GLFW_OPENGL_COMPAT_PROFILE in glfwWindowHint()
 //// How to use this class :

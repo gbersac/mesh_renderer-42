@@ -54,11 +54,11 @@ void ScreenPosToWorldRay(
 	// The Projection matrix goes from Camera Space to NDC.
 	// So inverse(ProjectionMatrix) goes from NDC to Camera Space.
 	glm::mat4 InverseProjectionMatrix = glm::inverse(ProjectionMatrix);
-	
+
 	// The View Matrix goes from World Space to Camera Space.
 	// So inverse(ViewMatrix) goes from Camera Space to World Space.
 	glm::mat4 InverseViewMatrix = glm::inverse(ViewMatrix);
-	
+
 	glm::vec4 lRayStart_camera = InverseProjectionMatrix * lRayStart_NDC;    lRayStart_camera/=lRayStart_camera.w;
 	glm::vec4 lRayStart_world  = InverseViewMatrix       * lRayStart_camera; lRayStart_world /=lRayStart_world .w;
 	glm::vec4 lRayEnd_camera   = InverseProjectionMatrix * lRayEnd_NDC;      lRayEnd_camera  /=lRayEnd_camera  .w;
@@ -88,9 +88,9 @@ bool TestRayOBBIntersection(
 	glm::mat4 ModelMatrix,       // Transformation applied to the mesh (which will thus be also applied to its bounding box)
 	float& intersection_distance // Output : distance between ray_origin and the intersection with the OBB
 ){
-	
+
 	// Intersection method from Real-Time Rendering and Essential Mathematics for Games
-	
+
 	float tMin = 0.0f;
 	float tMax = 100000.0f;
 
@@ -110,7 +110,7 @@ bool TestRayOBBIntersection(
 			float t2 = (e+aabb_max.x)/f; // Intersection with the "right" plane
 			// t1 and t2 now contain distances betwen ray origin and ray-plane intersections
 
-			// We want t1 to represent the nearest intersection, 
+			// We want t1 to represent the nearest intersection,
 			// so if it's not the case, invert t1 and t2
 			if (t1>t2){
 				float w=t1;t1=t2;t2=w; // swap t1 and t2
@@ -244,7 +244,7 @@ int main( void )
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS); 
+	glDepthFunc(GL_LESS);
 
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
@@ -264,9 +264,9 @@ int main( void )
 
 	// Load the texture
 	GLuint Texture = loadDDS("uvmap.DDS");
-	
-	// Get a handle for our "myTextureSampler" uniform
-	GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
+
+	// Get a handle for our "TEXTURE_UNIFORM" uniform
+	GLuint TextureID  = glGetUniformLocation(programID, "TEXTURE_UNIFORM");
 
 	// Read our .obj file
 	std::vector<glm::vec3> vertices;
@@ -344,28 +344,28 @@ int main( void )
 
 
 		// PICKING IS DONE HERE
-		// (Instead of picking each frame if the mouse button is down, 
+		// (Instead of picking each frame if the mouse button is down,
 		// you should probably only check if the mouse button was just released)
 		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)){
-			
+
 			glm::vec3 ray_origin;
 			glm::vec3 ray_direction;
 			ScreenPosToWorldRay(
 				1024/2, 768/2,
-				1024, 768, 
-				ViewMatrix, 
-				ProjectionMatrix, 
-				ray_origin, 
+				1024, 768,
+				ViewMatrix,
+				ProjectionMatrix,
+				ray_origin,
 				ray_direction
-			);	
-			
+			);
+
 			//ray_direction = ray_direction*20.0f;
 
 			message = "background";
 
 			// Test each each Oriented Bounding Box (OBB).
-			// A physics engine can be much smarter than this, 
-			// because it already has some spatial partitionning structure, 
+			// A physics engine can be much smarter than this,
+			// because it already has some spatial partitionning structure,
 			// like Binary Space Partitionning Tree (BSP-Tree),
 			// Bounding Volume Hierarchy (BVH) or other.
 			for(int i=0; i<100; i++){
@@ -383,9 +383,9 @@ int main( void )
 
 
 				if ( TestRayOBBIntersection(
-					ray_origin, 
-					ray_direction, 
-					aabb_min, 
+					ray_origin,
+					ray_direction,
+					aabb_min,
 					aabb_max,
 					ModelMatrix,
 					intersection_distance)
@@ -423,7 +423,7 @@ int main( void )
 
 			glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 
-			// Send our transformation to the currently bound shader, 
+			// Send our transformation to the currently bound shader,
 			// in the "MVP" uniform
 			glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 			glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
@@ -435,7 +435,7 @@ int main( void )
 			// Bind our texture in Texture Unit 0
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, Texture);
-			// Set our "myTextureSampler" sampler to user Texture Unit 0
+			// Set our "TEXTURE_UNIFORM" sampler to user Texture Unit 0
 			glUniform1i(TextureID, 0);
 
 			// 1rst attribute buffer : vertices

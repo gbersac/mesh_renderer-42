@@ -121,9 +121,9 @@ int main( void )
 	GLuint ViewProjMatrixID = glGetUniformLocation(programID, "VP");
 
 	// fragment shader
-	GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
+	GLuint TextureID  = glGetUniformLocation(programID, "TEXTURE_UNIFORM");
 
-	
+
 	static GLfloat* g_particule_position_size_data = new GLfloat[MaxParticles * 4];
 	static GLubyte* g_particule_color_data         = new GLubyte[MaxParticles * 4];
 
@@ -138,7 +138,7 @@ int main( void )
 
 	// The VBO containing the 4 vertices of the particles.
 	// Thanks to instancing, they will be shared by all particles.
-	static const GLfloat g_vertex_buffer_data[] = { 
+	static const GLfloat g_vertex_buffer_data[] = {
 		 -0.5f, -0.5f, 0.0f,
 		  0.5f, -0.5f, 0.0f,
 		 -0.5f,  0.5f, 0.0f,
@@ -164,7 +164,7 @@ int main( void )
 	glBufferData(GL_ARRAY_BUFFER, MaxParticles * 4 * sizeof(GLubyte), NULL, GL_STREAM_DRAW);
 
 
-	
+
 	double lastTime = glfwGetTime();
 	do
 	{
@@ -182,7 +182,7 @@ int main( void )
 
 		// We will need the camera's position in order to sort the particles
 		// w.r.t the camera's distance.
-		// There should be a getCameraPosition() function in common/controls.cpp, 
+		// There should be a getCameraPosition() function in common/controls.cpp,
 		// but this works too.
 		glm::vec3 CameraPosition(glm::inverse(ViewMatrix)[3]);
 
@@ -195,7 +195,7 @@ int main( void )
 		int newparticles = (int)(delta*10000.0);
 		if (newparticles > (int)(0.016f*10000.0))
 			newparticles = (int)(0.016f*10000.0);
-		
+
 		for(int i=0; i<newparticles; i++){
 			int particleIndex = FindUnusedParticle();
 			ParticlesContainer[particleIndex].life = 5.0f; // This particle will live 5 seconds.
@@ -203,7 +203,7 @@ int main( void )
 
 			float spread = 1.5f;
 			glm::vec3 maindir = glm::vec3(0.0f, 10.0f, 0.0f);
-			// Very bad way to generate a random direction; 
+			// Very bad way to generate a random direction;
 			// See for instance http://stackoverflow.com/questions/5408276/python-uniform-spherical-distribution instead,
 			// combined with some user-controlled parameters (main direction, spread, etc)
 			glm::vec3 randomdir = glm::vec3(
@@ -211,7 +211,7 @@ int main( void )
 				(rand()%2000 - 1000.0f)/1000.0f,
 				(rand()%2000 - 1000.0f)/1000.0f
 			);
-			
+
 			ParticlesContainer[particleIndex].speed = maindir + randomdir*spread;
 
 
@@ -222,7 +222,7 @@ int main( void )
 			ParticlesContainer[particleIndex].a = (rand() % 256) / 3;
 
 			ParticlesContainer[particleIndex].size = (rand()%1000)/2000.0f + 0.1f;
-			
+
 		}
 
 
@@ -249,9 +249,9 @@ int main( void )
 					g_particule_position_size_data[4*ParticlesCount+0] = p.pos.x;
 					g_particule_position_size_data[4*ParticlesCount+1] = p.pos.y;
 					g_particule_position_size_data[4*ParticlesCount+2] = p.pos.z;
-												   
+
 					g_particule_position_size_data[4*ParticlesCount+3] = p.size;
-												   
+
 					g_particule_color_data[4*ParticlesCount+0] = p.r;
 					g_particule_color_data[4*ParticlesCount+1] = p.g;
 					g_particule_color_data[4*ParticlesCount+2] = p.b;
@@ -274,7 +274,7 @@ int main( void )
 
 
 		// Update the buffers that OpenGL uses for rendering.
-		// There are much more sophisticated means to stream data from the CPU to the GPU, 
+		// There are much more sophisticated means to stream data from the CPU to the GPU,
 		// but this is outside the scope of this tutorial.
 		// http://www.opengl.org/wiki/Buffer_Object_Streaming
 
@@ -297,7 +297,7 @@ int main( void )
 		// Bind our texture in Texture Unit 0
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, Texture);
-		// Set our "myTextureSampler" sampler to user Texture Unit 0
+		// Set our "TEXTURE_UNIFORM" sampler to user Texture Unit 0
 		glUniform1i(TextureID, 0);
 
 		// Same as the billboards tutorial
@@ -317,7 +317,7 @@ int main( void )
 			0,                  // stride
 			(void*)0            // array buffer offset
 		);
-		
+
 		// 2nd attribute buffer : positions of particles' centers
 		glEnableVertexAttribArray(1);
 		glBindBuffer(GL_ARRAY_BUFFER, particles_position_buffer);
@@ -353,7 +353,7 @@ int main( void )
 		// Draw the particules !
 		// This draws many times a small triangle_strip (which looks like a quad).
 		// This is equivalent to :
-		// for(i in ParticlesCount) : glDrawArrays(GL_TRIANGLE_STRIP, 0, 4), 
+		// for(i in ParticlesCount) : glDrawArrays(GL_TRIANGLE_STRIP, 0, 4),
 		// but faster.
 		glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, ParticlesCount);
 
@@ -379,7 +379,7 @@ int main( void )
 	glDeleteProgram(programID);
 	glDeleteTextures(1, &Texture);
 	glDeleteVertexArrays(1, &VertexArrayID);
-	
+
 
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();

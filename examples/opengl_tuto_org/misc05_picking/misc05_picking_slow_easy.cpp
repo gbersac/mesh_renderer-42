@@ -75,7 +75,7 @@ int main( void )
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS); 
+	glDepthFunc(GL_LESS);
 
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
@@ -98,9 +98,9 @@ int main( void )
 
 	// Load the texture
 	GLuint Texture = loadDDS("uvmap.DDS");
-	
-	// Get a handle for our "myTextureSampler" uniform
-	GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
+
+	// Get a handle for our "TEXTURE_UNIFORM" uniform
+	GLuint TextureID  = glGetUniformLocation(programID, "TEXTURE_UNIFORM");
 
 	// Read our .obj file
 	std::vector<glm::vec3> vertices;
@@ -182,7 +182,7 @@ int main( void )
 
 
 		// PICKING IS DONE HERE
-		// (Instead of picking each frame if the mouse button is down, 
+		// (Instead of picking each frame if the mouse button is down,
 		// you should probably only check if the mouse button was just released)
 		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)){
 
@@ -204,7 +204,7 @@ int main( void )
 
 				glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 
-				// Send our transformation to the currently bound shader, 
+				// Send our transformation to the currently bound shader,
 				// in the "MVP" uniform
 				glUniformMatrix4fv(PickingMatrixID, 1, GL_FALSE, &MVP[0][0]);
 
@@ -244,25 +244,25 @@ int main( void )
 
 
 			// Wait until all the pending drawing commands are really done.
-			// Ultra-mega-over slow ! 
+			// Ultra-mega-over slow !
 			// There are usually a long time between glDrawElements() and
 			// all the fragments completely rasterized.
 			glFlush();
-			glFinish(); 
+			glFinish();
 
 
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 			// Read the pixel at the center of the screen.
 			// You can also use glfwGetMousePos().
-			// Ultra-mega-over slow too, even for 1 pixel, 
+			// Ultra-mega-over slow too, even for 1 pixel,
 			// because the framebuffer is on the GPU.
 			unsigned char data[4];
 			glReadPixels(1024/2, 768/2,1,1, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
 			// Convert the color back to an integer ID
-			int pickedID = 
-				data[0] + 
+			int pickedID =
+				data[0] +
 				data[1] * 256 +
 				data[2] * 256*256;
 
@@ -304,7 +304,7 @@ int main( void )
 
 			glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 
-			// Send our transformation to the currently bound shader, 
+			// Send our transformation to the currently bound shader,
 			// in the "MVP" uniform
 			glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 			glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
@@ -316,7 +316,7 @@ int main( void )
 			// Bind our texture in Texture Unit 0
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, Texture);
-			// Set our "myTextureSampler" sampler to user Texture Unit 0
+			// Set our "TEXTURE_UNIFORM" sampler to user Texture Unit 0
 			glUniform1i(TextureID, 0);
 
 			// 1rst attribute buffer : vertices

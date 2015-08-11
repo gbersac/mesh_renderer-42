@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:15:28 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/10 17:48:55 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/11 15:24:36 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # define SPEED 				10.0f
 # define ROTATION_ANGLE 	0.01f
 # define KEY_COOLDOWN	 	0.8
+
+# define LIGHT_POS_X	 	0
+# define LIGHT_POS_Y	 	5
+# define LIGHT_POS_Z	 	0
 
 # include <stdio.h>
 
@@ -80,6 +84,7 @@ typedef struct		s_mesh
 	GLuint			gl_buff_vertex;
 	GLuint			gl_buff_uv;
 	GLuint			gl_buff_colors;
+	GLuint			gl_buff_normal;
 	t_quaternion	*rotation;
 	t_pt3f			position;
 	float			scale;
@@ -112,6 +117,8 @@ typedef struct		s_resources
 	GLuint			texture_id;
 	GLuint			gl_mvp_uni;
 	GLuint			gl_model_uni;
+	GLuint			gl_lightpos_uni;
+	GLuint			gl_camera_uni;
 	GLuint			vertex_array_id;
 }					t_resources;
 

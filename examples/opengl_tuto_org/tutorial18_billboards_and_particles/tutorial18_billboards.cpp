@@ -69,8 +69,8 @@ int main( void )
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
-	
-	
+
+
 	// Create and compile our GLSL program from the shaders
 	GLuint programID = LoadShaders( "Billboard.vertexshader", "Billboard.fragmentshader" );
 
@@ -82,13 +82,13 @@ int main( void )
 	GLuint BillboardSizeID = glGetUniformLocation(programID, "BillboardSize");
 	GLuint LifeLevelID = glGetUniformLocation(programID, "LifeLevel");
 
-	GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
+	GLuint TextureID  = glGetUniformLocation(programID, "TEXTURE_UNIFORM");
 
 
 	GLuint Texture = loadDDS("ExampleBillboard.DDS");
 
 	// The VBO containing the 4 vertices of the particles.
-	static const GLfloat g_vertex_buffer_data[] = { 
+	static const GLfloat g_vertex_buffer_data[] = {
 		 -0.5f, -0.5f, 0.0f,
 		  0.5f, -0.5f, 0.0f,
 		 -0.5f,  0.5f, 0.0f,
@@ -155,7 +155,7 @@ int main( void )
 
 		// We will need the camera's position in order to sort the particles
 		// w.r.t the camera's distance.
-		// There should be a getCameraPosition() function in common/controls.cpp, 
+		// There should be a getCameraPosition() function in common/controls.cpp,
 		// but this works too.
 		glm::vec3 CameraPosition(glm::inverse(ViewMatrix)[3]);
 
@@ -174,17 +174,17 @@ int main( void )
 		// Bind our texture in Texture Unit 0
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, Texture);
-		// Set our "myTextureSampler" sampler to user Texture Unit 0
+		// Set our "TEXTURE_UNIFORM" sampler to user Texture Unit 0
 		glUniform1i(TextureID, 0);
 
 		// This is the only interesting part of the tutorial.
 		// This is equivalent to mlutiplying (1,0,0) and (0,1,0) by inverse(ViewMatrix).
-		// ViewMatrix is orthogonal (it was made this way), 
-		// so its inverse is also its transpose, 
+		// ViewMatrix is orthogonal (it was made this way),
+		// so its inverse is also its transpose,
 		// and transposing a matrix is "free" (inversing is slooow)
 		glUniform3f(CameraRight_worldspace_ID, ViewMatrix[0][0], ViewMatrix[1][0], ViewMatrix[2][0]);
 		glUniform3f(CameraUp_worldspace_ID   , ViewMatrix[0][1], ViewMatrix[1][1], ViewMatrix[2][1]);
-		
+
 		glUniform3f(BillboardPosID, 0.0f, 0.5f, 0.0f); // The billboard will be just above the cube
 		glUniform2f(BillboardSizeID, 1.0f, 0.125f);     // and 1m*12cm, because it matches its 256*32 resolution =)
 
@@ -205,7 +205,7 @@ int main( void )
 			0,                  // stride
 			(void*)0            // array buffer offset
 		);
-		
+
 
 		// Draw the billboard !
 		// This draws a triangle_strip which looks like a quad.

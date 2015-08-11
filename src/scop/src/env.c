@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/30 14:47:18 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/09 19:51:04 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/10 19:48:42 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void				init_env(t_env *env)
 	env->window = init_glfw();
 	env->position = vec_new3(0, 0, 5);
 	env->mvp = mat_new(4, 4);
-	env->mode = MODE_COLOR;
+	env->mode = MODE_TEXTURE;
+	// env->mode = MODE_COLOR;
 	init_gl();
 }
 

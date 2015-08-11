@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:36:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/10 18:18:44 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/11 15:33:40 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,25 @@ static int		load_all_shaders(t_resources *res)
 	return (0);
 }
 
-static t_mesh	*load_light_mesh()
-{
-	t_mesh	*to_return;
+// static t_mesh	*load_light_mesh()
+// {
+// 	t_mesh	*to_return;
 
-	to_return = load_mesh("resources/cube.obj");
-	to_return->position.x = -1;
-	to_return->position.y = 0.5;
-	to_return->position.z = -3;
+// 	to_return = load_mesh("resources/cube.obj");
+// 	to_return->position.x = -1;
+// 	to_return->position.y = 0.5;
+// 	to_return->position.z = -3;
+// 	to_return->scale = 0.01;
+// 	return (to_return);
+// }
+
+static GLuint	get_uniform(t_resources *res, char const * str)
+{
+	GLuint	to_return;
+
+	to_return = glGetUniformLocation(res->shader_texture->program_id, str);
 	return (to_return);
+
 }
 
 t_resources		*load_resources(int argc, char **argv)
@@ -77,17 +87,16 @@ t_resources		*load_resources(int argc, char **argv)
 	if (load_all_shaders(res))
 		return (NULL);
 	res->mesh = load_the_mesh(argc, argv);
-	res->light_mesh = load_light_mesh();
+	// res->light_mesh = load_light_mesh();
 	if (res->mesh == NULL || res->light_mesh == NULL)
 		return (NULL);
 	glGenVertexArrays(1, &res->vertex_array_id);
 	glBindVertexArray(res->vertex_array_id);
 	res->texture = load_bmp("resources/uvtemplate.bmp");
-	res->texture_id  = glGetUniformLocation(res->shader_texture->program_id,
-			"myTextureSampler");
-	res->gl_mvp_uni = glGetUniformLocation(
-			res->shader_texture->program_id, "MVP");
-	res->gl_model_uni = glGetUniformLocation(
-			res->shader_texture->program_id, "MODEL");
+	res->texture_id  = get_uniform(res, "TEXTURE_UNIFORM");
+	res->gl_mvp_uni = get_uniform(res, "MVP");
+	res->gl_model_uni = get_uniform(res, "MODEL");
+	res->gl_lightpos_uni = get_uniform(res, "LIGHT_POSITION");
+	res->gl_camera_uni = get_uniform(res, "CAMERA_POSITION");
 	return(res);
 }

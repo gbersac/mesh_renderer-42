@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/10 17:25:16 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/11 14:48:42 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ static t_mesh	*init_mesh(size_t nb_vertice, t_load_mesh_vars *vars)
 	to_return->scale = 1;
 	return (to_return);
 }
+
+// static void		take_one(t_uint i, t_list *idx_list, float *dest, size_t size)
+// {
+// 	t_uint		*idx;
+
+// 	idx = (t_uint*)ft_lst_get(idx_list, i);
+// 	if (dest != NULL)
+// 		memcpy(dest + i * size,
+// 				ft_lst_get(vars->temp_vertices, *idx - 1),
+// 				size * sizeof(float));
+// }
 
 static void		fill_mesh(t_mesh *mesh,
 							t_load_mesh_vars *vars,
@@ -70,12 +81,16 @@ static void		create_gl_buff(t_mesh *mesh)
 			(void*)mesh->vertices,
 			GL_STATIC_DRAW);
 	mesh->gl_buff_uv = gl_gen_buffer(GL_ARRAY_BUFFER,
-			mesh->size * sizeof(t_pt3f),
+			mesh->size * sizeof(t_pt2f),
 			(void*)mesh->uvs,
 			GL_STATIC_DRAW);
 	mesh->gl_buff_colors = gl_gen_buffer(GL_ARRAY_BUFFER,
 			mesh->size * sizeof(t_pt3f),
 			(void*)mesh->colors,
+			GL_STATIC_DRAW);
+	mesh->gl_buff_normal = gl_gen_buffer(GL_ARRAY_BUFFER,
+			mesh->size * sizeof(t_pt3f),
+			(void*)mesh->normals,
 			GL_STATIC_DRAW);
 }
 

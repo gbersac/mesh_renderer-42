@@ -63,7 +63,7 @@ int main( void )
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS); 
+	glDepthFunc(GL_LESS);
 
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
@@ -85,8 +85,8 @@ int main( void )
 	GLuint DiffuseTexture = loadDDS("diffuse.DDS");
 	GLuint NormalTexture = loadBMP_custom("normal.bmp");
 	GLuint SpecularTexture = loadDDS("specular.DDS");
-	
-	// Get a handle for our "myTextureSampler" uniform
+
+	// Get a handle for our "TEXTURE_UNIFORM" uniform
 	GLuint DiffuseTextureID  = glGetUniformLocation(programID, "DiffuseTextureSampler");
 	GLuint NormalTextureID  = glGetUniformLocation(programID, "NormalTextureSampler");
 	GLuint SpecularTextureID  = glGetUniformLocation(programID, "SpecularTextureSampler");
@@ -111,7 +111,7 @@ int main( void )
 	std::vector<glm::vec3> indexed_tangents;
 	std::vector<glm::vec3> indexed_bitangents;
 	indexVBO_TBN(
-		vertices, uvs, normals, tangents, bitangents, 
+		vertices, uvs, normals, tangents, bitangents,
 		indices, indexed_vertices, indexed_uvs, indexed_normals, indexed_tangents, indexed_bitangents
 	);
 
@@ -183,14 +183,14 @@ int main( void )
 		glm::mat3 ModelView3x3Matrix = glm::mat3(ModelViewMatrix);
 		glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 
-		// Send our transformation to the currently bound shader, 
+		// Send our transformation to the currently bound shader,
 		// in the "MVP" uniform
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
 		glUniformMatrix4fv(ModelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
 		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
 		glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
 		glUniformMatrix3fv(ModelView3x3MatrixID, 1, GL_FALSE, &ModelView3x3Matrix[0][0]);
-		
+
 
 		glm::vec3 lightPos = glm::vec3(0,0,4);
 		glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
