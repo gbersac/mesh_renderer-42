@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:15:28 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 18:30:35 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/11 20:02:33 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,12 @@ t_mat				*model_matrix(t_mesh *mesh);
 void				mvp_matrix();
 void				key_handler(GLFWwindow *window, int key, int, int, int);
 
+typedef struct		s_uniform
+{
+	GLuint			color;
+	GLuint			text;
+}					t_uniform;
+
 typedef struct		s_resources
 {
 	t_mesh			*mesh;
@@ -109,11 +115,11 @@ typedef struct		s_resources
 	t_shader		*shader_color;
 	t_shader		*shader_texture;
 	GLuint			texture;
-	GLuint			texture_id;
-	GLuint			gl_mvp_uni;
-	GLuint			gl_model_uni;
-	GLuint			gl_lightpos_uni;
-	GLuint			gl_camera_uni;
+	t_uniform		gl_texture_uni;
+	t_uniform		gl_mvp_uni;
+	t_uniform		gl_model_uni;
+	t_uniform		gl_lightpos_uni;
+	t_uniform		gl_camera_uni;
 	GLuint			vertex_array_id;
 }					t_resources;
 

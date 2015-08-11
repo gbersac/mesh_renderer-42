@@ -6,10 +6,11 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 19:13:22 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/11 19:37:05 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <time.h>
 #include "mesh.h"
 
 static t_mesh	*init_mesh(size_t nb_vertice, t_load_mesh_vars *vars)
@@ -33,17 +34,6 @@ static t_mesh	*init_mesh(size_t nb_vertice, t_load_mesh_vars *vars)
 	to_return->scale = 1;
 	return (to_return);
 }
-
-// static void		take_one(t_uint i, t_list *idx_list, float *dest, size_t size)
-// {
-// 	t_uint		*idx;
-
-// 	idx = (t_uint*)ft_lst_get(idx_list, i);
-// 	if (dest != NULL)
-// 		memcpy(dest + i * size,
-// 				ft_lst_get(vars->temp_vertices, *idx - 1),
-// 				size * sizeof(float));
-// }
 
 static void		fill_mesh(t_mesh *mesh,
 							t_load_mesh_vars *vars,
@@ -101,6 +91,7 @@ static void		add_colors(t_mesh *mesh, size_t nb_vertice)
 	size_t	i;
 
 	i = 0;
+	srand(time(NULL));
 	while (i < nb_vertice)
 	{
 		color = ((float)rand() / RAND_MAX);

@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:09:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 14:11:11 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/11 20:17:06 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ void		loop(t_env *env, t_resources *res)
 		mvp_matrix();
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, res->texture);
-		glUniform1i(res->texture_id, 0);
 		gl_display_object(res, res->mesh, env->mode);
-		// gl_display_object(res, res->light_mesh, MODE_COLOR);
 		glfwSwapBuffers(env->window);
 		glfwPollEvents();
 	}
