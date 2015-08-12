@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/30 12:40:04 by gbersac           #+#    #+#             */
-/*   Updated: 2014/04/26 23:29:54 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:40:09 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char				*ft_strtrim(char const *s)
 	end = seek_end(s);
 	if (begin >= end)
 		return (ft_strdup(""));
-	to_return = ft_strsub(begin, 0, (size_t) (end - begin));
+	to_return = ft_strsub(begin, 0, (size_t)(end - begin));
 	if (to_return == NULL)
 	{
 		to_return = (char*)malloc(1);

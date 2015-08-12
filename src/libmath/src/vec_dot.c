@@ -6,13 +6,13 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/24 14:01:05 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/26 23:17:24 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:37:04 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-t_mat_type		vec_dot(t_vector const * const v1, t_vector const * const v2,
+t_mat_type		vec_dot(t_vector const *const v1, t_vector const *const v2,
 						t_matrix_err *err)
 {
 	t_mat_type	to_return;

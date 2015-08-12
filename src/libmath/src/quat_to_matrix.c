@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/04 14:42:45 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/04 15:37:21 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:36:10 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_mat			*quat_to_matrix(t_quaternion *quat)
 {
 	t_mat	*to_return;
 	t_pt4f	*ptq;
-
 
 	to_return = mat_new(4, 4);
 	mat_zero(to_return);

@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/30 12:40:04 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/29 20:03:28 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:38:51 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,9 @@ void				ft_lstdel(t_list **alst, void (*del)(void *));
 ** Function which add a node at the beginning of the list
 ** Doesn't set new->previous == NULL. Usefull to merge two lists.
 */
-void				ft_lstadd(t_list **alst, t_list *);
+void				ft_lstadd(t_list **alst, t_list *n);
 
-void				ft_lstaddq(t_list **alst, t_list *);
+void				ft_lstaddq(t_list **alst, t_list *n);
 
 /*
 ** Append l2 at the end of l1.
@@ -201,9 +201,9 @@ void				ft_lst_insert_a(t_list **lst, t_list *to_insert);
 ** Function which add a node the beginning of the list
 ** Doesn't set new->previous == NULL. Usefull to merge two lists.
 */
-void				ft_clstadd(t_list **alst, t_list *);
+void				ft_clstadd(t_list **alst, t_list *l);
 
-void				ft_clstaddq(t_list **alst, t_list *);
+void				ft_clstaddq(t_list **alst, t_list *l);
 
 size_t				ft_clstlen(t_list *lst);
 

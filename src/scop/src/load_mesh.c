@@ -6,14 +6,13 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/28 19:18:51 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 19:30:53 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 14:20:07 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mesh.h"
 
-
-void	scan_vertice(t_list **temp_vertices, FILE *file)
+static void	scan_vertice(t_list **temp_vertices, FILE *file)
 {
 	t_pt3f	pt;
 	t_list	*newl;
@@ -23,7 +22,7 @@ void	scan_vertice(t_list **temp_vertices, FILE *file)
 	ft_lstaddq(temp_vertices, newl);
 }
 
-void	scan_normal(t_list **temp_normals, FILE *file)
+static void	scan_normal(t_list **temp_normals, FILE *file)
 {
 	t_pt3f	pt;
 	t_list	*newl;
@@ -33,7 +32,7 @@ void	scan_normal(t_list **temp_normals, FILE *file)
 	ft_clstaddq(temp_normals, newl);
 }
 
-void	scan_uv(t_list **temp_uvs, FILE *file)
+static void	scan_uv(t_list **temp_uvs, FILE *file)
 {
 	t_pt2f		pt;
 	t_list		*newl;
@@ -44,56 +43,48 @@ void	scan_uv(t_list **temp_uvs, FILE *file)
 	ft_clstaddq(temp_uvs, newl);
 }
 
-void	pface(t_list **dst, t_list *src, t_uint idx, size_t size)
+static void	load_mesh_loop(FILE *file, t_load_mesh_vars *vars)
 {
-	void	*model;
+	char	line_header[128];
+	int		res;
+	char	stupid_buffer[1000];
 
-	model = ft_lst_get(src, idx);
-	ft_push_back(dst, model, size);
+	while (1)
+	{
+		res = fscanf(file, "%s", line_header);
+		if (res == EOF)
+			break ;
+		if (strcmp(line_header, "v") == 0)
+			scan_vertice(&vars->temp_vertices, file);
+		else if (strcmp(line_header, "vt") == 0)
+			scan_uv(&vars->temp_uvs, file);
+		else if (strcmp(line_header, "vn") == 0)
+			scan_normal(&vars->temp_normals, file);
+		else if (strcmp(line_header, "f") == 0)
+			scan_face(vars, file);
+		else
+		{
+			fgets(stupid_buffer, 1000, file);
+		}
+	}
 }
 
-void	free_vars(t_load_mesh_vars *vars)
+t_mesh		*load_mesh(char const *const path)
 {
-	ft_lstdel(&vars->uv_indices, free);
-	ft_lstdel(&vars->vertex_indices, free);
-	ft_lstdel(&vars->normal_indices, free);
-	ft_lstdel(&vars->temp_vertices, free);
-}
-
-t_mesh	*load_mesh(char const * const path)
-{
-	t_mesh			*to_return;
+	t_mesh				*to_return;
 	t_load_mesh_vars	vars;
+	FILE				*file;
 
-	FILE * file = fopen(path, "r");
-	if(file == NULL)
+	file = fopen(path, "r");
+	if (file == NULL)
 	{
 		printf("Impossible to open the file %s\n", path);
-		return NULL;
+		return (NULL);
 	}
 	ft_bzero(&vars, sizeof(vars));
 	vars.temp_vertices = 0;
-	while(1)
-	{
-		char lineHeader[128];
-		int res = fscanf(file, "%s", lineHeader);
-		if (res == EOF)
-			break ;
-		if (strcmp(lineHeader, "v") == 0)
-			scan_vertice(&vars.temp_vertices, file);
-		else if (strcmp(lineHeader, "vt") == 0)
-			scan_uv(&vars.temp_uvs, file);
-		else if (strcmp(lineHeader, "vn") == 0)
-			scan_normal(&vars.temp_normals, file);
-		else if (strcmp(lineHeader, "f") == 0)
-			scan_face(&vars, file);
-		else
-		{
-			char stupidBuffer[1000];
-			fgets(stupidBuffer, 1000, file);
-		}
-	}
+	load_mesh_loop(file, &vars);
 	to_return = generate_mesh(&vars);
 	free_vars(&vars);
-	return(to_return);
+	return (to_return);
 }

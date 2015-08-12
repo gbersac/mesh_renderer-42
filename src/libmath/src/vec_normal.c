@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/11 16:32:09 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 16:43:29 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:37:44 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ t_mat	*vec_normal(t_pt3f *pt1, t_pt3f *pt2, t_pt3f *pt3)
 	to_return = vec_cross(vec1, vec2, NULL);
 	mat_free(&vec1);
 	mat_free(&vec2);
-	return(to_return);
+	return (to_return);
 }

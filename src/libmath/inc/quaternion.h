@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/04 14:43:42 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/05 13:39:39 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:25:39 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef t_vector	t_quaternion;
 
 /*
 ** Rotate the quaternion about the axis v (unit vector).
-**
 ** v :	This vector should be normalized.
 */
 t_quaternion	*quat_rotate_axis(t_vector *v, float angle);
@@ -33,7 +32,7 @@ t_quaternion	*quat_rotate_axis(t_vector *v, float angle);
 /*
 ** Convert a quaternion to a rotation matrix
 */
-t_mat			*quat_to_matrix(t_quaternion*);
+t_mat			*quat_to_matrix(t_quaternion *q);
 
 /*
 ** Quaternion multiplication.

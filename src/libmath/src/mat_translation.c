@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/10 17:35:42 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/10 18:17:42 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:34:43 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ t_mat	*mat_translation(t_mat *dest, t_pt3f direction)
 	mat_set(dest, 3, 0, direction.x);
 	mat_set(dest, 3, 1, direction.y);
 	mat_set(dest, 3, 2, direction.z);
-	return(dest);
+	return (dest);
 }

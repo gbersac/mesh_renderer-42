@@ -6,13 +6,13 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/10 15:00:44 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/10 15:09:22 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:47:43 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static t_quaternion	*rot_quat()
+static t_quaternion	*rot_quat(void)
 {
 	static t_quaternion	*to_return = NULL;
 	t_quaternion		*axis;
@@ -38,4 +38,3 @@ void				rotate_mesh(t_mesh *m)
 	mat_free(&m->rotation);
 	m->rotation = total_rotation;
 }
-

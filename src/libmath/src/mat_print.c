@@ -6,13 +6,13 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/22 16:36:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/27 13:24:55 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:33:39 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-void			print_line(t_mat const * const m, t_uint line)
+void			print_line(t_mat const *const m, t_uint line)
 {
 	t_uint	i;
 
@@ -27,12 +27,12 @@ void			print_line(t_mat const * const m, t_uint line)
 	printf("\n");
 }
 
-void			mat_print(t_mat const * const m)
+void			mat_print(t_mat const *const m)
 {
 	mat_print_label(m, "");
 }
 
-void			mat_print_label(t_mat const * const m, char const * const label)
+void			mat_print_label(t_mat const *const m, char const *const label)
 {
 	t_uint	i;
 
@@ -49,4 +49,3 @@ void			mat_print_label(t_mat const * const m, char const * const label)
 		++i;
 	}
 }
-

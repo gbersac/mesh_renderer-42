@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/30 20:40:08 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/05 19:51:22 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:47:01 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ void		scan_face(t_load_mesh_vars *vars, FILE *file)
 		scan_with_uv_normal(vars, vi, uvi, ni);
 	else
 	{
-		matches = sscanf(buffer, "%d %d %d %d\n",
-				&vi.x, &vi.y, &vi.z, &vi.w);
+		matches = sscanf(buffer, "%d %d %d %d\n", &vi.x, &vi.y, &vi.z, &vi.w);
 		if (matches == 4)
 		{
 			scan_vertice_only_square(vars, vi);
@@ -67,10 +66,8 @@ void		scan_face(t_load_mesh_vars *vars, FILE *file)
 		}
 		matches = sscanf(buffer, "%d %d %d\n", &vi.x, &vi.y, &vi.z);
 		if (matches != 3)
-		{
 			printf("Error : line can't be read\n");
-			return ;
-		}
-		scan_vertice_only(vars, vi);
+		else
+			scan_vertice_only(vars, vi);
 	}
 }

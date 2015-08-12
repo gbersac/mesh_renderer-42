@@ -6,12 +6,12 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:15:28 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 20:02:33 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:42:33 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCOP_H
-#define SCOP_H
+# define SCOP_H
 
 # define WIN_HEIGHT			1024
 # define WIN_WIDTH			768
@@ -47,15 +47,7 @@ typedef struct		s_env
 {
 	GLFWwindow		*window;
 	t_vector		*position;
-
-	/*
-	** The matrix used to move a point from the origin to the world.
-	*/
 	t_mat			*mvp;
-
-	/*
-	** The last time the position has been calculate.
-	*/
 	double			last_time;
 	t_mode			mode;
 }					t_env;
@@ -72,7 +64,7 @@ GLuint				gl_gen_buffer(GLenum target, GLsizeiptr size,
 /*
 ** Load a .bmp teture file.
 */
-GLuint				load_bmp(const char * const imagepath);
+GLuint				load_bmp(const char *const imagepath);
 
 typedef struct		s_mesh
 {
@@ -90,7 +82,7 @@ typedef struct		s_mesh
 	float			scale;
 }					t_mesh;
 
-t_mesh				*load_mesh(char const * const path);
+t_mesh				*load_mesh(char const *const path);
 void				free_mesh(t_mesh *m);
 
 /*
@@ -100,7 +92,8 @@ void				rotate_mesh(t_mesh *m);
 
 t_mat				*model_matrix(t_mesh *mesh);
 void				mvp_matrix();
-void				key_handler(GLFWwindow *window, int key, int, int, int);
+void				key_handler(GLFWwindow *window, int key,
+								int a, int b, int c);
 
 typedef struct		s_uniform
 {
@@ -130,7 +123,6 @@ void				free_resources(t_resources *res);
 ** This function is displaying an object using opengl.
 ** The corresponding shader must has been launch and it accept vertices on
 ** location 0 and uv on location 1.
-**
 ** size :		The number of float in the array (nb_vertices * 3).
 ** uniform_id:	The id of the glsl uniform in which to put the model matrix.
 */

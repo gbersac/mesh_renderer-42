@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   points.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/08/12 13:19:00 by gbersac           #+#    #+#             */
+/*   Updated: 2015/08/12 13:25:13 by gbersac          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef POINTS_H
 # define POINTS_H
 
@@ -5,15 +17,14 @@
 
 typedef uint32_t	t_uint;
 
+/*
+** w must stay the last attribute of the point.
+*/
 typedef struct	s_pt4f
 {
 	float	x;
 	float	y;
 	float	z;
-
-	/*
-	** Must stay the last attribute of the point.
-	*/
 	float	w;
 }				t_pt4f;
 

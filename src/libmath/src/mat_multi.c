@@ -6,13 +6,13 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 16:37:20 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/27 18:07:34 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:32:59 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-t_mat_type	one_multi(t_mat const * const m1, t_mat const * const m2,
+t_mat_type	one_multi(t_mat const *const m1, t_mat const *const m2,
 						t_uint y, t_uint x)
 {
 	t_uint			i;
@@ -30,7 +30,7 @@ t_mat_type	one_multi(t_mat const * const m1, t_mat const * const m2,
 	return (to_return);
 }
 
-t_mat		*mat_multi(t_mat const * const m1, t_mat const * const m2,
+t_mat		*mat_multi(t_mat const *const m1, t_mat const *const m2,
 					t_matrix_err *error)
 {
 	t_mat	*to_return;

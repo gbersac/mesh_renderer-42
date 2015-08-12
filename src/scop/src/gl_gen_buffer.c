@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/27 19:01:08 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/29 21:39:22 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:55:56 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ GLuint	gl_gen_buffer(GLenum target, GLsizeiptr size,
 	glGenBuffers(1, &to_return);
 	glBindBuffer(target, to_return);
 	glBufferData(target, size, data, usage);
-	return(to_return);
+	return (to_return);
 }

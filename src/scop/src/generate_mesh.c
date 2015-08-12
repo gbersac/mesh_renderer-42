@@ -6,11 +6,10 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/29 14:53:39 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 19:37:05 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:53:18 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <time.h>
 #include "mesh.h"
 
 static t_mesh	*init_mesh(size_t nb_vertice, t_load_mesh_vars *vars)
@@ -83,45 +82,6 @@ static void		create_gl_buff(t_mesh *mesh)
 			mesh->size * sizeof(t_pt3f),
 			(void*)mesh->normals,
 			GL_STATIC_DRAW);
-}
-
-static void		add_colors(t_mesh *mesh, size_t nb_vertice)
-{
-	float	color;
-	size_t	i;
-
-	i = 0;
-	srand(time(NULL));
-	while (i < nb_vertice)
-	{
-		color = ((float)rand() / RAND_MAX);
-		memcpy(mesh->colors + i * 9 + 0, &color, sizeof(float));
-		memcpy(mesh->colors + i * 9 + 1, &color, sizeof(float));
-		memcpy(mesh->colors + i * 9 + 2, &color, sizeof(float));
-		memcpy(mesh->colors + i * 9 + 3, &color, sizeof(float));
-		memcpy(mesh->colors + i * 9 + 4, &color, sizeof(float));
-		memcpy(mesh->colors + i * 9 + 5, &color, sizeof(float));
-		memcpy(mesh->colors + i * 9 + 6, &color, sizeof(float));
-		memcpy(mesh->colors + i * 9 + 7, &color, sizeof(float));
-		memcpy(mesh->colors + i * 9 + 8, &color, sizeof(float));
-		++i;
-	}
-}
-
-static void		add_uvs(t_mesh *mesh, size_t nb_vertice)
-{
-	size_t	i;
-	t_pt3f	*vertice;
-
-	mesh->uvs = (float*)malloc(nb_vertice * 2 * sizeof(float));
-	i = 0;
-	while (i < nb_vertice)
-	{
-		vertice = (t_pt3f*)(mesh->vertices + 3 * i);
-		memcpy(mesh->uvs + i * 2 + 0, &vertice->x, sizeof(float));
-		memcpy(mesh->uvs + i * 2 + 1, &vertice->y, sizeof(float));
-		++i;
-	}
 }
 
 t_mesh			*generate_mesh(t_load_mesh_vars *vars)

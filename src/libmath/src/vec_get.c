@@ -6,13 +6,13 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/23 19:26:16 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/27 14:01:43 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:37:21 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-t_mat_type	vec_get(t_vector const * const vec, t_uint idx, t_matrix_err *err)
+t_mat_type	vec_get(t_vector const *const vec, t_uint idx, t_matrix_err *err)
 {
 	t_mat_type	to_return;
 

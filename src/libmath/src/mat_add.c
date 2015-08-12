@@ -6,15 +6,15 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/28 16:03:31 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/28 16:05:49 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:27:34 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
 void	add(t_mat *dest,
-				t_mat const * const m1,
-				t_mat const * const m2)
+				t_mat const *const m1,
+				t_mat const *const m2)
 {
 	t_uint	i;
 	t_uint	j;
@@ -34,7 +34,7 @@ void	add(t_mat *dest,
 	}
 }
 
-t_mat	*mat_add(t_mat const * const m1, t_mat const * const m2,
+t_mat	*mat_add(t_mat const *const m1, t_mat const *const m2,
 					t_matrix_err *err)
 {
 	t_mat	*to_return;
@@ -45,5 +45,5 @@ t_mat	*mat_add(t_mat const * const m1, t_mat const * const m2,
 		return (mat_ret(err, INCOMPATIBLE_SIZE));
 	to_return = mat_new(m1->width, m1->height);
 	add(to_return, m1, m2);
-	return(to_return);
+	return (to_return);
 }

@@ -27,5 +27,5 @@ t_mat				*model_matrix(t_mesh *mesh)
 	to_return = mat_multi(buff, scaling, NULL);
 	mat_free(&rotation);
 	mat_free(&buff);
-	return(to_return);
+	return (to_return);
 }

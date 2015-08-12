@@ -6,13 +6,13 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/28 15:42:34 by gbersac           #+#    #+#             */
-/*   Updated: 2015/07/28 16:46:19 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:33:53 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libmath.h"
 
-void			mat_scalar_multi(t_mat * const m, t_mat_type multiplicator,
+void			mat_scalar_multi(t_mat *const m, t_mat_type multiplicator,
 					t_matrix_err *err)
 {
 	t_uint		x;

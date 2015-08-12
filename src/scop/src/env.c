@@ -6,22 +6,22 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/30 14:47:18 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 20:03:13 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:50:35 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-static t_env		**get_initializable_env()
+static t_env		**get_initializable_env(void)
 {
 	static t_env	*env = NULL;
 
 	return (&env);
 }
 
-static GLFWwindow	*init_glfw()
+static GLFWwindow	*init_glfw(void)
 {
-	GLFWwindow* window;
+	GLFWwindow	*window;
 
 	if (!glfwInit())
 	{
@@ -33,7 +33,7 @@ static GLFWwindow	*init_glfw()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	window = glfwCreateWindow(WIN_HEIGHT, WIN_WIDTH, "Scop", NULL, NULL);
-	if(window == NULL)
+	if (window == NULL)
 	{
 		fprintf(stderr, "Failed to open GLFW window.\n");
 		glfwTerminate();
@@ -45,7 +45,7 @@ static GLFWwindow	*init_glfw()
 	return (window);
 }
 
-static void			init_gl()
+static void			init_gl(void)
 {
 	glewExperimental = 1;
 	if (glewInit() != GLEW_OK)
@@ -67,12 +67,11 @@ void				init_env(t_env *env)
 	env->window = init_glfw();
 	env->position = vec_new3(0, 0, 5);
 	env->mvp = mat_new(4, 4);
-	env->mode = MODE_TEXTURE;
-	// env->mode = MODE_COLOR;
+	env->mode = MODE_COLOR;
 	init_gl();
 }
 
-t_env				*get_env()
+t_env				*get_env(void)
 {
 	return (*get_initializable_env());
 }

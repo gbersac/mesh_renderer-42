@@ -6,7 +6,7 @@ SRCS				:= main.c shader.c mvp_matrix.c gl_gen_buffer.c \
 						gl_display_object.c load_bmp.c load_mesh.c \
 						generate_mesh.c env.c scan_face.c model_matrix.c \
 						key_handler.c resources.c free_mesh.c rotate_mesh.c \
-						mesh_add_normals.c
+						mesh_add_normals.c mesh_add_fn.c
 
 PATH_OBJ			:= obj
 PATH_OBJT			:= objt

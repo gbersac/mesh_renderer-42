@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:36:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 20:16:38 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:49:13 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void			free_resources(t_resources *res)
 	glDeleteTextures(1, &res->texture);
 }
 
-t_mesh         *load_the_mesh(int argc, char **argv)
+t_mesh			*load_the_mesh(int argc, char **argv)
 {
-	t_mesh  *to_return;
+	t_mesh	*to_return;
 
 	if (argc < 2)
 	{
@@ -49,7 +49,7 @@ static int		load_all_shaders(t_resources *res)
 	return (0);
 }
 
-static void	get_uniform(t_uniform *uni, t_resources *res, char const * str)
+static void		get_uniform(t_uniform *uni, t_resources *res, char const *str)
 {
 	uni->color = glGetUniformLocation(res->shader_color->program_id, str);
 	uni->text = glGetUniformLocation(res->shader_texture->program_id, str);
@@ -73,5 +73,5 @@ t_resources		*load_resources(int argc, char **argv)
 	get_uniform(&res->gl_model_uni, res, "MODEL");
 	get_uniform(&res->gl_lightpos_uni, res, "LIGHT_POSITION");
 	get_uniform(&res->gl_camera_uni, res, "CAMERA_POSITION");
-	return(res);
+	return (res);
 }

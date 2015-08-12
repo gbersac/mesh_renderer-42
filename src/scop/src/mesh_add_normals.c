@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/11 19:00:50 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 19:12:13 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 14:22:15 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 static int		vertice_in_triangle(t_pt3f *vert, float *triangle)
 {
-	return (!memcmp(vert, triangle, sizeof(t_pt3f)) ||
+	int		to_return;
+
+	to_return = !memcmp(vert, triangle, sizeof(t_pt3f)) ||
 			!memcmp(vert, triangle + 3, sizeof(t_pt3f)) ||
-			!memcmp(vert, triangle + 6, sizeof(t_pt3f)));
+			!memcmp(vert, triangle + 6, sizeof(t_pt3f));
+	return (to_return);
 }
 
 static t_vector	*add_one_cross(t_vector *cross, t_vector *ttl_cross)

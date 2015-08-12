@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/07/28 12:45:06 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/11 20:16:41 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:55:33 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,16 @@ static void		set_uniform(t_resources *res, t_mode mode)
 			camera->x, camera->y, camera->z);
 }
 
-
 void			gl_display_object(t_resources *res, t_mesh *mesh, t_mode mode)
 {
+	t_mat	*model_mat;
+
 	set_uniform(res, mode);
 	if (mode == MODE_COLOR)
 		glUseProgram(res->shader_color->program_id);
 	else
 		glUseProgram(res->shader_texture->program_id);
-	t_mat *model_mat = model_matrix(mesh);
+	model_mat = model_matrix(mesh);
 	glUniformMatrix4fv(get_uniform_id(&res->gl_model_uni, mode),
 			1, GL_FALSE, model_mat->array);
 	bind_buffer(mesh->gl_buff_vertex, 0, 3);

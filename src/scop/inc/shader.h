@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shader.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/08/12 13:42:55 by gbersac           #+#    #+#             */
+/*   Updated: 2015/08/12 13:43:14 by gbersac          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SHADER_H
 # define SHADER_H
 
@@ -8,12 +20,11 @@
 
 typedef struct	s_shader
 {
-    GLuint	vertex_id;
-    GLuint	fragment_id;
-    GLuint	program_id;
+	GLuint		vertex_id;
+	GLuint		fragment_id;
+	GLuint		program_id;
 }				t_shader;
 
-t_shader	*load_shader(const char *vertex_src, const char *fragment_src);
-// GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path);
+t_shader		*load_shader(const char *vertex_src, const char *fragment_src);
 
 #endif

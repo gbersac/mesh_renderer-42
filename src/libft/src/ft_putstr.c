@@ -6,13 +6,13 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/24 11:37:18 by gbersac           #+#    #+#             */
-/*   Updated: 2013/11/24 18:59:19 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:39:40 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_putstr(char const *str)
+void	ft_putstr(char const *str)
 {
 	ft_putstr_fd(str, 1);
 }

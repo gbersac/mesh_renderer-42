@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/04 15:21:52 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/05 12:48:35 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/12 13:35:09 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ t_quaternion	*quat_multi(t_quaternion *q1, t_quaternion *q2)
 		p1->w * p2->z + p1->z * p2->w + p1->x * p2->y - p1->y * p2->x);
 	mat_set(to_return, 3, 0,
 		p1->w * p2->w - p1->x * p2->x - p1->y * p2->y - p1->z * p2->z);
-	return(to_return);
+	return (to_return);
 }
